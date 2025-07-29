@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curtindo SC - Cabanas e Resorts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .modal { display: none; }
+        .modal.show { display: flex; }
+        .property-card:hover .property-image { transform: scale(1.05); }
+        .property-image { transition: transform 0.3s ease-in-out; }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <div class="absolute top-4 right-4">
+            <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                <svg id="theme-icon-sun" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <svg id="theme-icon-moon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            </button>
+        </div>
+        <header class="text-center mb-12 pt-10">
+            <img src="https://d1j3d168p2epvo.cloudfront.net/sites/ec532e9f-5136-4fc5-81ea-8d6f7c97b41d/icon_round_1722280209930.png" alt="Logo Curtindo SC" class="mx-auto mb-4 h-32 w-32 object-cover rounded-full border-4 border-white dark:border-gray-700 shadow-lg">
+            <h1 class="text-5xl font-bold text-gray-900 dark:text-white">Curtindo SC</h1>
+            <p class="text-gray-500 dark:text-gray-400 mt-2 text-lg">As melhores cabanas e resorts de Santa Catarina</p>
+        </header>
+        <div class="flex justify-center space-x-2 md:space-x-4 mb-10">
+            <button data-filter="all" class="filter-btn active bg-gray-900 text-white px-6 py-2 rounded-full font-semibold shadow-md">Todos</button>
+            <button data-filter="Serra" class="filter-btn bg-white text-gray-800 border border-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 px-6 py-2 rounded-full font-semibold shadow-md">Serra</button>
+            <button data-filter="Litoral" class="filter-btn bg-white text-gray-800 border border-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 px-6 py-2 rounded-full font-semibold shadow-md">Litoral</button>
+        </div>
+        <main id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></main>
+        <div id="loading" class="text-center py-12"><p class="text-gray-600 dark:text-gray-400 text-lg">A carregar as melhores estadias...</p></div>
+    </div>
+    <div id="details-modal" class="modal fixed inset-0 bg-black bg-opacity-60 items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col md:flex-row">
+            <div class="w-full md:w-1/2 overflow-hidden rounded-t-lg md:rounded-l-lg md:rounded-t-none"><img id="modal-main-image" src="" class="w-full h-full object-cover"></div>
+            <div class="w-full md:w-1/2 p-8 flex flex-col overflow-y-auto">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start"><h2 id="modal-title" class="text-3xl font-bold text-gray-900 dark:text-white"></h2><button id="close-modal-button" class="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white text-3xl">&times;</button></div>
+                    <p id="modal-location" class="text-gray-500 dark:text-gray-400 mt-1 mb-4"><i class="fas fa-map-marker-alt mr-1"></i></p>
+                    <p id="modal-description" class="text-gray-600 dark:text-gray-300 mb-6"></p>
+                </div>
+                <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg mt-auto">
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Faça a sua Reserva</h3>
+                    <div class="space-y-4">
+                        <div><label for="guest-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome completo</label><input type="text" id="guest-name" placeholder="O seu nome" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
+                        <div><label for="guest-whatsapp" class="block text-sm font-medium text-gray-700 dark:text-gray-300">WhatsApp</label><input type="tel" id="guest-whatsapp" placeholder="(48) 99999-9999" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div><label for="checkin" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Check-in</label><input type="date" id="checkin" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
+                            <div><label for="checkout" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Check-out</label><input type="date" id="checkout" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
+                        </div>
+                        <div><label for="guests" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Hóspedes</label><select id="guests" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></select></div>
+                    </div>
+                    <div class="text-2xl font-bold text-right my-4 text-gray-900 dark:text-white">Total: <span id="total-price">R$ 0,00</span></div>
+                    <button id="book-now-button" class="w-full bg-gray-900 hover:bg-gray-700 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200 text-white font-bold py-3 px-4 rounded-lg">Confirmar Reserva</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="alert-modal" class="modal fixed inset-0 bg-black bg-opacity-75 items-center justify-center p-4 z-50"><div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-sm text-center"><h2 id="alert-title" class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Aviso</h2><p id="alert-message" class="mb-6 text-gray-600 dark:text-gray-300"></p><button id="alert-ok-button" class="px-6 py-2 bg-gray-900 dark:bg-gray-100 dark:text-gray-900 text-white rounded-lg font-semibold">OK</button></div></div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, doc, getDoc, addDoc, writeBatch } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyBjQ2S36qboQhqH96hiWZe-F8QPw6e31dA",
+            authDomain: "curtindo-sc-reservas.firebaseapp.com",
+            projectId: "curtindo-sc-reservas",
+            storageBucket: "curtindo-sc-reservas.appspot.com",
+            messagingSenderId: "720754493665",
+            appId: "1:720754493665:web:7c7bed51a6b2a04a0f4fa0",
+            measurementId: "G-Z7Q538WYZ2"
+        };
+        const appId = "curtindo-sc-reservas";
+
+        const loadingEl = document.getElementById('loading');
+        const propertiesGridEl = document.getElementById('properties-grid');
+        const detailsModal = document.getElementById('details-modal');
+        const alertModal = document.getElementById('alert-modal');
+        let db, auth, allProperties = [], currentProperty = null;
+        const showAlert = (message, title = "Aviso") => { document.getElementById('alert-title').textContent = title; document.getElementById('alert-message').textContent = message; alertModal.classList.add('show'); };
+        document.getElementById('alert-ok-button').addEventListener('click', () => document.querySelectorAll('.modal').forEach(m => m.classList.remove('show')));
+        async function main() { if (!firebaseConfig.apiKey) { loadingEl.innerHTML = `<p class="text-red-500">Erro: Configuração do Firebase ausente neste ficheiro.</p>`; return; } try { const app = initializeApp(firebaseConfig); db = getFirestore(app); auth = getAuth(app); onAuthStateChanged(auth, user => { if (user) loadProperties(); }); await signInAnonymously(auth); } catch (e) { loadingEl.innerHTML = `<p class="text-red-500">Erro ao iniciar a aplicação.</p>`; console.error(e); } }
+        function loadProperties() { const t = `artifacts/${appId}/public/data/properties`, n = collection(db, t); onSnapshot(n, snapshot => { loadingEl.style.display = 'none'; if (snapshot.empty) { propertiesGridEl.innerHTML = '<p class="text-center col-span-3">Nenhuma propriedade encontrada. Adicione a primeira no painel de controlo.</p>'; return; } allProperties = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderProperties(allProperties); }, error => { loadingEl.innerHTML = `<p class="text-red-500">Não foi possível carregar as propriedades. Verifique as regras de segurança do Firestore.</p>`; console.error(error); }); }
+        function renderProperties(properties) { propertiesGridEl.innerHTML = ''; properties.forEach(prop => { const card = document.createElement('div'); card.className = 'property-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer group'; card.dataset.id = prop.id; card.innerHTML = `<div class="overflow-hidden h-64"><img src="${prop.images[0]}" alt="${prop.name}" class="property-image w-full h-full object-cover"></div><div class="p-6"><h3 class="text-xl font-bold text-gray-900 dark:text-white">${prop.name}</h3><p class="text-gray-500 dark:text-gray-400 mt-1"><i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}</p><p class="text-lg font-bold text-gray-900 dark:text-white mt-4">R$ ${prop.price_per_night},00 <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/ noite</span></p></div>`; propertiesGridEl.appendChild(card); }); }
+        document.querySelectorAll('.filter-btn').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('bg-gray-900', 'text-white', 'active'); b.classList.add('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); }); btn.classList.add('bg-gray-900', 'text-white', 'active'); btn.classList.remove('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); const filter = btn.dataset.filter; if (filter === 'all') renderProperties(allProperties); else renderProperties(allProperties.filter(p => p.region === filter)); }); });
+        propertiesGridEl.addEventListener('click', e => { const card = e.target.closest('.property-card'); if (card) { currentProperty = allProperties.find(p => p.id === card.dataset.id); if (currentProperty) openDetailsModal(currentProperty); } });
+        function openDetailsModal(prop) { document.getElementById('modal-main-image').src = prop.images[0]; document.getElementById('modal-title').textContent = prop.name; document.getElementById('modal-location').innerHTML = `<i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}`; document.getElementById('modal-description').textContent = prop.description; const guestsSelect = document.getElementById('guests'); guestsSelect.innerHTML = ''; for (let i = 1; i <= prop.max_guests; i++) guestsSelect.innerHTML += `<option value="${i}">${i} hóspede${i > 1 ? 's' : ''}</option>`; const today = new Date().toISOString().split('T')[0]; document.getElementById('checkin').min = today; document.getElementById('checkout').min = today; detailsModal.classList.add('show'); }
+        document.getElementById('close-modal-button').addEventListener('click', () => detailsModal.classList.remove('show'));
+        const checkinEl = document.getElementById('checkin'), checkoutEl = document.getElementById('checkout');
+        [checkinEl, checkoutEl].forEach(el => el.addEventListener('change', calculatePrice));
+        function calculatePrice() { const checkinDate = new Date(checkinEl.value), checkoutDate = new Date(checkoutEl.value); if (checkinEl.value && checkoutEl.value && checkoutDate > checkinDate) { const nights = Math.ceil((checkoutDate.getTime() - checkinDate.getTime()) / 864e5); document.getElementById('total-price').textContent = `R$ ${(nights * currentProperty.price_per_night).toFixed(2).replace('.', ',')}`; } else document.getElementById('total-price').textContent = 'R$ 0,00'; }
+        document.getElementById('book-now-button').addEventListener('click', async () => { const guestName = document.getElementById('guest-name').value.trim(), guestWhatsapp = document.getElementById('guest-whatsapp').value.trim(); if (!guestName || !guestWhatsapp || !checkinEl.value || !checkoutEl.value) { showAlert('Por favor, preencha todos os campos para a reserva.'); return; } const booking = { propertyId: currentProperty.id, propertyName: currentProperty.name, guestName, guestWhatsapp, checkin: checkinEl.value, checkout: checkoutEl.value, guests: parseInt(document.getElementById('guests').value, 10), totalPrice: parseFloat(document.getElementById('total-price').textContent.replace('R$ ', '').replace(',', '.')), bookingDate: new Date().toISOString() }; try { const t = `artifacts/${appId}/public/data/bookings`; await addDoc(collection(db, t), booking); showAlert(`Obrigado, ${guestName}! A sua reserva foi enviada com sucesso!`, 'Reserva Enviada'); detailsModal.classList.remove('show'); } catch (error) { showAlert('Não foi possível enviar a sua reserva. Tente novamente.', 'Erro'); console.error("Erro ao criar reserva:", error); } });
+        const themeToggle = document.getElementById('theme-toggle'), sunIcon = document.getElementById('theme-icon-sun'), moonIcon = document.getElementById('theme-icon-moon');
+        const applyTheme = theme => { if (theme === 'dark') { document.documentElement.classList.add('dark'); sunIcon.classList.remove('hidden'); moonIcon.classList.add('hidden'); } else { document.documentElement.classList.remove('dark'); sunIcon.classList.add('hidden'); moonIcon.classList.remove('hidden'); } };
+        themeToggle.addEventListener('click', () => { const isDark = document.documentElement.classList.toggle('dark'), newTheme = isDark ? 'dark' : 'light'; localStorage.setItem('theme', newTheme); applyTheme(newTheme); });
+        applyTheme(localStorage.getItem('theme') || 'light');
+        main();
+    </script>
+</body>
+</html>
