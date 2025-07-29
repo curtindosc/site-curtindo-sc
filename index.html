@@ -28,7 +28,7 @@
             </button>
         </div>
         <header class="text-center mb-12 pt-10">
-            <img src="https://d1j3d168p2epvo.cloudfront.net/sites/ec532e9f-5136-4fc5-81ea-8d6f7c97b41d/icon_round_1722280209930.png" alt="Logo Curtindo SC" class="mx-auto mb-4 h-32 w-32 object-cover rounded-full border-4 border-white dark:border-gray-700 shadow-lg">
+            <img src="https://media.bio.site/sites/15fc0509-6c95-4782-9a79-fe69fe78ce69/fetqsktutwxDYURdXexgei.jpg" alt="Logo Curtindo SC" class="mx-auto mb-4 h-32 w-32 object-cover rounded-full border-4 border-white dark:border-gray-700 shadow-lg">
             <h1 class="text-5xl font-bold text-gray-900 dark:text-white">Curtindo SC</h1>
             <p class="text-gray-500 dark:text-gray-400 mt-2 text-lg">As melhores cabanas e resorts de Santa Catarina</p>
         </header>
@@ -91,7 +91,7 @@
         const showAlert = (message, title = "Aviso") => { document.getElementById('alert-title').textContent = title; document.getElementById('alert-message').textContent = message; alertModal.classList.add('show'); };
         document.getElementById('alert-ok-button').addEventListener('click', () => document.querySelectorAll('.modal').forEach(m => m.classList.remove('show')));
         async function main() { if (!firebaseConfig.apiKey) { loadingEl.innerHTML = `<p class="text-red-500">Erro: Configuração do Firebase ausente neste ficheiro.</p>`; return; } try { const app = initializeApp(firebaseConfig); db = getFirestore(app); auth = getAuth(app); onAuthStateChanged(auth, user => { if (user) loadProperties(); }); await signInAnonymously(auth); } catch (e) { loadingEl.innerHTML = `<p class="text-red-500">Erro ao iniciar a aplicação.</p>`; console.error(e); } }
-        function loadProperties() { const t = `artifacts/${appId}/public/data/properties`, n = collection(db, t); onSnapshot(n, snapshot => { loadingEl.style.display = 'none'; if (snapshot.empty) { propertiesGridEl.innerHTML = '<p class="text-center col-span-3">Nenhuma propriedade encontrada. Adicione a primeira no painel de controlo.</p>'; return; } allProperties = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderProperties(allProperties); }, error => { loadingEl.innerHTML = `<p class="text-red-500">Não foi possível carregar as propriedades. Verifique as regras de segurança do Firestore.</p>`; console.error(error); }); }
+        function loadProperties() { const t = `artifacts/${appId}/public/data/properties`, n = collection(db, t); onSnapshot(n, snapshot => { loadingEl.style.display = 'none'; if (snapshot.empty) { addSampleProperties(); return; } allProperties = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderProperties(allProperties); }, error => { loadingEl.innerHTML = `<p class="text-red-500">Não foi possível carregar as propriedades. Verifique as regras de segurança do Firestore.</p>`; console.error(error); }); }
         function renderProperties(properties) { propertiesGridEl.innerHTML = ''; properties.forEach(prop => { const card = document.createElement('div'); card.className = 'property-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer group'; card.dataset.id = prop.id; card.innerHTML = `<div class="overflow-hidden h-64"><img src="${prop.images[0]}" alt="${prop.name}" class="property-image w-full h-full object-cover"></div><div class="p-6"><h3 class="text-xl font-bold text-gray-900 dark:text-white">${prop.name}</h3><p class="text-gray-500 dark:text-gray-400 mt-1"><i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}</p><p class="text-lg font-bold text-gray-900 dark:text-white mt-4">R$ ${prop.price_per_night},00 <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/ noite</span></p></div>`; propertiesGridEl.appendChild(card); }); }
         document.querySelectorAll('.filter-btn').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('bg-gray-900', 'text-white', 'active'); b.classList.add('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); }); btn.classList.add('bg-gray-900', 'text-white', 'active'); btn.classList.remove('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); const filter = btn.dataset.filter; if (filter === 'all') renderProperties(allProperties); else renderProperties(allProperties.filter(p => p.region === filter)); }); });
         propertiesGridEl.addEventListener('click', e => { const card = e.target.closest('.property-card'); if (card) { currentProperty = allProperties.find(p => p.id === card.dataset.id); if (currentProperty) openDetailsModal(currentProperty); } });
@@ -105,6 +105,29 @@
         const applyTheme = theme => { if (theme === 'dark') { document.documentElement.classList.add('dark'); sunIcon.classList.remove('hidden'); moonIcon.classList.add('hidden'); } else { document.documentElement.classList.remove('dark'); sunIcon.classList.add('hidden'); moonIcon.classList.remove('hidden'); } };
         themeToggle.addEventListener('click', () => { const isDark = document.documentElement.classList.toggle('dark'), newTheme = isDark ? 'dark' : 'light'; localStorage.setItem('theme', newTheme); applyTheme(newTheme); });
         applyTheme(localStorage.getItem('theme') || 'light');
+        
+        async function addSampleProperties() {
+            const propertiesCollectionPath = `artifacts/${appId}/public/data/properties`;
+            const propertiesCollectionRef = collection(db, propertiesCollectionPath);
+            const batch = writeBatch(db);
+            const sampleProperties = [
+                { id: "sample1", name: "Cabana Vista Serrana", location: "Urubici, SC", region: "Serra", price_per_night: 750, max_guests: 2, description: "Uma cabana romântica com vista deslumbrante para as montanhas, perfeita para casais. Inclui banheira de hidromassagem e lareira.", images: ["https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2158&auto=format&fit=crop"] },
+                { id: "sample2", name: "Refúgio do Cânion", location: "Bom Jardim da Serra, SC", region: "Serra", price_per_night: 950, max_guests: 4, description: "Localizada perto do Cânion das Laranjeiras, esta cabana oferece uma experiência única de imersão na natureza com todo o conforto.", images: ["https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop"] },
+                { id: "sample3", name: "Resort Frente Mar", location: "Bombinhas, SC", region: "Litoral", price_per_night: 1200, max_guests: 5, description: "Resort de luxo com acesso direto à praia, piscinas, spa e atividades para toda a família.", images: ["https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop"] },
+                { id: "sample4", name: "Cabana na Praia do Rosa", location: "Praia do Rosa, SC", region: "Litoral", price_per_night: 800, max_guests: 3, description: "Charme e tranquilidade a poucos passos do mar. Ideal para quem procura surf, natureza e boa gastronomia.", images: ["https://images.unsplash.com/photo-1615571022219-eb45cf7faa94?q=80&w=1964&auto=format&fit=crop"] }
+            ];
+            
+            try {
+                console.log("A adicionar propriedades de exemplo...");
+                sampleProperties.forEach(prop => {
+                    const newDocRef = doc(propertiesCollectionRef, prop.id);
+                    batch.set(newDocRef, prop);
+                });
+                await batch.commit();
+            } catch (err) {
+                console.error("Erro ao adicionar dados de exemplo:", err);
+            }
+        }
         main();
     </script>
 </body>
