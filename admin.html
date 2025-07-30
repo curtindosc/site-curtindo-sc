@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Controlo - Curtindo SC</title>
+    <title>Curtindo SC - Cabanas e Resorts</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -14,75 +14,112 @@
         body { font-family: 'Inter', sans-serif; }
         .modal { display: none; }
         .modal.show { display: flex; }
-        #property-modal .modal-content { max-height: 90vh; overflow-y: auto; }
+        .property-card:hover .property-image { transform: scale(1.05); }
+        .property-image { transition: transform 0.3s ease-in-out; }
+        .thumbnail-container {
+            scrollbar-width: thin;
+            scrollbar-color: #4B5563 #1F2937;
+        }
+        .thumbnail-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        .thumbnail-container::-webkit-scrollbar-track {
+            background: #1F2937;
+        }
+        .thumbnail-container::-webkit-scrollbar-thumb {
+            background-color: #4B5563;
+            border-radius: 4px;
+        }
+        .thumbnail {
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s;
+        }
+        .thumbnail.active {
+            border-color: #FBBF24; /* yellow-400 */
+        }
+        .gallery-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .gallery-arrow:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
 
-    <div id="login-section" class="min-h-screen flex items-center justify-center">
-        <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl w-full max-w-sm">
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">Login do Gestor</h2>
-            <form id="login-form">
-                <div class="mb-4"><label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">E-mail</label><input type="email" id="email" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
-                <div class="mb-6"><label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Palavra-passe</label><input type="password" id="password" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
-                <button type="submit" class="w-full bg-gray-900 hover:bg-gray-700 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200 text-white font-bold py-2 px-4 rounded-lg">Entrar</button>
-            </form>
+    <div class="container mx-auto p-4 md:p-8">
+        <div class="absolute top-4 right-4">
+            <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                <svg id="theme-icon-sun" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <svg id="theme-icon-moon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            </button>
         </div>
+        <header class="text-center mb-12 pt-10">
+            <img src="https://media.bio.site/sites/15fc0509-6c95-4782-9a79-fe69fe78ce69/fetqsktutwxDYURdXexgei.jpg" alt="Logo Curtindo SC" class="mx-auto mb-4 h-32 w-32 object-cover rounded-full border-4 border-white dark:border-gray-700 shadow-lg">
+            <h1 class="text-5xl font-bold text-gray-900 dark:text-white">Curtindo SC</h1>
+            <p class="text-gray-500 dark:text-gray-400 mt-2 text-lg">As melhores cabanas e resorts de Santa Catarina</p>
+        </header>
+        <div class="flex justify-center space-x-2 md:space-x-4 mb-10">
+            <button data-filter="all" class="filter-btn active bg-gray-900 text-white px-6 py-2 rounded-full font-semibold shadow-md">Todos</button>
+            <button data-filter="Serra" class="filter-btn bg-white text-gray-800 border border-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 px-6 py-2 rounded-full font-semibold shadow-md">Serra</button>
+            <button data-filter="Litoral" class="filter-btn bg-white text-gray-800 border border-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 px-6 py-2 rounded-full font-semibold shadow-md">Litoral</button>
+        </div>
+        <main id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></main>
+        <div id="loading" class="text-center py-12"><p class="text-gray-600 dark:text-gray-400 text-lg">A carregar as melhores estadias...</p></div>
     </div>
-
-    <div id="admin-panel-section" class="hidden">
-        <div class="container mx-auto p-4 md:p-8">
-            <header class="flex justify-between items-center mb-8">
-                <div><h1 class="text-3xl font-bold text-gray-900 dark:text-white">Painel de Controlo</h1><p class="text-gray-500 dark:text-gray-400">Gestão de Propriedades e Reservas</p></div>
-                <div class="flex items-center space-x-4">
-                    <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-800"><svg id="theme-icon-sun" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg><svg id="theme-icon-moon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg></button>
-                    <button id="logout-button" class="bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-lg text-sm">Sair</button>
+    <div id="details-modal" class="modal fixed inset-0 bg-black bg-opacity-60 items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col md:flex-row">
+            <div class="w-full md:w-1/2 flex flex-col bg-black rounded-t-lg md:rounded-l-lg md:rounded-t-none">
+                <div class="relative flex-grow">
+                    <img id="modal-main-image" src="" class="w-full h-full object-contain">
+                    <div id="prev-image" class="gallery-arrow left-2"><i class="fas fa-chevron-left"></i></div>
+                    <div id="next-image" class="gallery-arrow right-2"><i class="fas fa-chevron-right"></i></div>
                 </div>
-            </header>
-            <div class="mb-6 flex space-x-4">
-                <button id="add-property-button" class="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-lg shadow-md flex items-center space-x-2"><i class="fas fa-plus-circle"></i><span>Adicionar Propriedade</span></button>
-                <button id="view-bookings-button" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-md flex items-center space-x-2"><i class="fas fa-calendar-check"></i><span>Ver Reservas</span></button>
-            </div>
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden">
-                <div class="p-4 bg-gray-200 dark:bg-gray-700/50 font-bold">Lista de Propriedades</div>
-                <div id="loading" class="text-center p-8"><p>A carregar...</p></div>
-                <div id="admin-properties-list" class="divide-y divide-gray-200 dark:divide-gray-700"></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="property-modal" class="modal fixed inset-0 bg-black bg-opacity-75 items-center justify-center p-4 z-50">
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-lg modal-content">
-            <h2 id="modal-title" class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Adicionar Propriedade</h2>
-            <form id="property-form" class="space-y-4">
-                <input type="hidden" id="property-id">
-                <div><label for="name" class="block text-sm font-medium">Nome</label><input type="text" id="name" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
-                <div><label for="location" class="block text-sm font-medium">Localização</label><input type="text" id="location" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
-                <div><label for="region" class="block text-sm font-medium">Região</label><select id="region" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"><option>Serra</option><option>Litoral</option></select></div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div><label for="price_per_night" class="block text-sm font-medium">Preço/noite</label><input type="number" id="price_per_night" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
-                    <div><label for="max_guests" class="block text-sm font-medium">Max. Hóspedes</label><input type="number" id="max_guests" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
+                <div id="thumbnail-container" class="thumbnail-container flex space-x-2 p-2 overflow-x-auto bg-black/50">
+                    <!-- Thumbnails serão inseridos aqui -->
                 </div>
-                <div><label for="description" class="block text-sm font-medium">Descrição</label><textarea id="description" rows="3" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></textarea></div>
-                <div><label for="images" class="block text-sm font-medium">URLs das Imagens</label><textarea id="images" rows="3" placeholder="Cole os links das imagens, um por linha" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></textarea></div>
-                <div class="flex justify-end space-x-4 pt-4"><button type="button" id="cancel-modal-button" class="px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded-md text-white font-semibold">Cancelar</button><button type="submit" class="px-4 py-2 bg-gray-900 dark:bg-gray-100 dark:text-gray-900 text-white font-bold rounded-md">Guardar</button></div>
-            </form>
+            </div>
+            <div class="w-full md:w-1/2 p-8 flex flex-col overflow-y-auto">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start"><h2 id="modal-title" class="text-3xl font-bold text-gray-900 dark:text-white"></h2><button id="close-modal-button" class="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white text-3xl">&times;</button></div>
+                    <p id="modal-location" class="text-gray-500 dark:text-gray-400 mt-1 mb-4"><i class="fas fa-map-marker-alt mr-1"></i></p>
+                    <p id="modal-description" class="text-gray-600 dark:text-gray-300 mb-6"></p>
+                </div>
+                <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg mt-auto">
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Faça a sua Reserva</h3>
+                    <div class="space-y-4">
+                        <div><label for="guest-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome completo</label><input type="text" id="guest-name" placeholder="O seu nome" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
+                        <div><label for="guest-whatsapp" class="block text-sm font-medium text-gray-700 dark:text-gray-300">WhatsApp</label><input type="tel" id="guest-whatsapp" placeholder="(48) 99999-9999" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div><label for="checkin" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Check-in</label><input type="date" id="checkin" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
+                            <div><label for="checkout" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Check-out</label><input type="date" id="checkout" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
+                        </div>
+                        <div><label for="guests" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Hóspedes</label><select id="guests" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></select></div>
+                    </div>
+                    <div class="text-2xl font-bold text-right my-4 text-gray-900 dark:text-white">Total: <span id="total-price">R$ 0,00</span></div>
+                    <button id="book-now-button" class="w-full bg-gray-900 hover:bg-gray-700 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200 text-white font-bold py-3 px-4 rounded-lg">Confirmar Reserva</button>
+                </div>
+            </div>
         </div>
     </div>
-    
-    <div id="bookings-modal" class="modal fixed inset-0 bg-black bg-opacity-75 items-center justify-center p-4 z-50">
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-4xl max-h-[90vh] flex flex-col">
-            <div class="flex justify-between items-center mb-4"><h2 class="text-2xl font-bold text-gray-900 dark:text-white">Reservas Recebidas</h2><button id="close-bookings-modal" class="text-gray-500 hover:text-gray-800 dark:text-gray-400 text-3xl">&times;</button></div>
-            <div class="overflow-y-auto"><table class="w-full text-sm text-left"><thead class="bg-gray-200 dark:bg-gray-700/50 text-xs uppercase"><tr><th class="px-4 py-2">Propriedade</th><th class="px-4 py-2">Hóspede</th><th class="px-4 py-2">Contacto</th><th class="px-4 py-2">Datas</th><th class="px-4 py-2">Total</th></tr></thead><tbody id="bookings-list" class="divide-y divide-gray-200 dark:divide-gray-700"></tbody></table></div>
-        </div>
-    </div>
-
-    <div id="alert-modal" class="modal fixed inset-0 bg-black bg-opacity-75 items-center justify-center p-4 z-50"><div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-sm text-center"><h2 id="alert-title" class="text-2xl font-bold mb-4">Aviso</h2><p id="alert-message" class="mb-6"></p><button id="alert-ok-button" class="px-6 py-2 bg-gray-900 text-white rounded-lg font-semibold">OK</button></div></div>
-
+    <div id="alert-modal" class="modal fixed inset-0 bg-black bg-opacity-75 items-center justify-center p-4 z-50"><div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-sm text-center"><h2 id="alert-title" class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Aviso</h2><p id="alert-message" class="mb-6 text-gray-600 dark:text-gray-300"></p><button id="alert-ok-button" class="px-6 py-2 bg-gray-900 dark:bg-gray-100 dark:text-gray-900 text-white rounded-lg font-semibold">OK</button></div></div>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, doc, addDoc, setDoc, deleteDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, onSnapshot, doc, getDoc, addDoc, writeBatch } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         
         const firebaseConfig = {
             apiKey: "AIzaSyBjQ2S36qboQhqH96hiWZe-F8QPw6e31dA",
@@ -95,53 +132,98 @@
         };
         const appId = "curtindo-sc-reservas";
 
-        const loginSection = document.getElementById('login-section');
-        const adminPanelSection = document.getElementById('admin-panel-section');
         const loadingEl = document.getElementById('loading');
-        const adminPropertiesListEl = document.getElementById('admin-properties-list');
-        const propertyModal = document.getElementById('property-modal');
-        const propertyForm = document.getElementById('property-form');
-        const modalTitle = document.getElementById('modal-title');
+        const propertiesGridEl = document.getElementById('properties-grid');
+        const detailsModal = document.getElementById('details-modal');
         const alertModal = document.getElementById('alert-modal');
-        const bookingsModal = document.getElementById('bookings-modal');
-        let db, auth, propertiesCollectionPath, bookingsCollectionPath;
+        let db, auth, allProperties = [], currentProperty = null, currentImageIndex = 0;
         const showAlert = (message, title = "Aviso") => { document.getElementById('alert-title').textContent = title; document.getElementById('alert-message').textContent = message; alertModal.classList.add('show'); };
-        const closeAllModals = () => document.querySelectorAll('.modal').forEach(m => m.classList.remove('show'));
-        document.getElementById('alert-ok-button').addEventListener('click', closeAllModals);
-        document.getElementById('cancel-modal-button').addEventListener('click', () => propertyModal.classList.remove('show'));
-        document.getElementById('close-bookings-modal').addEventListener('click', () => bookingsModal.classList.remove('show'));
+        document.getElementById('alert-ok-button').addEventListener('click', () => document.querySelectorAll('.modal').forEach(m => m.classList.remove('show')));
+        async function main() { if (!firebaseConfig.apiKey) { loadingEl.innerHTML = `<p class="text-red-500">Erro: Configuração do Firebase ausente neste ficheiro.</p>`; return; } try { const app = initializeApp(firebaseConfig); db = getFirestore(app); auth = getAuth(app); onAuthStateChanged(auth, user => { if (user) loadProperties(); }); await signInAnonymously(auth); } catch (e) { loadingEl.innerHTML = `<p class="text-red-500">Erro ao iniciar a aplicação.</p>`; console.error(e); } }
+        function loadProperties() { const t = `artifacts/${appId}/public/data/properties`, n = collection(db, t); onSnapshot(n, snapshot => { loadingEl.style.display = 'none'; if (snapshot.empty) { addSampleProperties(); return; } allProperties = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderProperties(allProperties); }, error => { loadingEl.innerHTML = `<p class="text-red-500">Não foi possível carregar as propriedades. Verifique as regras de segurança do Firestore.</p>`; console.error(error); }); }
+        function renderProperties(properties) { propertiesGridEl.innerHTML = ''; properties.forEach(prop => { const card = document.createElement('div'); card.className = 'property-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer group'; card.dataset.id = prop.id; card.innerHTML = `<div class="overflow-hidden h-64"><img src="${prop.images[0]}" alt="${prop.name}" class="property-image w-full h-full object-cover"></div><div class="p-6"><h3 class="text-xl font-bold text-gray-900 dark:text-white">${prop.name}</h3><p class="text-gray-500 dark:text-gray-400 mt-1"><i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}</p><p class="text-lg font-bold text-gray-900 dark:text-white mt-4">R$ ${prop.price_per_night},00 <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/ noite</span></p></div>`; propertiesGridEl.appendChild(card); }); }
+        document.querySelectorAll('.filter-btn').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('bg-gray-900', 'text-white', 'active'); b.classList.add('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); }); btn.classList.add('bg-gray-900', 'text-white', 'active'); btn.classList.remove('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); const filter = btn.dataset.filter; if (filter === 'all') renderProperties(allProperties); else renderProperties(allProperties.filter(p => p.region === filter)); }); });
+        propertiesGridEl.addEventListener('click', e => { const card = e.target.closest('.property-card'); if (card) { currentProperty = allProperties.find(p => p.id === card.dataset.id); if (currentProperty) openDetailsModal(currentProperty); } });
         
-        async function main() {
-            if (!firebaseConfig.apiKey) { loginSection.innerHTML = `<div class="text-red-500 text-center">Erro: Configuração do Firebase ausente.</div>`; return; }
-            propertiesCollectionPath = `artifacts/${appId}/public/data/properties`;
-            bookingsCollectionPath = `artifacts/${appId}/public/data/bookings`;
-            try {
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-                onAuthStateChanged(auth, user => {
-                    if (user) { loginSection.classList.add('hidden'); adminPanelSection.classList.remove('hidden'); loadAdminProperties(); } 
-                    else { loginSection.classList.remove('hidden'); adminPanelSection.classList.add('hidden'); }
-                });
-            } catch (e) { showAlert(`Erro crítico: ${e.message}`, "Erro de Inicialização"); }
+        function openDetailsModal(prop) {
+            currentImageIndex = 0;
+            document.getElementById('modal-title').textContent = prop.name;
+            document.getElementById('modal-location').innerHTML = `<i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}`;
+            document.getElementById('modal-description').textContent = prop.description;
+            
+            updateGallery();
+
+            const guestsSelect = document.getElementById('guests');
+            guestsSelect.innerHTML = '';
+            for (let i = 1; i <= prop.max_guests; i++) guestsSelect.innerHTML += `<option value="${i}">${i} hóspede${i > 1 ? 's' : ''}</option>`;
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('checkin').min = today;
+            document.getElementById('checkout').min = today;
+            detailsModal.classList.add('show');
         }
-        document.getElementById('login-form').addEventListener('submit', async e => { e.preventDefault(); const email = document.getElementById('email').value, password = document.getElementById('password').value; try { await signInWithEmailAndPassword(auth, email, password); } catch (error) { showAlert('E-mail ou palavra-passe incorretos.', 'Falha no Login'); } });
-        document.getElementById('logout-button').addEventListener('click', () => signOut(auth));
-        
-        function loadAdminProperties() { onSnapshot(collection(db, propertiesCollectionPath), snapshot => { loadingEl.style.display = 'none'; const props = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderAdminPropertyList(props.sort((a,b) => a.name.localeCompare(b.name))); }); }
-        function renderAdminPropertyList(properties) { adminPropertiesListEl.innerHTML = ''; if (properties.length === 0) { adminPropertiesListEl.innerHTML = '<p class="text-center text-gray-400 p-4">Nenhuma propriedade encontrada.</p>'; return; } properties.forEach(prop => { const propEl = document.createElement('div'); propEl.className = 'p-4 flex justify-between items-center'; propEl.innerHTML = `<div><p class="font-bold">${prop.name}</p><p class="text-sm text-gray-500 dark:text-gray-400">${prop.location}</p></div><div class="flex space-x-2"><button data-id="${prop.id}" class="edit-property-button bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg text-sm">Editar</button><button data-id="${prop.id}" class="delete-property-button bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-lg text-sm">Excluir</button></div>`; adminPropertiesListEl.appendChild(propEl); }); }
-        
-        document.getElementById('add-property-button').addEventListener('click', () => { propertyForm.reset(); document.getElementById('property-id').value = ''; modalTitle.textContent = 'Adicionar Propriedade'; propertyModal.classList.add('show'); });
-        adminPropertiesListEl.addEventListener('click', async e => { const propId = e.target.dataset.id; if (!propId) return; if (e.target.classList.contains('edit-property-button')) { const docRef = doc(db, propertiesCollectionPath, propId), docSnap = await getDoc(docRef); if (docSnap.exists()) { const prop = docSnap.data(); propertyForm.reset(); document.getElementById('property-id').value = propId; document.getElementById('name').value = prop.name; document.getElementById('location').value = prop.location; document.getElementById('region').value = prop.region; document.getElementById('price_per_night').value = prop.price_per_night; document.getElementById('max_guests').value = prop.max_guests; document.getElementById('description').value = prop.description; document.getElementById('images').value = prop.images.join('\\n'); modalTitle.textContent = 'Editar Propriedade'; propertyModal.classList.add('show'); } } else if (e.target.classList.contains('delete-property-button')) { showAlert("Funcionalidade de exclusão a ser implementada.", "Aviso"); } });
-        
-        propertyForm.addEventListener('submit', async e => { e.preventDefault(); const propId = document.getElementById('property-id').value; const propData = { name: document.getElementById('name').value, location: document.getElementById('location').value, region: document.getElementById('region').value, price_per_night: parseInt(document.getElementById('price_per_night').value, 10), max_guests: parseInt(document.getElementById('max_guests').value, 10), description: document.getElementById('description').value, images: document.getElementById('images').value.split(/\\n|,/).map(url => url.trim()).filter(url => url) }; if (propId) { await setDoc(doc(db, propertiesCollectionPath, propId), propData); showAlert('Propriedade atualizada com sucesso!'); } else { await addDoc(collection(db, propertiesCollectionPath), propData); showAlert('Propriedade adicionada com sucesso!'); } propertyModal.classList.remove('show'); });
 
-        document.getElementById('view-bookings-button').addEventListener('click', () => { onSnapshot(collection(db, bookingsCollectionPath), snapshot => { const bookingsList = document.getElementById('bookings-list'); bookingsList.innerHTML = ''; if(snapshot.empty){ bookingsList.innerHTML = '<tr><td colspan="5" class="text-center p-4">Nenhuma reserva encontrada.</td></tr>'; } else { snapshot.docs.map(d => d.data()).sort((a,b)=>new Date(b.bookingDate)-new Date(a.bookingDate)).forEach(b => { bookingsList.innerHTML += `<tr class="border-b border-gray-200 dark:border-gray-700"> <td class="px-4 py-2 font-medium">${b.propertyName}</td> <td class="px-4 py-2">${b.guestName}</td> <td class="px-4 py-2">${b.guestWhatsapp}</td> <td class="px-4 py-2">${new Date(b.checkin).toLocaleDateString()} - ${new Date(b.checkout).toLocaleDateString()}</td> <td class="px-4 py-2">R$ ${b.totalPrice.toFixed(2)}</td> </tr>`; }); } bookingsModal.classList.add('show'); }); });
+        function updateGallery() {
+            const mainImage = document.getElementById('modal-main-image');
+            const thumbnailContainer = document.getElementById('thumbnail-container');
+            
+            mainImage.src = currentProperty.images[currentImageIndex];
+            thumbnailContainer.innerHTML = '';
+            currentProperty.images.forEach((imgSrc, index) => {
+                const thumb = document.createElement('img');
+                thumb.src = imgSrc;
+                thumb.className = `thumbnail h-16 w-16 object-cover rounded ${index === currentImageIndex ? 'active' : ''}`;
+                thumb.dataset.index = index;
+                thumb.addEventListener('click', () => {
+                    currentImageIndex = index;
+                    updateGallery();
+                });
+                thumbnailContainer.appendChild(thumb);
+            });
+            thumbnailContainer.children[currentImageIndex]?.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+        }
 
+        document.getElementById('prev-image').addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex - 1 + currentProperty.images.length) % currentProperty.images.length;
+            updateGallery();
+        });
+
+        document.getElementById('next-image').addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex + 1) % currentProperty.images.length;
+            updateGallery();
+        });
+
+        document.getElementById('close-modal-button').addEventListener('click', () => detailsModal.classList.remove('show'));
+        const checkinEl = document.getElementById('checkin'), checkoutEl = document.getElementById('checkout');
+        [checkinEl, checkoutEl].forEach(el => el.addEventListener('change', calculatePrice));
+        function calculatePrice() { const checkinDate = new Date(checkinEl.value), checkoutDate = new Date(checkoutEl.value); if (checkinEl.value && checkoutEl.value && checkoutDate > checkinDate) { const nights = Math.ceil((checkoutDate.getTime() - checkinDate.getTime()) / 864e5); document.getElementById('total-price').textContent = `R$ ${(nights * currentProperty.price_per_night).toFixed(2).replace('.', ',')}`; } else document.getElementById('total-price').textContent = 'R$ 0,00'; }
+        document.getElementById('book-now-button').addEventListener('click', async () => { const guestName = document.getElementById('guest-name').value.trim(), guestWhatsapp = document.getElementById('guest-whatsapp').value.trim(); if (!guestName || !guestWhatsapp || !checkinEl.value || !checkoutEl.value) { showAlert('Por favor, preencha todos os campos para a reserva.'); return; } const booking = { propertyId: currentProperty.id, propertyName: currentProperty.name, guestName, guestWhatsapp, checkin: checkinEl.value, checkout: checkoutEl.value, guests: parseInt(document.getElementById('guests').value, 10), totalPrice: parseFloat(document.getElementById('total-price').textContent.replace('R$ ', '').replace(',', '.')), bookingDate: new Date().toISOString() }; try { const t = `artifacts/${appId}/public/data/bookings`; await addDoc(collection(db, t), booking); showAlert(`Obrigado, ${guestName}! A sua reserva foi enviada com sucesso!`, 'Reserva Enviada'); detailsModal.classList.remove('show'); } catch (error) { showAlert('Não foi possível enviar a sua reserva. Tente novamente.', 'Erro'); console.error("Erro ao criar reserva:", error); } });
         const themeToggle = document.getElementById('theme-toggle'), sunIcon = document.getElementById('theme-icon-sun'), moonIcon = document.getElementById('theme-icon-moon');
         const applyTheme = theme => { if (theme === 'dark') { document.documentElement.classList.add('dark'); sunIcon.classList.remove('hidden'); moonIcon.classList.add('hidden'); } else { document.documentElement.classList.remove('dark'); sunIcon.classList.add('hidden'); moonIcon.classList.remove('hidden'); } };
         themeToggle.addEventListener('click', () => { const isDark = document.documentElement.classList.toggle('dark'), newTheme = isDark ? 'dark' : 'light'; localStorage.setItem('theme', newTheme); applyTheme(newTheme); });
         applyTheme(localStorage.getItem('theme') || 'light');
+        
+        async function addSampleProperties() {
+            const propertiesCollectionPath = `artifacts/${appId}/public/data/properties`;
+            const propertiesCollectionRef = collection(db, propertiesCollectionPath);
+            const batch = writeBatch(db);
+            const sampleProperties = [
+                { id: "sample1", name: "Cabana Vista Serrana", location: "Urubici, SC", region: "Serra", price_per_night: 750, max_guests: 2, description: "Uma cabana romântica com vista deslumbrante para as montanhas, perfeita para casais. Inclui banheira de hidromassagem e lareira.", images: Array.from({length: 20}, (_, i) => `https://placehold.co/600x400/a3bfb8/ffffff?text=Vista+${i+1}`) },
+                { id: "sample2", name: "Refúgio do Cânion", location: "Bom Jardim da Serra, SC", region: "Serra", price_per_night: 950, max_guests: 4, description: "Localizada perto do Cânion das Laranjeiras, esta cabana oferece uma experiência única de imersão na natureza com todo o conforto.", images: ["https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop"] },
+                { id: "sample3", name: "Resort Frente Mar", location: "Bombinhas, SC", region: "Litoral", price_per_night: 1200, max_guests: 5, description: "Resort de luxo com acesso direto à praia, piscinas, spa e atividades para toda a família.", images: ["https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop"] },
+                { id: "sample4", name: "Cabana na Praia do Rosa", location: "Praia do Rosa, SC", region: "Litoral", price_per_night: 800, max_guests: 3, description: "Charme e tranquilidade a poucos passos do mar. Ideal para quem procura surf, natureza e boa gastronomia.", images: ["https://images.unsplash.com/photo-1615571022219-eb45cf7faa94?q=80&w=1964&auto=format&fit=crop"] }
+            ];
+            
+            try {
+                console.log("A adicionar propriedades de exemplo...");
+                sampleProperties.forEach(prop => {
+                    const newDocRef = doc(propertiesCollectionRef, prop.id);
+                    batch.set(newDocRef, prop);
+                });
+                await batch.commit();
+            } catch (err) {
+                console.error("Erro ao adicionar dados de exemplo:", err);
+            }
+        }
         main();
     </script>
 </body>
