@@ -16,6 +16,46 @@
         .modal.show { display: flex; }
         .property-card:hover .property-image { transform: scale(1.05); }
         .property-image { transition: transform 0.3s ease-in-out; }
+        .thumbnail-container {
+            scrollbar-width: thin;
+            scrollbar-color: #4B5563 #1F2937;
+        }
+        .thumbnail-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        .thumbnail-container::-webkit-scrollbar-track {
+            background: #1F2937;
+        }
+        .thumbnail-container::-webkit-scrollbar-thumb {
+            background-color: #4B5563;
+            border-radius: 4px;
+        }
+        .thumbnail {
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s;
+        }
+        .thumbnail.active {
+            border-color: #FBBF24; /* yellow-400 */
+        }
+        .gallery-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .gallery-arrow:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
@@ -42,7 +82,16 @@
     </div>
     <div id="details-modal" class="modal fixed inset-0 bg-black bg-opacity-60 items-center justify-center p-4 z-50">
         <div class="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col md:flex-row">
-            <div class="w-full md:w-1/2 overflow-hidden rounded-t-lg md:rounded-l-lg md:rounded-t-none"><img id="modal-main-image" src="" class="w-full h-full object-cover"></div>
+            <div class="w-full md:w-1/2 flex flex-col bg-black rounded-t-lg md:rounded-l-lg md:rounded-t-none">
+                <div class="relative flex-grow">
+                    <img id="modal-main-image" src="" class="w-full h-full object-contain">
+                    <div id="prev-image" class="gallery-arrow left-2"><i class="fas fa-chevron-left"></i></div>
+                    <div id="next-image" class="gallery-arrow right-2"><i class="fas fa-chevron-right"></i></div>
+                </div>
+                <div id="thumbnail-container" class="thumbnail-container flex space-x-2 p-2 overflow-x-auto bg-black/50">
+                    <!-- Thumbnails serão inseridos aqui -->
+                </div>
+            </div>
             <div class="w-full md:w-1/2 p-8 flex flex-col overflow-y-auto">
                 <div class="flex-grow">
                     <div class="flex justify-between items-start"><h2 id="modal-title" class="text-3xl font-bold text-gray-900 dark:text-white"></h2><button id="close-modal-button" class="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white text-3xl">&times;</button></div>
@@ -87,7 +136,7 @@
         const propertiesGridEl = document.getElementById('properties-grid');
         const detailsModal = document.getElementById('details-modal');
         const alertModal = document.getElementById('alert-modal');
-        let db, auth, allProperties = [], currentProperty = null;
+        let db, auth, allProperties = [], currentProperty = null, currentImageIndex = 0;
         const showAlert = (message, title = "Aviso") => { document.getElementById('alert-title').textContent = title; document.getElementById('alert-message').textContent = message; alertModal.classList.add('show'); };
         document.getElementById('alert-ok-button').addEventListener('click', () => document.querySelectorAll('.modal').forEach(m => m.classList.remove('show')));
         async function main() { if (!firebaseConfig.apiKey) { loadingEl.innerHTML = `<p class="text-red-500">Erro: Configuração do Firebase ausente neste ficheiro.</p>`; return; } try { const app = initializeApp(firebaseConfig); db = getFirestore(app); auth = getAuth(app); onAuthStateChanged(auth, user => { if (user) loadProperties(); }); await signInAnonymously(auth); } catch (e) { loadingEl.innerHTML = `<p class="text-red-500">Erro ao iniciar a aplicação.</p>`; console.error(e); } }
@@ -95,7 +144,54 @@
         function renderProperties(properties) { propertiesGridEl.innerHTML = ''; properties.forEach(prop => { const card = document.createElement('div'); card.className = 'property-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer group'; card.dataset.id = prop.id; card.innerHTML = `<div class="overflow-hidden h-64"><img src="${prop.images[0]}" alt="${prop.name}" class="property-image w-full h-full object-cover"></div><div class="p-6"><h3 class="text-xl font-bold text-gray-900 dark:text-white">${prop.name}</h3><p class="text-gray-500 dark:text-gray-400 mt-1"><i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}</p><p class="text-lg font-bold text-gray-900 dark:text-white mt-4">R$ ${prop.price_per_night},00 <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/ noite</span></p></div>`; propertiesGridEl.appendChild(card); }); }
         document.querySelectorAll('.filter-btn').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('bg-gray-900', 'text-white', 'active'); b.classList.add('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); }); btn.classList.add('bg-gray-900', 'text-white', 'active'); btn.classList.remove('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); const filter = btn.dataset.filter; if (filter === 'all') renderProperties(allProperties); else renderProperties(allProperties.filter(p => p.region === filter)); }); });
         propertiesGridEl.addEventListener('click', e => { const card = e.target.closest('.property-card'); if (card) { currentProperty = allProperties.find(p => p.id === card.dataset.id); if (currentProperty) openDetailsModal(currentProperty); } });
-        function openDetailsModal(prop) { document.getElementById('modal-main-image').src = prop.images[0]; document.getElementById('modal-title').textContent = prop.name; document.getElementById('modal-location').innerHTML = `<i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}`; document.getElementById('modal-description').textContent = prop.description; const guestsSelect = document.getElementById('guests'); guestsSelect.innerHTML = ''; for (let i = 1; i <= prop.max_guests; i++) guestsSelect.innerHTML += `<option value="${i}">${i} hóspede${i > 1 ? 's' : ''}</option>`; const today = new Date().toISOString().split('T')[0]; document.getElementById('checkin').min = today; document.getElementById('checkout').min = today; detailsModal.classList.add('show'); }
+        
+        function openDetailsModal(prop) {
+            currentImageIndex = 0;
+            document.getElementById('modal-title').textContent = prop.name;
+            document.getElementById('modal-location').innerHTML = `<i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}`;
+            document.getElementById('modal-description').textContent = prop.description;
+            
+            updateGallery();
+
+            const guestsSelect = document.getElementById('guests');
+            guestsSelect.innerHTML = '';
+            for (let i = 1; i <= prop.max_guests; i++) guestsSelect.innerHTML += `<option value="${i}">${i} hóspede${i > 1 ? 's' : ''}</option>`;
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('checkin').min = today;
+            document.getElementById('checkout').min = today;
+            detailsModal.classList.add('show');
+        }
+
+        function updateGallery() {
+            const mainImage = document.getElementById('modal-main-image');
+            const thumbnailContainer = document.getElementById('thumbnail-container');
+            
+            mainImage.src = currentProperty.images[currentImageIndex];
+            thumbnailContainer.innerHTML = '';
+            currentProperty.images.forEach((imgSrc, index) => {
+                const thumb = document.createElement('img');
+                thumb.src = imgSrc;
+                thumb.className = `thumbnail h-16 w-16 object-cover rounded ${index === currentImageIndex ? 'active' : ''}`;
+                thumb.dataset.index = index;
+                thumb.addEventListener('click', () => {
+                    currentImageIndex = index;
+                    updateGallery();
+                });
+                thumbnailContainer.appendChild(thumb);
+            });
+            thumbnailContainer.children[currentImageIndex]?.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+        }
+
+        document.getElementById('prev-image').addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex - 1 + currentProperty.images.length) % currentProperty.images.length;
+            updateGallery();
+        });
+
+        document.getElementById('next-image').addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex + 1) % currentProperty.images.length;
+            updateGallery();
+        });
+
         document.getElementById('close-modal-button').addEventListener('click', () => detailsModal.classList.remove('show'));
         const checkinEl = document.getElementById('checkin'), checkoutEl = document.getElementById('checkout');
         [checkinEl, checkoutEl].forEach(el => el.addEventListener('change', calculatePrice));
@@ -111,7 +207,7 @@
             const propertiesCollectionRef = collection(db, propertiesCollectionPath);
             const batch = writeBatch(db);
             const sampleProperties = [
-                { id: "sample1", name: "Cabana Vista Serrana", location: "Urubici, SC", region: "Serra", price_per_night: 750, max_guests: 2, description: "Uma cabana romântica com vista deslumbrante para as montanhas, perfeita para casais. Inclui banheira de hidromassagem e lareira.", images: ["https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2158&auto=format&fit=crop"] },
+                { id: "sample1", name: "Cabana Vista Serrana", location: "Urubici, SC", region: "Serra", price_per_night: 750, max_guests: 2, description: "Uma cabana romântica com vista deslumbrante para as montanhas, perfeita para casais. Inclui banheira de hidromassagem e lareira.", images: Array.from({length: 20}, (_, i) => `https://placehold.co/600x400/a3bfb8/ffffff?text=Vista+${i+1}`) },
                 { id: "sample2", name: "Refúgio do Cânion", location: "Bom Jardim da Serra, SC", region: "Serra", price_per_night: 950, max_guests: 4, description: "Localizada perto do Cânion das Laranjeiras, esta cabana oferece uma experiência única de imersão na natureza com todo o conforto.", images: ["https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop"] },
                 { id: "sample3", name: "Resort Frente Mar", location: "Bombinhas, SC", region: "Litoral", price_per_night: 1200, max_guests: 5, description: "Resort de luxo com acesso direto à praia, piscinas, spa e atividades para toda a família.", images: ["https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop"] },
                 { id: "sample4", name: "Cabana na Praia do Rosa", location: "Praia do Rosa, SC", region: "Litoral", price_per_night: 800, max_guests: 3, description: "Charme e tranquilidade a poucos passos do mar. Ideal para quem procura surf, natureza e boa gastronomia.", images: ["https://images.unsplash.com/photo-1615571022219-eb45cf7faa94?q=80&w=1964&auto=format&fit=crop"] }
