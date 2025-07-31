@@ -16,46 +16,16 @@
         .modal.show { display: flex; }
         .property-card:hover .property-image { transform: scale(1.05); }
         .property-image { transition: transform 0.3s ease-in-out; }
-        .thumbnail-container {
-            scrollbar-width: thin;
-            scrollbar-color: #4B5563 #1F2937;
-        }
-        .thumbnail-container::-webkit-scrollbar {
-            height: 8px;
-        }
-        .thumbnail-container::-webkit-scrollbar-track {
-            background: #1F2937;
-        }
-        .thumbnail-container::-webkit-scrollbar-thumb {
-            background-color: #4B5563;
-            border-radius: 4px;
-        }
-        .thumbnail {
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: border-color 0.2s;
-        }
-        .thumbnail.active {
-            border-color: #FBBF24; /* yellow-400 */
-        }
-        .gallery-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .gallery-arrow:hover {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
+        .thumbnail-container { scrollbar-width: thin; scrollbar-color: #4B5563 #1F2937; }
+        .thumbnail-container::-webkit-scrollbar { height: 8px; }
+        .thumbnail-container::-webkit-scrollbar-track { background: #1F2937; }
+        .thumbnail-container::-webkit-scrollbar-thumb { background-color: #4B5563; border-radius: 4px; }
+        .thumbnail { cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; }
+        .thumbnail.active { border-color: #FBBF24; }
+        .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background-color 0.2s; }
+        .gallery-arrow:hover { background-color: rgba(0, 0, 0, 0.8); }
+        .rating .fa-star { color: #d1d5db; }
+        .rating .fa-star.filled { color: #f59e0b; }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
@@ -83,20 +53,16 @@
     <div id="details-modal" class="modal fixed inset-0 bg-black bg-opacity-60 items-center justify-center p-4 z-50">
         <div class="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col md:flex-row">
             <div class="w-full md:w-1/2 flex flex-col bg-black rounded-t-lg md:rounded-l-lg md:rounded-t-none">
-                <div class="relative flex-grow">
-                    <img id="modal-main-image" src="" class="w-full h-full object-contain">
-                    <div id="prev-image" class="gallery-arrow left-2"><i class="fas fa-chevron-left"></i></div>
-                    <div id="next-image" class="gallery-arrow right-2"><i class="fas fa-chevron-right"></i></div>
-                </div>
-                <div id="thumbnail-container" class="thumbnail-container flex space-x-2 p-2 overflow-x-auto bg-black/50">
-                    <!-- Thumbnails serão inseridos aqui -->
-                </div>
+                <div class="relative flex-grow"><img id="modal-main-image" src="" class="w-full h-full object-contain"><div id="prev-image" class="gallery-arrow left-2"><i class="fas fa-chevron-left"></i></div><div id="next-image" class="gallery-arrow right-2"><i class="fas fa-chevron-right"></i></div></div>
+                <div id="thumbnail-container" class="thumbnail-container flex space-x-2 p-2 overflow-x-auto bg-black/50"></div>
             </div>
             <div class="w-full md:w-1/2 p-8 flex flex-col overflow-y-auto">
                 <div class="flex-grow">
                     <div class="flex justify-between items-start"><h2 id="modal-title" class="text-3xl font-bold text-gray-900 dark:text-white"></h2><button id="close-modal-button" class="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white text-3xl">&times;</button></div>
                     <p id="modal-location" class="text-gray-500 dark:text-gray-400 mt-1 mb-4"><i class="fas fa-map-marker-alt mr-1"></i></p>
                     <p id="modal-description" class="text-gray-600 dark:text-gray-300 mb-6"></p>
+                    <div class="mb-6"><h4 class="font-bold mb-2 text-gray-900 dark:text-white">Comodidades</h4><div id="modal-amenities" class="grid grid-cols-2 gap-4 text-sm"></div></div>
+                    <div class="mb-6"><h4 class="font-bold mb-2 text-gray-900 dark:text-white">Avaliações</h4><div id="modal-reviews" class="space-y-4"></div></div>
                 </div>
                 <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg mt-auto">
                     <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Faça a sua Reserva</h3>
@@ -121,15 +87,7 @@
         import { getFirestore, collection, onSnapshot, doc, getDoc, addDoc, writeBatch } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         
-        const firebaseConfig = {
-            apiKey: "AIzaSyBjQ2S36qboQhqH96hiWZe-F8QPw6e31dA",
-            authDomain: "curtindo-sc-reservas.firebaseapp.com",
-            projectId: "curtindo-sc-reservas",
-            storageBucket: "curtindo-sc-reservas.appspot.com",
-            messagingSenderId: "720754493665",
-            appId: "1:720754493665:web:7c7bed51a6b2a04a0f4fa0",
-            measurementId: "G-Z7Q538WYZ2"
-        };
+        const firebaseConfig = { apiKey: "AIzaSyBjQ2S36qboQhqH96hiWZe-F8QPw6e31dA", authDomain: "curtindo-sc-reservas.firebaseapp.com", projectId: "curtindo-sc-reservas", storageBucket: "curtindo-sc-reservas.appspot.com", messagingSenderId: "720754493665", appId: "1:720754493665:web:7c7bed51a6b2a04a0f4fa0", measurementId: "G-Z7Q538WYZ2" };
         const appId = "curtindo-sc-reservas";
 
         const loadingEl = document.getElementById('loading');
@@ -139,33 +97,54 @@
         let db, auth, allProperties = [], currentProperty = null, currentImageIndex = 0;
         const showAlert = (message, title = "Aviso") => { document.getElementById('alert-title').textContent = title; document.getElementById('alert-message').textContent = message; alertModal.classList.add('show'); };
         document.getElementById('alert-ok-button').addEventListener('click', () => document.querySelectorAll('.modal').forEach(m => m.classList.remove('show')));
-        async function main() { if (!firebaseConfig.apiKey) { loadingEl.innerHTML = `<p class="text-red-500">Erro: Configuração do Firebase ausente neste ficheiro.</p>`; return; } try { const app = initializeApp(firebaseConfig); db = getFirestore(app); auth = getAuth(app); onAuthStateChanged(auth, user => { if (user) loadProperties(); }); await signInAnonymously(auth); } catch (e) { loadingEl.innerHTML = `<p class="text-red-500">Erro ao iniciar a aplicação.</p>`; console.error(e); } }
-        function loadProperties() { const t = `artifacts/${appId}/public/data/properties`, n = collection(db, t); onSnapshot(n, snapshot => { loadingEl.style.display = 'none'; if (snapshot.empty) { addSampleProperties(); return; } allProperties = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderProperties(allProperties); }, error => { loadingEl.innerHTML = `<p class="text-red-500">Não foi possível carregar as propriedades. Verifique as regras de segurança do Firestore.</p>`; console.error(error); }); }
+        async function main() { if (!firebaseConfig.apiKey) { loadingEl.innerHTML = `<p class="text-red-500">Erro: Configuração do Firebase ausente.</p>`; return; } try { const app = initializeApp(firebaseConfig); db = getFirestore(app); auth = getAuth(app); onAuthStateChanged(auth, user => { if (user) loadProperties(); }); await signInAnonymously(auth); } catch (e) { loadingEl.style.display = 'none'; showAlert("Não foi possível conectar à base de dados.", "Erro de Conexão"); console.error("Erro na inicialização:", e); } }
+        function loadProperties() { const t = `artifacts/${appId}/public/data/properties`, n = collection(db, t); onSnapshot(n, snapshot => { loadingEl.style.display = 'none'; if (snapshot.empty) { addSampleProperties(); return; } allProperties = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderProperties(allProperties); }, error => { loadingEl.style.display = 'none'; showAlert("Não foi possível carregar as propriedades. Verifique as regras de segurança do Firestore.", "Erro de Conexão"); console.error(error); }); }
         function renderProperties(properties) { propertiesGridEl.innerHTML = ''; properties.forEach(prop => { const card = document.createElement('div'); card.className = 'property-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer group'; card.dataset.id = prop.id; card.innerHTML = `<div class="overflow-hidden h-64"><img src="${prop.images[0]}" alt="${prop.name}" class="property-image w-full h-full object-cover"></div><div class="p-6"><h3 class="text-xl font-bold text-gray-900 dark:text-white">${prop.name}</h3><p class="text-gray-500 dark:text-gray-400 mt-1"><i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}</p><p class="text-lg font-bold text-gray-900 dark:text-white mt-4">R$ ${prop.price_per_night},00 <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/ noite</span></p></div>`; propertiesGridEl.appendChild(card); }); }
         document.querySelectorAll('.filter-btn').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('bg-gray-900', 'text-white', 'active'); b.classList.add('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); }); btn.classList.add('bg-gray-900', 'text-white', 'active'); btn.classList.remove('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); const filter = btn.dataset.filter; if (filter === 'all') renderProperties(allProperties); else renderProperties(allProperties.filter(p => p.region === filter)); }); });
         propertiesGridEl.addEventListener('click', e => { const card = e.target.closest('.property-card'); if (card) { currentProperty = allProperties.find(p => p.id === card.dataset.id); if (currentProperty) openDetailsModal(currentProperty); } });
         
+        const amenityIcons = { wifi: 'fa-wifi', cozinha: 'fa-utensils', jacuzzi: 'fa-hot-tub', lareira: 'fa-fire', churrasqueira: 'fa-hamburger', tv: 'fa-tv', 'ar-condicionado': 'fa-snowflake', estacionamento: 'fa-parking' };
+        const amenityLabels = { wifi: 'Wi-Fi', cozinha: 'Cozinha', jacuzzi: 'Jacuzzi', lareira: 'Lareira', churrasqueira: 'Churrasqueira', tv: 'TV', 'ar-condicionado': 'Ar Condicionado', estacionamento: 'Estacionamento' };
+
         function openDetailsModal(prop) {
             currentImageIndex = 0;
             document.getElementById('modal-title').textContent = prop.name;
             document.getElementById('modal-location').innerHTML = `<i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}`;
             document.getElementById('modal-description').textContent = prop.description;
             
-            updateGallery();
+            const amenitiesContainer = document.getElementById('modal-amenities');
+            amenitiesContainer.innerHTML = '';
+            if (prop.amenities && prop.amenities.length > 0) {
+                prop.amenities.forEach(key => {
+                    amenitiesContainer.innerHTML += `<div class="flex items-center space-x-2"><i class="fas ${amenityIcons[key] || 'fa-check'} text-gray-500 dark:text-gray-400 w-5 text-center"></i><span>${amenityLabels[key] || key}</span></div>`;
+                });
+            } else {
+                amenitiesContainer.innerHTML = `<p class="text-gray-500 dark:text-gray-400">Nenhuma comodidade especial listada.</p>`;
+            }
 
+            const reviewsContainer = document.getElementById('modal-reviews');
+            reviewsContainer.innerHTML = '';
+            if (prop.reviews && prop.reviews.length > 0) {
+                prop.reviews.forEach(review => {
+                    let stars = '';
+                    for(let i=1; i<=5; i++) stars += `<i class="fas fa-star ${i <= review.rating ? 'filled' : ''}"></i>`;
+                    reviewsContainer.innerHTML += `<div class="border-t border-gray-200 dark:border-gray-700 pt-4"><div class="rating flex items-center mb-1">${stars}</div><p class="text-gray-600 dark:text-gray-300">"${review.comment}"</p><p class="text-sm text-gray-500 dark:text-gray-400 mt-1 font-semibold">- ${review.author}</p></div>`;
+                });
+            } else {
+                reviewsContainer.innerHTML = `<p class="text-gray-500 dark:text-gray-400">Ainda não há avaliações.</p>`;
+            }
+
+            updateGallery();
             const guestsSelect = document.getElementById('guests');
             guestsSelect.innerHTML = '';
             for (let i = 1; i <= prop.max_guests; i++) guestsSelect.innerHTML += `<option value="${i}">${i} hóspede${i > 1 ? 's' : ''}</option>`;
             const today = new Date().toISOString().split('T')[0];
-            document.getElementById('checkin').min = today;
-            document.getElementById('checkout').min = today;
+            document.getElementById('checkin').min = today; document.getElementById('checkout').min = today;
             detailsModal.classList.add('show');
         }
 
         function updateGallery() {
-            const mainImage = document.getElementById('modal-main-image');
-            const thumbnailContainer = document.getElementById('thumbnail-container');
-            
+            const mainImage = document.getElementById('modal-main-image'), thumbnailContainer = document.getElementById('thumbnail-container');
             mainImage.src = currentProperty.images[currentImageIndex];
             thumbnailContainer.innerHTML = '';
             currentProperty.images.forEach((imgSrc, index) => {
@@ -173,25 +152,14 @@
                 thumb.src = imgSrc;
                 thumb.className = `thumbnail h-16 w-16 object-cover rounded ${index === currentImageIndex ? 'active' : ''}`;
                 thumb.dataset.index = index;
-                thumb.addEventListener('click', () => {
-                    currentImageIndex = index;
-                    updateGallery();
-                });
+                thumb.addEventListener('click', () => { currentImageIndex = index; updateGallery(); });
                 thumbnailContainer.appendChild(thumb);
             });
             thumbnailContainer.children[currentImageIndex]?.scrollIntoView({ behavior: 'smooth', inline: 'center' });
         }
 
-        document.getElementById('prev-image').addEventListener('click', () => {
-            currentImageIndex = (currentImageIndex - 1 + currentProperty.images.length) % currentProperty.images.length;
-            updateGallery();
-        });
-
-        document.getElementById('next-image').addEventListener('click', () => {
-            currentImageIndex = (currentImageIndex + 1) % currentProperty.images.length;
-            updateGallery();
-        });
-
+        document.getElementById('prev-image').addEventListener('click', () => { currentImageIndex = (currentImageIndex - 1 + currentProperty.images.length) % currentProperty.images.length; updateGallery(); });
+        document.getElementById('next-image').addEventListener('click', () => { currentImageIndex = (currentImageIndex + 1) % currentProperty.images.length; updateGallery(); });
         document.getElementById('close-modal-button').addEventListener('click', () => detailsModal.classList.remove('show'));
         const checkinEl = document.getElementById('checkin'), checkoutEl = document.getElementById('checkout');
         [checkinEl, checkoutEl].forEach(el => el.addEventListener('change', calculatePrice));
@@ -207,10 +175,10 @@
             const propertiesCollectionRef = collection(db, propertiesCollectionPath);
             const batch = writeBatch(db);
             const sampleProperties = [
-                { id: "sample1", name: "Cabana Vista Serrana", location: "Urubici, SC", region: "Serra", price_per_night: 750, max_guests: 2, description: "Uma cabana romântica com vista deslumbrante para as montanhas, perfeita para casais. Inclui banheira de hidromassagem e lareira.", images: Array.from({length: 20}, (_, i) => `https://placehold.co/600x400/a3bfb8/ffffff?text=Vista+${i+1}`) },
-                { id: "sample2", name: "Refúgio do Cânion", location: "Bom Jardim da Serra, SC", region: "Serra", price_per_night: 950, max_guests: 4, description: "Localizada perto do Cânion das Laranjeiras, esta cabana oferece uma experiência única de imersão na natureza com todo o conforto.", images: ["https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop"] },
-                { id: "sample3", name: "Resort Frente Mar", location: "Bombinhas, SC", region: "Litoral", price_per_night: 1200, max_guests: 5, description: "Resort de luxo com acesso direto à praia, piscinas, spa e atividades para toda a família.", images: ["https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop"] },
-                { id: "sample4", name: "Cabana na Praia do Rosa", location: "Praia do Rosa, SC", region: "Litoral", price_per_night: 800, max_guests: 3, description: "Charme e tranquilidade a poucos passos do mar. Ideal para quem procura surf, natureza e boa gastronomia.", images: ["https://images.unsplash.com/photo-1615571022219-eb45cf7faa94?q=80&w=1964&auto=format&fit=crop"] }
+                { id: "sample1", name: "Cabana Vista Serrana", location: "Urubici, SC", region: "Serra", price_per_night: 750, max_guests: 2, description: "Uma cabana romântica com vista deslumbrante para as montanhas, perfeita para casais. Inclui banheira de hidromassagem e lareira.", images: Array.from({length: 20}, (_, i) => `https://placehold.co/600x400/a3bfb8/ffffff?text=Vista+${i+1}`), amenities: ['wifi', 'jacuzzi', 'lareira', 'cozinha'], reviews: [{author: 'Ana Paula', rating: 5, comment: 'Lugar incrível, vista espetacular! Voltaremos com certeza.'}] },
+                { id: "sample2", name: "Refúgio do Cânion", location: "Bom Jardim da Serra, SC", region: "Serra", price_per_night: 950, max_guests: 4, description: "Localizada perto do Cânion das Laranjeiras, esta cabana oferece uma experiência única de imersão na natureza com todo o conforto.", images: ["https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop"], amenities: ['wifi', 'cozinha', 'estacionamento', 'churrasqueira'], reviews: [{author: 'Marcos', rating: 5, comment: 'A cabana é perfeita para se desligar da cidade. Muito confortável e bem equipada.'}] },
+                { id: "sample3", name: "Resort Frente Mar", location: "Bombinhas, SC", region: "Litoral", price_per_night: 1200, max_guests: 5, description: "Resort de luxo com acesso direto à praia, piscinas, spa e atividades para toda a família.", images: ["https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop"], amenities: ['wifi', 'ar-condicionado', 'tv', 'estacionamento'], reviews: [] },
+                { id: "sample4", name: "Cabana na Praia do Rosa", location: "Praia do Rosa, SC", region: "Litoral", price_per_night: 800, max_guests: 3, description: "Charme e tranquilidade a poucos passos do mar. Ideal para quem procura surf, natureza e boa gastronomia.", images: ["https://images.unsplash.com/photo-1615571022219-eb45cf7faa94?q=80&w=1964&auto=format&fit=crop"], amenities: ['wifi', 'cozinha', 'churrasqueira'], reviews: [{author: 'Juliana', rating: 4, comment: 'Ótima localização, muito perto da praia. A cabana é simples mas muito acolhedora.'}] }
             ];
             
             try {
