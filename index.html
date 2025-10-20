@@ -42,7 +42,6 @@
         </header>
         <div id="filter-container" class="flex justify-center flex-wrap gap-2 md:gap-4 mb-10">
             <button data-filter="all" class="filter-btn active bg-gray-900 text-white px-6 py-2 rounded-full font-semibold shadow-md">Todos</button>
-            <!-- Filtros de tipo de imóvel serão inseridos aqui -->
         </div>
         <main id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></main>
         <div id="loading" class="text-center py-12"><p class="text-gray-600 dark:text-gray-400 text-lg">A carregar os melhores imóveis...</p></div>
@@ -58,8 +57,8 @@
                     <div class="flex justify-between items-start"><h2 id="modal-title" class="text-3xl font-bold text-gray-900 dark:text-white"></h2><button id="close-modal-button" class="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white text-3xl">&times;</button></div>
                     <p id="modal-location" class="text-gray-500 dark:text-gray-400 mt-1 mb-4"><i class="fas fa-map-marker-alt mr-1"></i></p>
                     <div class="flex flex-wrap items-center gap-x-4 gap-y-2 mb-4 text-gray-600 dark:text-gray-300">
-                        <span><i class="fas fa-bed mr-1"></i> <span id="modal-bedrooms"></span> Quarto(s)</span>
-                        <span><i class="fas fa-bath mr-1"></i> <span id="modal-bathrooms"></span> Banheiro(s)</span>
+                        <span id="bedrooms-info"><i class="fas fa-bed mr-1"></i> <span id="modal-bedrooms"></span> Quarto(s)</span>
+                        <span id="bathrooms-info"><i class="fas fa-bath mr-1"></i> <span id="modal-bathrooms"></span> Banheiro(s)</span>
                         <span><i class="fas fa-ruler-combined mr-1"></i> <span id="modal-area"></span> m²</span>
                     </div>
                     <p id="modal-description" class="text-gray-600 dark:text-gray-300 mb-6"></p>
@@ -125,9 +124,11 @@
 
         function renderFilters(properties) {
             const filterContainer = document.getElementById('filter-container');
+            filterContainer.querySelectorAll('.filter-btn:not([data-filter="all"])').forEach(btn => btn.remove());
+            
             const propertyTypes = [...new Set(properties.map(p => p.property_type))];
             propertyTypes.forEach(type => {
-                if (!document.querySelector(`button[data-filter="${type}"]`)) {
+                if (type && !document.querySelector(`button[data-filter="${type}"]`)) {
                     const button = document.createElement('button');
                     button.dataset.filter = type;
                     button.className = 'filter-btn bg-white text-gray-800 border border-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 px-6 py-2 rounded-full font-semibold shadow-md';
@@ -161,7 +162,7 @@
                 const card = document.createElement('div'); 
                 card.className = 'property-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer group'; 
                 card.dataset.id = prop.id; 
-                card.innerHTML = `<div class="overflow-hidden h-64"><img src="${prop.images[0] || 'https://placehold.co/600x400/e2e8f0/e2e8f0?text=Imóvel'}" alt="${prop.name}" class="property-image w-full h-full object-cover"></div><div class="p-6"><h3 class="text-xl font-bold text-gray-900 dark:text-white">${prop.name}</h3><p class="text-gray-500 dark:text-gray-400 mt-1"><i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}</p><p class="text-lg font-bold text-gray-900 dark:text-white mt-4">R$ ${prop.price_sale.toLocaleString('pt-BR')}</p></div>`; 
+                card.innerHTML = `<div class="overflow-hidden h-64"><img src="${(prop.images && prop.images.length > 0) ? prop.images[0] : 'https://placehold.co/600x400/e2e8f0/e2e8f0?text=Imóvel'}" alt="${prop.name}" class="property-image w-full h-full object-cover"></div><div class="p-6"><h3 class="text-xl font-bold text-gray-900 dark:text-white">${prop.name}</h3><p class="text-gray-500 dark:text-gray-400 mt-1"><i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}</p><p class="text-lg font-bold text-gray-900 dark:text-white mt-4">R$ ${prop.price_sale.toLocaleString('pt-BR')}</p></div>`; 
                 propertiesGridEl.appendChild(card); 
             }); 
         }
@@ -175,8 +176,23 @@
             currentImageIndex = 0;
             document.getElementById('modal-title').textContent = prop.name;
             document.getElementById('modal-location').innerHTML = `<i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}`;
-            document.getElementById('modal-bedrooms').textContent = prop.bedrooms;
-            document.getElementById('modal-bathrooms').textContent = prop.bathrooms;
+            
+            const bedroomsInfo = document.getElementById('bedrooms-info');
+            if (prop.bedrooms && prop.bedrooms > 0) {
+                document.getElementById('modal-bedrooms').textContent = prop.bedrooms;
+                bedroomsInfo.style.display = 'inline';
+            } else {
+                bedroomsInfo.style.display = 'none';
+            }
+
+            const bathroomsInfo = document.getElementById('bathrooms-info');
+             if (prop.bathrooms && prop.bathrooms > 0) {
+                document.getElementById('modal-bathrooms').textContent = prop.bathrooms;
+                bathroomsInfo.style.display = 'inline';
+            } else {
+                bathroomsInfo.style.display = 'none';
+            }
+            
             document.getElementById('modal-area').textContent = prop.area_sqm;
             document.getElementById('modal-description').textContent = prop.description;
             document.getElementById('modal-price').textContent = prop.price_sale.toLocaleString('pt-BR');
@@ -196,21 +212,26 @@
 
         function updateGallery() {
             const mainImage = document.getElementById('modal-main-image'), thumbnailContainer = document.getElementById('thumbnail-container');
-            mainImage.src = currentProperty.images[currentImageIndex];
-            thumbnailContainer.innerHTML = '';
-            currentProperty.images.forEach((imgSrc, index) => {
-                const thumb = document.createElement('img');
-                thumb.src = imgSrc;
-                thumb.className = `thumbnail h-16 w-16 object-cover rounded ${index === currentImageIndex ? 'active' : ''}`;
-                thumb.dataset.index = index;
-                thumb.addEventListener('click', () => { currentImageIndex = index; updateGallery(); });
-                thumbnailContainer.appendChild(thumb);
-            });
-            thumbnailContainer.children[currentImageIndex]?.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+            if (currentProperty.images && currentProperty.images.length > 0) {
+                mainImage.src = currentProperty.images[currentImageIndex];
+                thumbnailContainer.innerHTML = '';
+                currentProperty.images.forEach((imgSrc, index) => {
+                    const thumb = document.createElement('img');
+                    thumb.src = imgSrc;
+                    thumb.className = `thumbnail h-16 w-16 object-cover rounded ${index === currentImageIndex ? 'active' : ''}`;
+                    thumb.dataset.index = index;
+                    thumb.addEventListener('click', () => { currentImageIndex = index; updateGallery(); });
+                    thumbnailContainer.appendChild(thumb);
+                });
+                thumbnailContainer.children[currentImageIndex]?.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+            } else {
+                mainImage.src = 'https://placehold.co/600x400/e2e8f0/e2e8f0?text=Imóvel';
+                thumbnailContainer.innerHTML = '';
+            }
         }
 
-        document.getElementById('prev-image').addEventListener('click', () => { currentImageIndex = (currentImageIndex - 1 + currentProperty.images.length) % currentProperty.images.length; updateGallery(); });
-        document.getElementById('next-image').addEventListener('click', () => { currentImageIndex = (currentImageIndex + 1) % currentProperty.images.length; updateGallery(); });
+        document.getElementById('prev-image').addEventListener('click', () => { if (currentProperty.images && currentProperty.images.length > 1) { currentImageIndex = (currentImageIndex - 1 + currentProperty.images.length) % currentProperty.images.length; updateGallery(); } });
+        document.getElementById('next-image').addEventListener('click', () => { if (currentProperty.images && currentProperty.images.length > 1) { currentImageIndex = (currentImageIndex + 1) % currentProperty.images.length; updateGallery(); } });
         document.getElementById('close-modal-button').addEventListener('click', () => detailsModal.classList.remove('show'));
         
         document.getElementById('contact-form').addEventListener('submit', async (e) => { 
