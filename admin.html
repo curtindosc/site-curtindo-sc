@@ -63,8 +63,8 @@
                     <div><label for="price_sale" class="block text-sm font-medium">Preço de Venda (R$)</label><input type="number" id="price_sale" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
                 </div>
                 <div class="grid grid-cols-3 gap-4">
-                    <div><label for="bedrooms" class="block text-sm font-medium">Quartos</label><input type="number" id="bedrooms" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
-                    <div><label for="bathrooms" class="block text-sm font-medium">Banheiros</label><input type="number" id="bathrooms" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
+                    <div><label for="bedrooms" class="block text-sm font-medium">Quartos</label><input type="number" id="bedrooms" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
+                    <div><label for="bathrooms" class="block text-sm font-medium">Banheiros</label><input type="number" id="bathrooms" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
                     <div><label for="area_sqm" class="block text-sm font-medium">Área (m²)</label><input type="number" id="area_sqm" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
                 </div>
                 <div><label for="description" class="block text-sm font-medium">Descrição</label><textarea id="description" rows="3" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></textarea></div>
@@ -132,7 +132,27 @@
         document.getElementById('logout-button').addEventListener('click', () => signOut(auth));
         
         function loadAdminProperties() { onSnapshot(query(collection(db, propertiesCollectionPath), orderBy("name")), snapshot => { loadingEl.style.display = 'none'; const props = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderAdminPropertyList(props); }); }
-        function renderAdminPropertyList(properties) { adminPropertiesListEl.innerHTML = ''; if (properties.length === 0) { adminPropertiesListEl.innerHTML = '<p class="text-center text-gray-400 p-4">Nenhum imóvel encontrado.</p>'; return; } properties.forEach(prop => { const propEl = document.createElement('div'); propEl.className = 'p-4 flex justify-between items-center'; propEl.innerHTML = `<div><p class="font-bold">${prop.name}</p><p class="text-sm text-gray-500 dark:text-gray-400">R$ ${prop.price_sale.toLocaleString('pt-BR')} - ${prop.location}</p></div><div class="flex space-x-2"><button data-id="${prop.id}" class="edit-property-button bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg text-sm">Editar</button><button data-id="${prop.id}" class="delete-property-button bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-lg text-sm">Excluir</button></div>`; adminPropertiesListEl.appendChild(propEl); }); }
+        function renderAdminPropertyList(properties) {
+            adminPropertiesListEl.innerHTML = '';
+            if (properties.length === 0) {
+                adminPropertiesListEl.innerHTML = '<p class="text-center text-gray-400 p-4">Nenhum imóvel encontrado.</p>';
+                return;
+            }
+            properties.forEach(prop => {
+                const propEl = document.createElement('div');
+                propEl.className = 'p-4 flex justify-between items-center';
+                propEl.innerHTML = `
+                    <div>
+                        <p class="font-bold">${prop.name}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">R$ ${prop.price_sale.toLocaleString('pt-BR')} - ${prop.location}</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button data-id="${prop.id}" class="edit-property-button bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg text-sm">Editar</button>
+                        <button data-id="${prop.id}" class="delete-property-button bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-lg text-sm">Excluir</button>
+                    </div>`;
+                adminPropertiesListEl.appendChild(propEl);
+            });
+        }
         
         function setupFeaturesCheckboxes(selectedFeatures = []) {
             const container = document.getElementById('features-checkboxes');
@@ -149,13 +169,46 @@
         }
 
         document.getElementById('add-property-button').addEventListener('click', () => { propertyForm.reset(); document.getElementById('property-id').value = ''; tempImages = []; renderImagePreviews(); setupFeaturesCheckboxes(); modalTitle.textContent = 'Adicionar Imóvel'; propertyModal.classList.add('show'); });
-        adminPropertiesListEl.addEventListener('click', async e => { const propId = e.target.dataset.id; if (!propId) return; if (e.target.classList.contains('edit-property-button')) { const docRef = doc(db, propertiesCollectionPath, propId), docSnap = await getDoc(docRef); if (docSnap.exists()) { const prop = docSnap.data(); propertyForm.reset(); document.getElementById('property-id').value = propId; document.getElementById('name').value = prop.name; document.getElementById('location').value = prop.location; document.getElementById('property_type').value = prop.property_type; document.getElementById('price_sale').value = prop.price_sale; document.getElementById('bedrooms').value = prop.bedrooms; document.getElementById('bathrooms').value = prop.bathrooms; document.getElementById('area_sqm').value = prop.area_sqm; document.getElementById('description').value = prop.description; tempImages = prop.images || []; renderImagePreviews(); setupFeaturesCheckboxes(prop.features || []); modalTitle.textContent = 'Editar Imóvel'; propertyModal.classList.add('show'); } } else if (e.target.classList.contains('delete-property-button')) { if(confirm('Tem a certeza que deseja excluir este imóvel? Esta ação não pode ser desfeita.')) { await deleteDoc(doc(db, propertiesCollectionPath, propId)); showAlert('Imóvel excluído com sucesso!'); } } });
+        
+        adminPropertiesListEl.addEventListener('click', async e => {
+            const button = e.target.closest('button');
+            if (!button) return;
+
+            const propId = button.dataset.id;
+            if (button.classList.contains('edit-property-button')) {
+                const docRef = doc(db, propertiesCollectionPath, propId);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    const prop = docSnap.data();
+                    propertyForm.reset();
+                    document.getElementById('property-id').value = propId;
+                    document.getElementById('name').value = prop.name;
+                    document.getElementById('location').value = prop.location;
+                    document.getElementById('property_type').value = prop.property_type;
+                    document.getElementById('price_sale').value = prop.price_sale;
+                    document.getElementById('bedrooms').value = prop.bedrooms || 0;
+                    document.getElementById('bathrooms').value = prop.bathrooms || 0;
+                    document.getElementById('area_sqm').value = prop.area_sqm;
+                    document.getElementById('description').value = prop.description;
+                    tempImages = prop.images || [];
+                    renderImagePreviews();
+                    setupFeaturesCheckboxes(prop.features || []);
+                    modalTitle.textContent = 'Editar Imóvel';
+                    propertyModal.classList.add('show');
+                }
+            } else if (button.classList.contains('delete-property-button')) {
+                if (confirm('Tem a certeza que deseja excluir este imóvel? Esta ação não pode ser desfeita.')) {
+                    await deleteDoc(doc(db, propertiesCollectionPath, propId));
+                    showAlert('Imóvel excluído com sucesso!');
+                }
+            }
+        });
         
         function renderImagePreviews() { const container = document.getElementById('image-preview-container'); container.innerHTML = ''; tempImages.forEach((url, index) => { const imgContainer = document.createElement('div'); imgContainer.className = 'relative'; imgContainer.innerHTML = `<img src="${url}" class="w-full h-24 object-cover rounded-md"><button type="button" data-index="${index}" class="remove-image-button absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center">&times;</button>`; container.appendChild(imgContainer); }); }
         document.getElementById('add-image-button').addEventListener('click', () => { const imageUrlInput = document.getElementById('image-url'); const url = imageUrlInput.value.trim(); if (url) { tempImages.push(url); renderImagePreviews(); imageUrlInput.value = ''; } });
         document.getElementById('image-preview-container').addEventListener('click', (e) => { if (e.target.classList.contains('remove-image-button')) { const index = parseInt(e.target.dataset.index, 10); tempImages.splice(index, 1); renderImagePreviews(); } });
 
-        propertyForm.addEventListener('submit', async e => { e.preventDefault(); const propId = document.getElementById('property-id').value; const selectedFeatures = Array.from(document.querySelectorAll('.feature-checkbox:checked')).map(cb => cb.value); const propData = { name: document.getElementById('name').value, location: document.getElementById('location').value, property_type: document.getElementById('property_type').value, price_sale: parseInt(document.getElementById('price_sale').value, 10), bedrooms: parseInt(document.getElementById('bedrooms').value, 10), bathrooms: parseInt(document.getElementById('bathrooms').value, 10), area_sqm: parseInt(document.getElementById('area_sqm').value, 10), description: document.getElementById('description').value, images: tempImages, features: selectedFeatures }; if (propId) { await setDoc(doc(db, propertiesCollectionPath, propId), propData); showAlert('Imóvel atualizado com sucesso!'); } else { await addDoc(collection(db, propertiesCollectionPath), propData); showAlert('Imóvel adicionado com sucesso!'); } propertyModal.classList.remove('show'); });
+        propertyForm.addEventListener('submit', async e => { e.preventDefault(); const propId = document.getElementById('property-id').value; const selectedFeatures = Array.from(document.querySelectorAll('.feature-checkbox:checked')).map(cb => cb.value); const propData = { name: document.getElementById('name').value, location: document.getElementById('location').value, property_type: document.getElementById('property_type').value, price_sale: parseInt(document.getElementById('price_sale').value, 10), bedrooms: parseInt(document.getElementById('bedrooms').value, 10) || 0, bathrooms: parseInt(document.getElementById('bathrooms').value, 10) || 0, area_sqm: parseInt(document.getElementById('area_sqm').value, 10), description: document.getElementById('description').value, images: tempImages, features: selectedFeatures }; if (propId) { await setDoc(doc(db, propertiesCollectionPath, propId), propData); showAlert('Imóvel atualizado com sucesso!'); } else { await addDoc(collection(db, propertiesCollectionPath), propData); showAlert('Imóvel adicionado com sucesso!'); } propertyModal.classList.remove('show'); });
 
         document.getElementById('view-contacts-button').addEventListener('click', () => { onSnapshot(query(collection(db, contactsCollectionPath), orderBy("submissionDate", "desc")), snapshot => { const contactsList = document.getElementById('contacts-list'); contactsList.innerHTML = ''; if(snapshot.empty){ contactsList.innerHTML = '<tr><td colspan="5" class="text-center p-4">Nenhum contato encontrado.</td></tr>'; } else { snapshot.docs.map(d => ({id: d.id, ...d.data()})).forEach(c => { contactsList.innerHTML += `<tr class="border-b border-gray-200 dark:border-gray-700"> <td class="px-4 py-2 font-medium">${c.propertyName}</td> <td class="px-4 py-2">${c.guestName}</td> <td class="px-4 py-2">${c.guestContact}</td> <td class="px-4 py-2">${c.message}</td> <td class="px-4 py-2">${c.submissionDate.toDate().toLocaleDateString()}</td> </tr>`; }); } contactsModal.classList.add('show'); }); });
 
