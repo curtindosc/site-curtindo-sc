@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curtindo SC - Cabanas e Resorts</title>
+    <title>Curtindo SC - Imóveis à Venda</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -21,11 +21,9 @@
         .thumbnail-container::-webkit-scrollbar-track { background: #1F2937; }
         .thumbnail-container::-webkit-scrollbar-thumb { background-color: #4B5563; border-radius: 4px; }
         .thumbnail { cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; }
-        .thumbnail.active { border-color: #FBBF24; }
+        .thumbnail.active { border-color: #3B82F6; }
         .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background-color 0.2s; }
         .gallery-arrow:hover { background-color: rgba(0, 0, 0, 0.8); }
-        .rating .fa-star { color: #d1d5db; }
-        .rating .fa-star.filled { color: #f59e0b; }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
@@ -39,8 +37,8 @@
         </div>
         <header class="text-center mb-12 pt-10">
             <img src="https://media.bio.site/sites/15fc0509-6c95-4782-9a79-fe69fe78ce69/fetqsktutwxDYURdXexgei.jpg" alt="Logo Curtindo SC" class="mx-auto mb-4 h-32 w-32 object-cover rounded-full border-4 border-white dark:border-gray-700 shadow-lg">
-            <h1 class="text-5xl font-bold text-gray-900 dark:text-white">Curtindo SC</h1>
-            <p class="text-gray-500 dark:text-gray-400 mt-2 text-lg">As melhores cabanas e resorts de Santa Catarina</p>
+            <h1 class="text-5xl font-bold text-gray-900 dark:text-white">Curtindo SC Imóveis</h1>
+            <p class="text-gray-500 dark:text-gray-400 mt-2 text-lg">Encontre o imóvel dos seus sonhos em Santa Catarina</p>
         </header>
         <div class="flex justify-center space-x-2 md:space-x-4 mb-10">
             <button data-filter="all" class="filter-btn active bg-gray-900 text-white px-6 py-2 rounded-full font-semibold shadow-md">Todos</button>
@@ -48,7 +46,7 @@
             <button data-filter="Litoral" class="filter-btn bg-white text-gray-800 border border-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 px-6 py-2 rounded-full font-semibold shadow-md">Litoral</button>
         </div>
         <main id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></main>
-        <div id="loading" class="text-center py-12"><p class="text-gray-600 dark:text-gray-400 text-lg">A carregar as melhores estadias...</p></div>
+        <div id="loading" class="text-center py-12"><p class="text-gray-600 dark:text-gray-400 text-lg">A carregar os melhores imóveis...</p></div>
     </div>
     <div id="details-modal" class="modal fixed inset-0 bg-black bg-opacity-60 items-center justify-center p-4 z-50">
         <div class="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col md:flex-row">
@@ -60,23 +58,23 @@
                 <div class="flex-grow">
                     <div class="flex justify-between items-start"><h2 id="modal-title" class="text-3xl font-bold text-gray-900 dark:text-white"></h2><button id="close-modal-button" class="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white text-3xl">&times;</button></div>
                     <p id="modal-location" class="text-gray-500 dark:text-gray-400 mt-1 mb-4"><i class="fas fa-map-marker-alt mr-1"></i></p>
+                    <div class="flex items-baseline space-x-2 mb-4">
+                        <span class="text-gray-600 dark:text-gray-300"><i class="fas fa-bed mr-1"></i> <span id="modal-bedrooms"></span> Quarto(s)</span>
+                        <span class="text-gray-600 dark:text-gray-300"><i class="fas fa-bath mr-1"></i> <span id="modal-bathrooms"></span> Banheiro(s)</span>
+                        <span class="text-gray-600 dark:text-gray-300"><i class="fas fa-ruler-combined mr-1"></i> <span id="modal-area"></span> m²</span>
+                    </div>
                     <p id="modal-description" class="text-gray-600 dark:text-gray-300 mb-6"></p>
-                    <div class="mb-6"><h4 class="font-bold mb-2 text-gray-900 dark:text-white">Comodidades</h4><div id="modal-amenities" class="grid grid-cols-2 gap-4 text-sm"></div></div>
-                    <div class="mb-6"><h4 class="font-bold mb-2 text-gray-900 dark:text-white">Avaliações</h4><div id="modal-reviews" class="space-y-4"></div></div>
+                    <div class="mb-6"><h4 class="font-bold mb-2 text-gray-900 dark:text-white">Características</h4><div id="modal-features" class="grid grid-cols-2 gap-4 text-sm"></div></div>
                 </div>
                 <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg mt-auto">
-                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Faça a sua Reserva</h3>
-                    <div class="space-y-4">
-                        <div><label for="guest-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome completo</label><input type="text" id="guest-name" placeholder="O seu nome" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
-                        <div><label for="guest-whatsapp" class="block text-sm font-medium text-gray-700 dark:text-gray-300">WhatsApp</label><input type="tel" id="guest-whatsapp" placeholder="(48) 99999-9999" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div><label for="checkin" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Check-in</label><input type="date" id="checkin" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
-                            <div><label for="checkout" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Check-out</label><input type="date" id="checkout" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
-                        </div>
-                        <div><label for="guests" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Hóspedes</label><select id="guests" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></select></div>
-                    </div>
-                    <div class="text-2xl font-bold text-right my-4 text-gray-900 dark:text-white">Total: <span id="total-price">R$ 0,00</span></div>
-                    <button id="book-now-button" class="w-full bg-gray-900 hover:bg-gray-700 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200 text-white font-bold py-3 px-4 rounded-lg">Confirmar Reserva</button>
+                    <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Gostou deste imóvel?</h3>
+                    <p class="text-2xl font-bold text-gray-900 dark:text-white mb-4">R$ <span id="modal-price"></span></p>
+                    <form id="contact-form" class="space-y-4">
+                        <div><label for="guest-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome completo</label><input type="text" id="guest-name" placeholder="O seu nome" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
+                        <div><label for="guest-contact" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email ou Telefone</label><input type="text" id="guest-contact" placeholder="Seu melhor contato" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
+                        <div><label for="guest-message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Mensagem (opcional)</label><textarea id="guest-message" rows="2" placeholder="Tenho interesse neste imóvel..." class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></textarea></div>
+                        <button type="submit" id="contact-button" class="w-full bg-gray-900 hover:bg-gray-700 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200 text-white font-bold py-3 px-4 rounded-lg">Solicitar Contato</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -84,7 +82,7 @@
     <div id="alert-modal" class="modal fixed inset-0 bg-black bg-opacity-75 items-center justify-center p-4 z-50"><div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-sm text-center"><h2 id="alert-title" class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Aviso</h2><p id="alert-message" class="mb-6 text-gray-600 dark:text-gray-300"></p><button id="alert-ok-button" class="px-6 py-2 bg-gray-900 dark:bg-gray-100 dark:text-gray-900 text-white rounded-lg font-semibold">OK</button></div></div>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, doc, getDoc, addDoc, writeBatch } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, doc, getDoc, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         
         const firebaseConfig = { apiKey: "AIzaSyBjQ2S36qboQhqH96hiWZe-F8QPw6e31dA", authDomain: "curtindo-sc-reservas.firebaseapp.com", projectId: "curtindo-sc-reservas", storageBucket: "curtindo-sc-reservas.appspot.com", messagingSenderId: "720754493665", appId: "1:720754493665:web:7c7bed51a6b2a04a0f4fa0", measurementId: "G-Z7Q538WYZ2" };
@@ -98,48 +96,34 @@
         const showAlert = (message, title = "Aviso") => { document.getElementById('alert-title').textContent = title; document.getElementById('alert-message').textContent = message; alertModal.classList.add('show'); };
         document.getElementById('alert-ok-button').addEventListener('click', () => document.querySelectorAll('.modal').forEach(m => m.classList.remove('show')));
         async function main() { if (!firebaseConfig.apiKey) { loadingEl.innerHTML = `<p class="text-red-500">Erro: Configuração do Firebase ausente.</p>`; return; } try { const app = initializeApp(firebaseConfig); db = getFirestore(app); auth = getAuth(app); onAuthStateChanged(auth, user => { if (user) loadProperties(); }); await signInAnonymously(auth); } catch (e) { loadingEl.style.display = 'none'; showAlert("Não foi possível conectar à base de dados.", "Erro de Conexão"); console.error("Erro na inicialização:", e); } }
-        function loadProperties() { const t = `artifacts/${appId}/public/data/properties`, n = collection(db, t); onSnapshot(n, snapshot => { loadingEl.style.display = 'none'; if (snapshot.empty) { addSampleProperties(); return; } allProperties = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderProperties(allProperties); }, error => { loadingEl.style.display = 'none'; showAlert("Não foi possível carregar as propriedades. Verifique as regras de segurança do Firestore.", "Erro de Conexão"); console.error(error); }); }
-        function renderProperties(properties) { propertiesGridEl.innerHTML = ''; properties.forEach(prop => { const card = document.createElement('div'); card.className = 'property-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer group'; card.dataset.id = prop.id; card.innerHTML = `<div class="overflow-hidden h-64"><img src="${prop.images[0]}" alt="${prop.name}" class="property-image w-full h-full object-cover"></div><div class="p-6"><h3 class="text-xl font-bold text-gray-900 dark:text-white">${prop.name}</h3><p class="text-gray-500 dark:text-gray-400 mt-1"><i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}</p><p class="text-lg font-bold text-gray-900 dark:text-white mt-4">R$ ${prop.price_per_night},00 <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/ noite</span></p></div>`; propertiesGridEl.appendChild(card); }); }
-        document.querySelectorAll('.filter-btn').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('bg-gray-900', 'text-white', 'active'); b.classList.add('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); }); btn.classList.add('bg-gray-900', 'text-white', 'active'); btn.classList.remove('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); const filter = btn.dataset.filter; if (filter === 'all') renderProperties(allProperties); else renderProperties(allProperties.filter(p => p.region === filter)); }); });
+        function loadProperties() { const path = `artifacts/${appId}/public/data/properties`; onSnapshot(collection(db, path), snapshot => { loadingEl.style.display = 'none'; allProperties = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderProperties(allProperties); }, error => { loadingEl.style.display = 'none'; showAlert("Não foi possível carregar os imóveis. Verifique as regras de segurança do Firestore.", "Erro de Conexão"); console.error(error); }); }
+        function renderProperties(properties) { propertiesGridEl.innerHTML = ''; properties.forEach(prop => { const card = document.createElement('div'); card.className = 'property-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer group'; card.dataset.id = prop.id; card.innerHTML = `<div class="overflow-hidden h-64"><img src="${prop.images[0]}" alt="${prop.name}" class="property-image w-full h-full object-cover"></div><div class="p-6"><h3 class="text-xl font-bold text-gray-900 dark:text-white">${prop.name}</h3><p class="text-gray-500 dark:text-gray-400 mt-1"><i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}</p><p class="text-lg font-bold text-gray-900 dark:text-white mt-4">R$ ${prop.price_sale.toLocaleString('pt-BR')}</p></div>`; propertiesGridEl.appendChild(card); }); }
+        document.querySelectorAll('.filter-btn').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('bg-gray-900', 'text-white', 'active'); b.classList.add('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); }); btn.classList.add('bg-gray-900', 'text-white', 'active'); btn.classList.remove('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); const filter = btn.dataset.filter; if (filter === 'all') renderProperties(allProperties); else renderProperties(allProperties.filter(p => p.property_type === filter)); }); });
         propertiesGridEl.addEventListener('click', e => { const card = e.target.closest('.property-card'); if (card) { currentProperty = allProperties.find(p => p.id === card.dataset.id); if (currentProperty) openDetailsModal(currentProperty); } });
         
-        const amenityIcons = { wifi: 'fa-wifi', cozinha: 'fa-utensils', jacuzzi: 'fa-hot-tub', lareira: 'fa-fire', churrasqueira: 'fa-hamburger', tv: 'fa-tv', 'ar-condicionado': 'fa-snowflake', estacionamento: 'fa-parking' };
-        const amenityLabels = { wifi: 'Wi-Fi', cozinha: 'Cozinha', jacuzzi: 'Jacuzzi', lareira: 'Lareira', churrasqueira: 'Churrasqueira', tv: 'TV', 'ar-condicionado': 'Ar Condicionado', estacionamento: 'Estacionamento' };
+        const featureIcons = { piscina: 'fa-swimmer', garagem: 'fa-car', churrasqueira: 'fa-hamburger', vista_mar: 'fa-water', mobiliado: 'fa-couch', academia: 'fa-dumbbell', salao_festas: 'fa-glass-cheers', portaria_24h: 'fa-user-shield' };
+        const featureLabels = { piscina: 'Piscina', garagem: 'Garagem', churrasqueira: 'Churrasqueira', vista_mar: 'Vista p/ Mar', mobiliado: 'Mobiliado', academia: 'Academia', salao_festas: 'Salão de Festas', portaria_24h: 'Portaria 24h' };
 
         function openDetailsModal(prop) {
             currentImageIndex = 0;
             document.getElementById('modal-title').textContent = prop.name;
             document.getElementById('modal-location').innerHTML = `<i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}`;
+            document.getElementById('modal-bedrooms').textContent = prop.bedrooms;
+            document.getElementById('modal-bathrooms').textContent = prop.bathrooms;
+            document.getElementById('modal-area').textContent = prop.area_sqm;
             document.getElementById('modal-description').textContent = prop.description;
+            document.getElementById('modal-price').textContent = prop.price_sale.toLocaleString('pt-BR');
             
-            const amenitiesContainer = document.getElementById('modal-amenities');
-            amenitiesContainer.innerHTML = '';
-            if (prop.amenities && prop.amenities.length > 0) {
-                prop.amenities.forEach(key => {
-                    amenitiesContainer.innerHTML += `<div class="flex items-center space-x-2"><i class="fas ${amenityIcons[key] || 'fa-check'} text-gray-500 dark:text-gray-400 w-5 text-center"></i><span>${amenityLabels[key] || key}</span></div>`;
+            const featuresContainer = document.getElementById('modal-features');
+            featuresContainer.innerHTML = '';
+            if (prop.features && prop.features.length > 0) {
+                prop.features.forEach(key => {
+                    featuresContainer.innerHTML += `<div class="flex items-center space-x-2"><i class="fas ${featureIcons[key] || 'fa-check'} text-gray-500 dark:text-gray-400 w-5 text-center"></i><span>${featureLabels[key] || key}</span></div>`;
                 });
             } else {
-                amenitiesContainer.innerHTML = `<p class="text-gray-500 dark:text-gray-400">Nenhuma comodidade especial listada.</p>`;
+                featuresContainer.innerHTML = `<p class="text-gray-500 dark:text-gray-400">Nenhuma característica especial listada.</p>`;
             }
-
-            const reviewsContainer = document.getElementById('modal-reviews');
-            reviewsContainer.innerHTML = '';
-            if (prop.reviews && prop.reviews.length > 0) {
-                prop.reviews.forEach(review => {
-                    let stars = '';
-                    for(let i=1; i<=5; i++) stars += `<i class="fas fa-star ${i <= review.rating ? 'filled' : ''}"></i>`;
-                    reviewsContainer.innerHTML += `<div class="border-t border-gray-200 dark:border-gray-700 pt-4"><div class="rating flex items-center mb-1">${stars}</div><p class="text-gray-600 dark:text-gray-300">"${review.comment}"</p><p class="text-sm text-gray-500 dark:text-gray-400 mt-1 font-semibold">- ${review.author}</p></div>`;
-                });
-            } else {
-                reviewsContainer.innerHTML = `<p class="text-gray-500 dark:text-gray-400">Ainda não há avaliações.</p>`;
-            }
-
             updateGallery();
-            const guestsSelect = document.getElementById('guests');
-            guestsSelect.innerHTML = '';
-            for (let i = 1; i <= prop.max_guests; i++) guestsSelect.innerHTML += `<option value="${i}">${i} hóspede${i > 1 ? 's' : ''}</option>`;
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('checkin').min = today; document.getElementById('checkout').min = today;
             detailsModal.classList.add('show');
         }
 
@@ -161,37 +145,39 @@
         document.getElementById('prev-image').addEventListener('click', () => { currentImageIndex = (currentImageIndex - 1 + currentProperty.images.length) % currentProperty.images.length; updateGallery(); });
         document.getElementById('next-image').addEventListener('click', () => { currentImageIndex = (currentImageIndex + 1) % currentProperty.images.length; updateGallery(); });
         document.getElementById('close-modal-button').addEventListener('click', () => detailsModal.classList.remove('show'));
-        const checkinEl = document.getElementById('checkin'), checkoutEl = document.getElementById('checkout');
-        [checkinEl, checkoutEl].forEach(el => el.addEventListener('change', calculatePrice));
-        function calculatePrice() { const checkinDate = new Date(checkinEl.value), checkoutDate = new Date(checkoutEl.value); if (checkinEl.value && checkoutEl.value && checkoutDate > checkinDate) { const nights = Math.ceil((checkoutDate.getTime() - checkinDate.getTime()) / 864e5); document.getElementById('total-price').textContent = `R$ ${(nights * currentProperty.price_per_night).toFixed(2).replace('.', ',')}`; } else document.getElementById('total-price').textContent = 'R$ 0,00'; }
-        document.getElementById('book-now-button').addEventListener('click', async () => { const guestName = document.getElementById('guest-name').value.trim(), guestWhatsapp = document.getElementById('guest-whatsapp').value.trim(); if (!guestName || !guestWhatsapp || !checkinEl.value || !checkoutEl.value) { showAlert('Por favor, preencha todos os campos para a reserva.'); return; } const booking = { propertyId: currentProperty.id, propertyName: currentProperty.name, guestName, guestWhatsapp, checkin: checkinEl.value, checkout: checkoutEl.value, guests: parseInt(document.getElementById('guests').value, 10), totalPrice: parseFloat(document.getElementById('total-price').textContent.replace('R$ ', '').replace(',', '.')), bookingDate: new Date().toISOString() }; try { const t = `artifacts/${appId}/public/data/bookings`; await addDoc(collection(db, t), booking); showAlert(`Obrigado, ${guestName}! A sua reserva foi enviada com sucesso!`, 'Reserva Enviada'); detailsModal.classList.remove('show'); } catch (error) { showAlert('Não foi possível enviar a sua reserva. Tente novamente.', 'Erro'); console.error("Erro ao criar reserva:", error); } });
+        
+        document.getElementById('contact-form').addEventListener('submit', async (e) => { 
+            e.preventDefault();
+            const guestName = document.getElementById('guest-name').value.trim();
+            const guestContact = document.getElementById('guest-contact').value.trim();
+            if (!guestName || !guestContact) {
+                showAlert('Por favor, preencha o seu nome e contato.');
+                return;
+            }
+            const contactData = {
+                propertyId: currentProperty.id,
+                propertyName: currentProperty.name,
+                guestName,
+                guestContact,
+                message: document.getElementById('guest-message').value.trim(),
+                submissionDate: serverTimestamp()
+            };
+            try {
+                const path = `artifacts/${appId}/public/data/contacts`;
+                await addDoc(collection(db, path), contactData);
+                showAlert(`Obrigado, ${guestName}! O seu interesse foi registado. Entraremos em contato em breve.`, 'Contato Enviado');
+                detailsModal.classList.remove('show');
+                document.getElementById('contact-form').reset();
+            } catch (error) {
+                showAlert('Não foi possível enviar o seu contato. Tente novamente.', 'Erro');
+                console.error("Erro ao enviar contato:", error);
+            }
+        });
+        
         const themeToggle = document.getElementById('theme-toggle'), sunIcon = document.getElementById('theme-icon-sun'), moonIcon = document.getElementById('theme-icon-moon');
         const applyTheme = theme => { if (theme === 'dark') { document.documentElement.classList.add('dark'); sunIcon.classList.remove('hidden'); moonIcon.classList.add('hidden'); } else { document.documentElement.classList.remove('dark'); sunIcon.classList.add('hidden'); moonIcon.classList.remove('hidden'); } };
         themeToggle.addEventListener('click', () => { const isDark = document.documentElement.classList.toggle('dark'), newTheme = isDark ? 'dark' : 'light'; localStorage.setItem('theme', newTheme); applyTheme(newTheme); });
         applyTheme(localStorage.getItem('theme') || 'light');
-        
-        async function addSampleProperties() {
-            const propertiesCollectionPath = `artifacts/${appId}/public/data/properties`;
-            const propertiesCollectionRef = collection(db, propertiesCollectionPath);
-            const batch = writeBatch(db);
-            const sampleProperties = [
-                { id: "sample1", name: "Cabana Vista Serrana", location: "Urubici, SC", region: "Serra", price_per_night: 750, max_guests: 2, description: "Uma cabana romântica com vista deslumbrante para as montanhas, perfeita para casais. Inclui banheira de hidromassagem e lareira.", images: Array.from({length: 20}, (_, i) => `https://placehold.co/600x400/a3bfb8/ffffff?text=Vista+${i+1}`), amenities: ['wifi', 'jacuzzi', 'lareira', 'cozinha'], reviews: [{author: 'Ana Paula', rating: 5, comment: 'Lugar incrível, vista espetacular! Voltaremos com certeza.'}] },
-                { id: "sample2", name: "Refúgio do Cânion", location: "Bom Jardim da Serra, SC", region: "Serra", price_per_night: 950, max_guests: 4, description: "Localizada perto do Cânion das Laranjeiras, esta cabana oferece uma experiência única de imersão na natureza com todo o conforto.", images: ["https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop"], amenities: ['wifi', 'cozinha', 'estacionamento', 'churrasqueira'], reviews: [{author: 'Marcos', rating: 5, comment: 'A cabana é perfeita para se desligar da cidade. Muito confortável e bem equipada.'}] },
-                { id: "sample3", name: "Resort Frente Mar", location: "Bombinhas, SC", region: "Litoral", price_per_night: 1200, max_guests: 5, description: "Resort de luxo com acesso direto à praia, piscinas, spa e atividades para toda a família.", images: ["https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop"], amenities: ['wifi', 'ar-condicionado', 'tv', 'estacionamento'], reviews: [] },
-                { id: "sample4", name: "Cabana na Praia do Rosa", location: "Praia do Rosa, SC", region: "Litoral", price_per_night: 800, max_guests: 3, description: "Charme e tranquilidade a poucos passos do mar. Ideal para quem procura surf, natureza e boa gastronomia.", images: ["https://images.unsplash.com/photo-1615571022219-eb45cf7faa94?q=80&w=1964&auto=format&fit=crop"], amenities: ['wifi', 'cozinha', 'churrasqueira'], reviews: [{author: 'Juliana', rating: 4, comment: 'Ótima localização, muito perto da praia. A cabana é simples mas muito acolhedora.'}] }
-            ];
-            
-            try {
-                console.log("A adicionar propriedades de exemplo...");
-                sampleProperties.forEach(prop => {
-                    const newDocRef = doc(propertiesCollectionRef, prop.id);
-                    batch.set(newDocRef, prop);
-                });
-                await batch.commit();
-            } catch (err) {
-                console.error("Erro ao adicionar dados de exemplo:", err);
-            }
-        }
         main();
     </script>
 </body>
