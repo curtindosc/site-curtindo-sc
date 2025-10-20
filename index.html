@@ -103,7 +103,7 @@
                     <p class="text-2xl font-bold text-gray-900 dark:text-white mb-4">R$ <span id="modal-price"></span></p>
                     <form id="contact-form" class="space-y-4">
                         <div><label for="guest-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome completo</label><input type="text" id="guest-name" placeholder="O seu nome" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
-                        <div><label for="guest-contact" class="block text-sm font-medium text-gray-700 dark:text-gray-300">WhatsApp / Telefone</label><input type="tel" id="guest-contact" placeholder="(XX) XXXXX-XXXX" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
+                        <div><label for="guest-contact" class="block text-sm font-medium text-gray-700 dark:text-gray-300">WhatsApp / Telefone</label><input type="tel" id="guest-contact" placeholder="(48) 99131-1442" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
                         <div><label for="guest-message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Mensagem (opcional)</label><textarea id="guest-message" rows="2" placeholder="Tenho interesse neste imóvel..." class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></textarea></div>
                         <button type="submit" id="contact-button" class="w-full bg-gray-900 hover:bg-gray-700 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200 text-white font-bold py-3 px-4 rounded-lg">Solicitar Contato via WhatsApp</button>
                     </form>
@@ -279,7 +279,7 @@
             }
 
             const message = `Olá! Tenho interesse no imóvel "${currentProperty.name}" (ID: ${currentProperty.id}).\n\nNome: ${guestName}\nContato: ${guestContact}\n\nMensagem: ${document.getElementById('guest-message').value.trim()}`;
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=5548991212221&text=${encodeURIComponent(message)}`;
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=5548991311442&text=${encodeURIComponent(message)}`;
             
             window.open(whatsappUrl, '_blank');
 
