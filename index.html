@@ -40,10 +40,9 @@
             <h1 class="text-5xl font-bold text-gray-900 dark:text-white">Curtindo SC Imóveis</h1>
             <p class="text-gray-500 dark:text-gray-400 mt-2 text-lg">Encontre o imóvel dos seus sonhos em Santa Catarina</p>
         </header>
-        <div class="flex justify-center space-x-2 md:space-x-4 mb-10">
+        <div id="filter-container" class="flex justify-center flex-wrap gap-2 md:gap-4 mb-10">
             <button data-filter="all" class="filter-btn active bg-gray-900 text-white px-6 py-2 rounded-full font-semibold shadow-md">Todos</button>
-            <button data-filter="Serra" class="filter-btn bg-white text-gray-800 border border-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 px-6 py-2 rounded-full font-semibold shadow-md">Serra</button>
-            <button data-filter="Litoral" class="filter-btn bg-white text-gray-800 border border-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 px-6 py-2 rounded-full font-semibold shadow-md">Litoral</button>
+            <!-- Filtros de tipo de imóvel serão inseridos aqui -->
         </div>
         <main id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></main>
         <div id="loading" class="text-center py-12"><p class="text-gray-600 dark:text-gray-400 text-lg">A carregar os melhores imóveis...</p></div>
@@ -58,10 +57,10 @@
                 <div class="flex-grow">
                     <div class="flex justify-between items-start"><h2 id="modal-title" class="text-3xl font-bold text-gray-900 dark:text-white"></h2><button id="close-modal-button" class="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white text-3xl">&times;</button></div>
                     <p id="modal-location" class="text-gray-500 dark:text-gray-400 mt-1 mb-4"><i class="fas fa-map-marker-alt mr-1"></i></p>
-                    <div class="flex items-baseline space-x-2 mb-4">
-                        <span class="text-gray-600 dark:text-gray-300"><i class="fas fa-bed mr-1"></i> <span id="modal-bedrooms"></span> Quarto(s)</span>
-                        <span class="text-gray-600 dark:text-gray-300"><i class="fas fa-bath mr-1"></i> <span id="modal-bathrooms"></span> Banheiro(s)</span>
-                        <span class="text-gray-600 dark:text-gray-300"><i class="fas fa-ruler-combined mr-1"></i> <span id="modal-area"></span> m²</span>
+                    <div class="flex flex-wrap items-center gap-x-4 gap-y-2 mb-4 text-gray-600 dark:text-gray-300">
+                        <span><i class="fas fa-bed mr-1"></i> <span id="modal-bedrooms"></span> Quarto(s)</span>
+                        <span><i class="fas fa-bath mr-1"></i> <span id="modal-bathrooms"></span> Banheiro(s)</span>
+                        <span><i class="fas fa-ruler-combined mr-1"></i> <span id="modal-area"></span> m²</span>
                     </div>
                     <p id="modal-description" class="text-gray-600 dark:text-gray-300 mb-6"></p>
                     <div class="mb-6"><h4 class="font-bold mb-2 text-gray-900 dark:text-white">Características</h4><div id="modal-features" class="grid grid-cols-2 gap-4 text-sm"></div></div>
@@ -82,11 +81,10 @@
     <div id="alert-modal" class="modal fixed inset-0 bg-black bg-opacity-75 items-center justify-center p-4 z-50"><div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-sm text-center"><h2 id="alert-title" class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Aviso</h2><p id="alert-message" class="mb-6 text-gray-600 dark:text-gray-300"></p><button id="alert-ok-button" class="px-6 py-2 bg-gray-900 dark:bg-gray-100 dark:text-gray-900 text-white rounded-lg font-semibold">OK</button></div></div>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, doc, getDoc, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, doc, getDoc, addDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         
         const firebaseConfig = { apiKey: "AIzaSyBjQ2S36qboQhqH96hiWZe-F8QPw6e31dA", authDomain: "curtindo-sc-reservas.firebaseapp.com", projectId: "curtindo-sc-reservas", storageBucket: "curtindo-sc-reservas.appspot.com", messagingSenderId: "720754493665", appId: "1:720754493665:web:7c7bed51a6b2a04a0f4fa0", measurementId: "G-Z7Q538WYZ2" };
-        const appId = "curtindo-sc-reservas";
 
         const loadingEl = document.getElementById('loading');
         const propertiesGridEl = document.getElementById('properties-grid');
@@ -95,10 +93,79 @@
         let db, auth, allProperties = [], currentProperty = null, currentImageIndex = 0;
         const showAlert = (message, title = "Aviso") => { document.getElementById('alert-title').textContent = title; document.getElementById('alert-message').textContent = message; alertModal.classList.add('show'); };
         document.getElementById('alert-ok-button').addEventListener('click', () => document.querySelectorAll('.modal').forEach(m => m.classList.remove('show')));
-        async function main() { if (!firebaseConfig.apiKey) { loadingEl.innerHTML = `<p class="text-red-500">Erro: Configuração do Firebase ausente.</p>`; return; } try { const app = initializeApp(firebaseConfig); db = getFirestore(app); auth = getAuth(app); onAuthStateChanged(auth, user => { if (user) loadProperties(); }); await signInAnonymously(auth); } catch (e) { loadingEl.style.display = 'none'; showAlert("Não foi possível conectar à base de dados.", "Erro de Conexão"); console.error("Erro na inicialização:", e); } }
-        function loadProperties() { const path = `artifacts/${appId}/public/data/properties`; onSnapshot(collection(db, path), snapshot => { loadingEl.style.display = 'none'; allProperties = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderProperties(allProperties); }, error => { loadingEl.style.display = 'none'; showAlert("Não foi possível carregar os imóveis. Verifique as regras de segurança do Firestore.", "Erro de Conexão"); console.error(error); }); }
-        function renderProperties(properties) { propertiesGridEl.innerHTML = ''; properties.forEach(prop => { const card = document.createElement('div'); card.className = 'property-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer group'; card.dataset.id = prop.id; card.innerHTML = `<div class="overflow-hidden h-64"><img src="${prop.images[0]}" alt="${prop.name}" class="property-image w-full h-full object-cover"></div><div class="p-6"><h3 class="text-xl font-bold text-gray-900 dark:text-white">${prop.name}</h3><p class="text-gray-500 dark:text-gray-400 mt-1"><i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}</p><p class="text-lg font-bold text-gray-900 dark:text-white mt-4">R$ ${prop.price_sale.toLocaleString('pt-BR')}</p></div>`; propertiesGridEl.appendChild(card); }); }
-        document.querySelectorAll('.filter-btn').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('bg-gray-900', 'text-white', 'active'); b.classList.add('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); }); btn.classList.add('bg-gray-900', 'text-white', 'active'); btn.classList.remove('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); const filter = btn.dataset.filter; if (filter === 'all') renderProperties(allProperties); else renderProperties(allProperties.filter(p => p.property_type === filter)); }); });
+        
+        async function main() { 
+            if (!firebaseConfig.apiKey) { loadingEl.innerHTML = `<p class="text-red-500">Erro: Configuração do Firebase ausente.</p>`; return; } 
+            try { 
+                const app = initializeApp(firebaseConfig); 
+                db = getFirestore(app); 
+                auth = getAuth(app); 
+                onAuthStateChanged(auth, user => { if (user) loadProperties(); }); 
+                await signInAnonymously(auth); 
+            } catch (e) { 
+                loadingEl.style.display = 'none'; 
+                showAlert("Não foi possível conectar à base de dados.", "Erro de Conexão"); 
+                console.error("Erro na inicialização:", e); 
+            } 
+        }
+
+        function loadProperties() { 
+            const path = "properties"; 
+            onSnapshot(query(collection(db, path), orderBy("name")), snapshot => { 
+                loadingEl.style.display = 'none'; 
+                allProperties = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); 
+                renderFilters(allProperties);
+                renderProperties(allProperties); 
+            }, error => { 
+                loadingEl.style.display = 'none'; 
+                showAlert("Não foi possível carregar os imóveis. Verifique as regras de segurança do Firestore.", "Erro de Conexão"); 
+                console.error(error); 
+            }); 
+        }
+
+        function renderFilters(properties) {
+            const filterContainer = document.getElementById('filter-container');
+            const propertyTypes = [...new Set(properties.map(p => p.property_type))];
+            propertyTypes.forEach(type => {
+                if (!document.querySelector(`button[data-filter="${type}"]`)) {
+                    const button = document.createElement('button');
+                    button.dataset.filter = type;
+                    button.className = 'filter-btn bg-white text-gray-800 border border-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 px-6 py-2 rounded-full font-semibold shadow-md';
+                    button.textContent = type;
+                    filterContainer.appendChild(button);
+                }
+            });
+
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => { 
+                    document.querySelectorAll('.filter-btn').forEach(b => { 
+                        b.classList.remove('bg-gray-900', 'text-white', 'active'); 
+                        b.classList.add('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); 
+                    }); 
+                    btn.classList.add('bg-gray-900', 'text-white', 'active'); 
+                    btn.classList.remove('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); 
+                    const filter = btn.dataset.filter; 
+                    if (filter === 'all') renderProperties(allProperties); 
+                    else renderProperties(allProperties.filter(p => p.property_type === filter)); 
+                });
+            });
+        }
+
+        function renderProperties(properties) { 
+            propertiesGridEl.innerHTML = ''; 
+            if (properties.length === 0) {
+                 propertiesGridEl.innerHTML = `<p class="col-span-full text-center text-gray-500 dark:text-gray-400 py-10">Nenhum imóvel encontrado para este filtro.</p>`;
+                 return;
+            }
+            properties.forEach(prop => { 
+                const card = document.createElement('div'); 
+                card.className = 'property-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer group'; 
+                card.dataset.id = prop.id; 
+                card.innerHTML = `<div class="overflow-hidden h-64"><img src="${prop.images[0] || 'https://placehold.co/600x400/e2e8f0/e2e8f0?text=Imóvel'}" alt="${prop.name}" class="property-image w-full h-full object-cover"></div><div class="p-6"><h3 class="text-xl font-bold text-gray-900 dark:text-white">${prop.name}</h3><p class="text-gray-500 dark:text-gray-400 mt-1"><i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}</p><p class="text-lg font-bold text-gray-900 dark:text-white mt-4">R$ ${prop.price_sale.toLocaleString('pt-BR')}</p></div>`; 
+                propertiesGridEl.appendChild(card); 
+            }); 
+        }
+        
         propertiesGridEl.addEventListener('click', e => { const card = e.target.closest('.property-card'); if (card) { currentProperty = allProperties.find(p => p.id === card.dataset.id); if (currentProperty) openDetailsModal(currentProperty); } });
         
         const featureIcons = { piscina: 'fa-swimmer', garagem: 'fa-car', churrasqueira: 'fa-hamburger', vista_mar: 'fa-water', mobiliado: 'fa-couch', academia: 'fa-dumbbell', salao_festas: 'fa-glass-cheers', portaria_24h: 'fa-user-shield' };
@@ -163,7 +230,7 @@
                 submissionDate: serverTimestamp()
             };
             try {
-                const path = `artifacts/${appId}/public/data/contacts`;
+                const path = "contacts";
                 await addDoc(collection(db, path), contactData);
                 showAlert(`Obrigado, ${guestName}! O seu interesse foi registado. Entraremos em contato em breve.`, 'Contato Enviado');
                 detailsModal.classList.remove('show');
@@ -182,3 +249,4 @@
     </script>
 </body>
 </html>
+
