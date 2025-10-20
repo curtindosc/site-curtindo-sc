@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         tailwind.config = { darkMode: 'class' }
     </script>
@@ -40,6 +41,15 @@
             <h1 class="text-5xl font-bold text-gray-900 dark:text-white">Curtindo SC Imóveis</h1>
             <p class="text-gray-500 dark:text-gray-400 mt-2 text-lg">Encontre o imóvel dos seus sonhos em Santa Catarina</p>
         </header>
+
+        <section class="mb-12 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-center mb-4 text-gray-900 dark:text-white">Valorização Imobiliária no Litoral de SC</h2>
+            <p class="text-center text-gray-600 dark:text-gray-400 mb-6 text-sm">Fonte: Dados simulados baseados no índice FipeZAP+ (2025 é uma projeção)</p>
+            <div class="h-64 md:h-80">
+                <canvas id="appreciation-chart"></canvas>
+            </div>
+        </section>
+
         <div id="filter-container" class="flex justify-center flex-wrap gap-2 md:gap-4 mb-10">
             <button data-filter="all" class="filter-btn active bg-gray-900 text-white px-6 py-2 rounded-full font-semibold shadow-md">Todos</button>
         </div>
@@ -69,7 +79,7 @@
                     <p class="text-2xl font-bold text-gray-900 dark:text-white mb-4">R$ <span id="modal-price"></span></p>
                     <form id="contact-form" class="space-y-4">
                         <div><label for="guest-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome completo</label><input type="text" id="guest-name" placeholder="O seu nome" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
-                        <div><label for="guest-contact" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email ou Telefone</label><input type="text" id="guest-contact" placeholder="Seu melhor contato" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
+                        <div><label for="guest-contact" class="block text-sm font-medium text-gray-700 dark:text-gray-300">WhatsApp / Telefone</label><input type="tel" id="guest-contact" placeholder="(XX) XXXXX-XXXX" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
                         <div><label for="guest-message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Mensagem (opcional)</label><textarea id="guest-message" rows="2" placeholder="Tenho interesse neste imóvel..." class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></textarea></div>
                         <button type="submit" id="contact-button" class="w-full bg-gray-900 hover:bg-gray-700 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200 text-white font-bold py-3 px-4 rounded-lg">Solicitar Contato</button>
                     </form>
@@ -109,6 +119,7 @@
         }
 
         function loadProperties() { 
+            renderAppreciationChart();
             const path = "properties"; 
             onSnapshot(query(collection(db, path), orderBy("name")), snapshot => { 
                 loadingEl.style.display = 'none'; 
@@ -262,6 +273,56 @@
             }
         });
         
+        function renderAppreciationChart() {
+            const ctx = document.getElementById('appreciation-chart').getContext('2d');
+            const isDarkMode = document.documentElement.classList.contains('dark');
+            const gridColor = isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+            const labelColor = isDarkMode ? '#cbd5e1' : '#4b5563';
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['2022', '2023', '2024', '2025 (Proj.)'],
+                    datasets: [{
+                        label: 'Valorização Média Anual (%)',
+                        data: [14.1, 16.5, 17.2, 18.0],
+                        borderColor: '#3B82F6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            ticks: {
+                                callback: function(value) { return value + '%'; },
+                                color: labelColor,
+                            },
+                             grid: { color: gridColor }
+                        },
+                        x: {
+                            ticks: { color: labelColor },
+                            grid: { color: gridColor }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: labelColor } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` Valorização: ${context.parsed.y}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
         const themeToggle = document.getElementById('theme-toggle'), sunIcon = document.getElementById('theme-icon-sun'), moonIcon = document.getElementById('theme-icon-moon');
         const applyTheme = theme => { if (theme === 'dark') { document.documentElement.classList.add('dark'); sunIcon.classList.remove('hidden'); moonIcon.classList.add('hidden'); } else { document.documentElement.classList.remove('dark'); sunIcon.classList.add('hidden'); moonIcon.classList.remove('hidden'); } };
         themeToggle.addEventListener('click', () => { const isDark = document.documentElement.classList.toggle('dark'), newTheme = isDark ? 'dark' : 'light'; localStorage.setItem('theme', newTheme); applyTheme(newTheme); });
