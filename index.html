@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curtindo SC - Imóveis à Venda</title>
+    <title>Curtindo SC - Imóveis à Venda e Aluguel</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -25,6 +25,22 @@
         .thumbnail.active { border-color: #3B82F6; }
         .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background-color 0.2s; }
         .gallery-arrow:hover { background-color: rgba(0, 0, 0, 0.8); }
+        /* Estilos para os botões de modo */
+        .mode-btn.active {
+            background-color: #1F2937; /* Gray-900 */
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .mode-btn:not(.active) {
+            background-color: white;
+            color: #1F2937;
+            border: 2px solid #D1D5DB; /* Gray-300 */
+        }
+        .dark .mode-btn:not(.active) {
+            background-color: #1F2937;
+            color: #D1D5DB;
+            border: 2px solid #4B5563; /* Gray-600 */
+        }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
@@ -36,14 +52,22 @@
                 <svg id="theme-icon-moon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
             </button>
         </div>
-        <header class="text-center mb-12 pt-10">
+        <header class="text-center mb-6 pt-10">
             <img src="https://media.bio.site/sites/15fc0509-6c95-4782-9a79-fe69fe78ce69/fetqsktutwxDYURdXexgei.jpg" alt="Logo Curtindo SC" class="mx-auto mb-4 h-32 w-32 object-cover rounded-full border-4 border-white dark:border-gray-700 shadow-lg">
             <h1 class="text-5xl font-bold text-gray-900 dark:text-white">Curtindo SC Imóveis</h1>
-            <p class="text-gray-500 dark:text-gray-400 mt-2 text-lg">Encontre o imóvel dos seus sonhos em Santa Catarina</p>
+            <p class="text-gray-500 dark:text-gray-400 mt-2 text-xl font-medium">Seu passaporte para **curtir para sempre** em SC.</p>
         </header>
 
+        <section class="mb-10 flex justify-center space-x-4">
+            <button data-mode="sale" id="filter-sale" class="mode-btn px-8 py-3 rounded-xl font-bold text-lg transition-all duration-300 active">
+                Comprar
+            </button>
+            <button data-mode="rent" id="filter-rent" class="mode-btn px-8 py-3 rounded-xl font-bold text-lg transition-all duration-300">
+                Alugar
+            </button>
+        </section>
         <section class="mb-12 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-            <h2 class="text-2xl font-bold text-center mb-4 text-gray-900 dark:text-white">Valorização Imobiliária no Litoral de SC</h2>
+            <h2 class="text-2xl font-bold text-center mb-4 text-gray-900 dark:text-white">Valorização Histórica: Imóveis Pé na Areia de SC 📈</h2>
             <p class="text-center text-gray-600 dark:text-gray-400 mb-6 text-sm">Fonte: Dados simulados baseados no índice FipeZAP+ (2025 é uma projeção)</p>
             <div class="h-64 md:h-80">
                 <canvas id="appreciation-chart"></canvas>
@@ -100,7 +124,15 @@
                 </div>
                 <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg mt-auto">
                     <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Gostou deste imóvel?</h3>
-                    <p class="text-2xl font-bold text-gray-900 dark:text-white mb-4">R$ <span id="modal-price"></span></p>
+                    
+                    <p id="modal-price-label" class="text-base text-gray-700 dark:text-gray-300 font-semibold"></p>
+                    
+                    <p class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                        <span id="modal-price"></span>
+                    </p>
+
+                    <p id="dates-info" class="text-sm text-blue-600 dark:text-blue-400 mb-4 font-medium hidden"></p>
+
                     <form id="contact-form" class="space-y-4">
                         <div><label for="guest-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome completo</label><input type="text" id="guest-name" placeholder="O seu nome" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
                         <div><label for="guest-contact" class="block text-sm font-medium text-gray-700 dark:text-gray-300">WhatsApp / Telefone</label><input type="tel" id="guest-contact" placeholder="(48) 99131-1442" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
@@ -112,6 +144,7 @@
         </div>
     </div>
     <div id="alert-modal" class="modal fixed inset-0 bg-black bg-opacity-75 items-center justify-center p-4 z-50"><div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-sm text-center"><h2 id="alert-title" class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Aviso</h2><p id="alert-message" class="mb-6 text-gray-600 dark:text-gray-300"></p><button id="alert-ok-button" class="px-6 py-2 bg-gray-900 dark:bg-gray-100 dark:text-gray-900 text-white rounded-lg font-semibold">OK</button></div></div>
+    
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getFirestore, collection, onSnapshot, doc, getDoc, addDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
@@ -123,10 +156,17 @@
         const propertiesGridEl = document.getElementById('properties-grid');
         const detailsModal = document.getElementById('details-modal');
         const alertModal = document.getElementById('alert-modal');
+        
+        // NOVO ESTADO GLOBAL
         let db, auth, allProperties = [], currentProperty = null, currentImageIndex = 0;
+        let currentMode = 'sale'; // 'sale' ou 'rent'
+
         const showAlert = (message, title = "Aviso") => { document.getElementById('alert-title').textContent = title; document.getElementById('alert-message').textContent = message; alertModal.classList.add('show'); };
         document.getElementById('alert-ok-button').addEventListener('click', () => document.querySelectorAll('.modal').forEach(m => m.classList.remove('show')));
         
+        // Função para formatar números para BRL
+        const formatBRL = (number) => number.toLocaleString('pt-BR');
+
         async function main() { 
             if (!firebaseConfig.apiKey) { loadingEl.innerHTML = `<p class="text-red-500">Erro: Configuração do Firebase ausente.</p>`; return; } 
             try { 
@@ -149,7 +189,7 @@
                 loadingEl.style.display = 'none'; 
                 allProperties = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); 
                 renderFilters(allProperties);
-                renderProperties(allProperties); 
+                renderProperties(allProperties); // Inicia a renderização no modo 'sale' (padrão)
             }, error => { 
                 loadingEl.style.display = 'none'; 
                 showAlert("Não foi possível carregar os imóveis. Verifique as regras de segurança do Firestore.", "Erro de Conexão"); 
@@ -159,9 +199,13 @@
 
         function renderFilters(properties) {
             const filterContainer = document.getElementById('filter-container');
+            // Remove botões de filtro antigos (exceto "Todos")
             filterContainer.querySelectorAll('.filter-btn:not([data-filter="all"])').forEach(btn => btn.remove());
             
-            const propertyTypes = [...new Set(properties.map(p => p.property_type))];
+            // Filtra as propriedades de acordo com o modo atual para gerar os filtros de tipo corretos
+            const propertiesToFilter = properties.filter(p => p.mode === currentMode);
+            const propertyTypes = [...new Set(propertiesToFilter.map(p => p.property_type))];
+            
             propertyTypes.forEach(type => {
                 if (type && !document.querySelector(`button[data-filter="${type}"]`)) {
                     const button = document.createElement('button');
@@ -181,23 +225,60 @@
                     btn.classList.add('bg-gray-900', 'text-white', 'active'); 
                     btn.classList.remove('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); 
                     const filter = btn.dataset.filter; 
-                    if (filter === 'all') renderProperties(allProperties); 
-                    else renderProperties(allProperties.filter(p => p.property_type === filter)); 
+                    
+                    // Aplica o filtro de tipo APENAS nos imóveis já filtrados pelo MODO
+                    const propertiesToRender = allProperties.filter(p => p.mode === currentMode);
+                    if (filter === 'all') renderProperties(propertiesToRender); 
+                    else renderProperties(propertiesToRender.filter(p => p.property_type === filter)); 
                 });
             });
         }
 
         function renderProperties(properties) { 
+            // Filtra pelo modo atual (sale ou rent)
+            const filteredByMode = properties.filter(p => p.mode === currentMode);
+
             propertiesGridEl.innerHTML = ''; 
-            if (properties.length === 0) {
-                 propertiesGridEl.innerHTML = `<p class="col-span-full text-center text-gray-500 dark:text-gray-400 py-10">Nenhum imóvel encontrado para este filtro.</p>`;
-                 return;
+            if (filteredByMode.length === 0) {
+                propertiesGridEl.innerHTML = `<p class="col-span-full text-center text-gray-500 dark:text-gray-400 py-10">Nenhum imóvel de ${currentMode === 'sale' ? 'Venda' : 'Aluguel'} encontrado.</p>`;
+                return;
             }
-            properties.forEach(prop => { 
+            
+            filteredByMode.forEach(prop => {
+                let displayPrice = '';
+                let badgeHtml = '';
+                let priceClass = '';
+                
+                if (prop.mode === 'sale') {
+                    displayPrice = `R$ ${prop.price_sale ? formatBRL(prop.price_sale) : 'Consulte'}`;
+                    badgeHtml = `<span class="absolute top-3 left-3 px-3 py-1 text-sm font-bold rounded-full z-10 bg-green-600 text-white">VENDA</span>`;
+                    priceClass = 'text-green-600';
+                } else { // mode === 'rent'
+                    if (prop.price_daily) {
+                        displayPrice = `R$ ${formatBRL(prop.price_daily)} / Diária`;
+                    } else if (prop.price_monthly) {
+                        displayPrice = `R$ ${formatBRL(prop.price_monthly)} / Mês`;
+                    } else {
+                        displayPrice = 'Consulte';
+                    }
+                    badgeHtml = `<span class="absolute top-3 left-3 px-3 py-1 text-sm font-bold rounded-full z-10 bg-blue-600 text-white">ALUGUEL</span>`;
+                    priceClass = 'text-blue-600';
+                }
+
                 const card = document.createElement('div'); 
                 card.className = 'property-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer group'; 
                 card.dataset.id = prop.id; 
-                card.innerHTML = `<div class="overflow-hidden h-64"><img src="${(prop.images && prop.images.length > 0) ? prop.images[0] : 'https://placehold.co/600x400/e2e8f0/e2e8f0?text=Imóvel'}" alt="${prop.name}" class="property-image w-full h-full object-cover"></div><div class="p-6"><h3 class="text-xl font-bold text-gray-900 dark:text-white">${prop.name}</h3><p class="text-gray-500 dark:text-gray-400 mt-1"><i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}</p><p class="text-lg font-bold text-gray-900 dark:text-white mt-4">R$ ${prop.price_sale.toLocaleString('pt-BR')}</p></div>`; 
+                card.innerHTML = `
+                    <div class="relative overflow-hidden h-64">
+                        ${badgeHtml}
+                        <img src="${(prop.images && prop.images.length > 0) ? prop.images[0] : 'https://placehold.co/600x400/e2e8f0/e2e8f0?text=Imóvel'}" alt="${prop.name}" class="property-image w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">${prop.name}</h3>
+                        <p class="text-gray-500 dark:text-gray-400 mt-1"><i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}</p>
+                        <p class="text-lg font-bold ${priceClass} mt-4">${displayPrice}</p>
+                    </div>
+                `; 
                 propertiesGridEl.appendChild(card); 
             }); 
         }
@@ -207,40 +288,78 @@
         const featureIcons = { piscina: 'fa-swimmer', garagem: 'fa-car', churrasqueira: 'fa-hamburger', vista_mar: 'fa-water', mobiliado: 'fa-couch', academia: 'fa-dumbbell', salao_festas: 'fa-glass-cheers', portaria_24h: 'fa-user-shield' };
         const featureLabels = { piscina: 'Piscina', garagem: 'Garagem', churrasqueira: 'Churrasqueira', vista_mar: 'Vista p/ Mar', mobiliado: 'Mobiliado', academia: 'Academia', salao_festas: 'Salão de Festas', portaria_24h: 'Portaria 24h' };
 
+        // openDetailsModal ajustado para Aluguel/Venda
         function openDetailsModal(prop) {
             currentImageIndex = 0;
             document.getElementById('modal-title').textContent = prop.name;
             document.getElementById('modal-location').innerHTML = `<i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}`;
             
             const bedroomsInfo = document.getElementById('bedrooms-info');
+            const bathroomsInfo = document.getElementById('bathrooms-info');
+            
+            // Exibir/Ocultar Quartos/Banheiros
             if (prop.bedrooms && prop.bedrooms > 0) {
                 document.getElementById('modal-bedrooms').textContent = prop.bedrooms;
                 bedroomsInfo.style.display = 'inline-block';
-            } else {
-                bedroomsInfo.style.display = 'none';
-            }
+            } else { bedroomsInfo.style.display = 'none'; }
 
-            const bathroomsInfo = document.getElementById('bathrooms-info');
-             if (prop.bathrooms && prop.bathrooms > 0) {
+            if (prop.bathrooms && prop.bathrooms > 0) {
                 document.getElementById('modal-bathrooms').textContent = prop.bathrooms;
                 bathroomsInfo.style.display = 'inline-block';
-            } else {
-                bathroomsInfo.style.display = 'none';
-            }
+            } else { bathroomsInfo.style.display = 'none'; }
             
             document.getElementById('modal-area').textContent = prop.area_sqm;
             document.getElementById('modal-description').textContent = prop.description;
-            document.getElementById('modal-price').textContent = prop.price_sale.toLocaleString('pt-BR');
+
+            // Lógica de Preço do Modal (NOVA)
+            const priceLabelEl = document.getElementById('modal-price-label');
+            const priceValueEl = document.getElementById('modal-price');
+            const datesInfoEl = document.getElementById('dates-info');
             
+            let displayPriceValue = 'Consulte';
+
+            if (prop.mode === 'sale') {
+                priceLabelEl.textContent = 'Preço de Venda';
+                displayPriceValue = prop.price_sale ? formatBRL(prop.price_sale) : 'Consulte';
+                datesInfoEl.classList.add('hidden');
+            } else { // mode === 'rent'
+                if (prop.price_daily) {
+                    priceLabelEl.textContent = 'Valor da Diária (Est.)';
+                    displayPriceValue = formatBRL(prop.price_daily);
+                } else if (prop.price_monthly) {
+                    priceLabelEl.textContent = 'Valor Mensal (Est.)';
+                    displayPriceValue = formatBRL(prop.price_monthly);
+                } else {
+                    priceLabelEl.textContent = 'Preço';
+                    displayPriceValue = 'Consulte';
+                }
+                
+                // Exibir Datas de Aluguel
+                if (prop.available_start && prop.available_end) {
+                     const startDate = new Date(prop.available_start.seconds * 1000);
+                     const endDate = new Date(prop.available_end.seconds * 1000);
+                     
+                     // Formata a data para dd/mm/aaaa
+                     const start = startDate.toLocaleDateString('pt-BR');
+                     const end = endDate.toLocaleDateString('pt-BR');
+
+                     datesInfoEl.innerHTML = `<i class="fas fa-calendar-alt mr-1"></i> Disponível: ${start} até ${end}`;
+                     datesInfoEl.classList.remove('hidden');
+                } else {
+                     datesInfoEl.classList.add('hidden');
+                }
+            }
+            priceValueEl.textContent = displayPriceValue;
+
+            // --- Lógica de Features (permanece a mesma) ---
             const featuresContainer = document.getElementById('modal-features');
             featuresContainer.innerHTML = '';
             if (prop.features && prop.features.length > 0) {
                 prop.features.forEach(key => {
                     featuresContainer.innerHTML += `<div class="flex items-center space-x-2"><i class="fas ${featureIcons[key] || 'fa-check'} text-gray-500 dark:text-gray-400 w-5 text-center"></i><span>${featureLabels[key] || key}</span></div>`;
                 });
-            } else {
-                featuresContainer.innerHTML = `<p class="text-gray-500 dark:text-gray-400">Nenhuma característica especial listada.</p>`;
-            }
+            } else { featuresContainer.innerHTML = `<p class="text-gray-500 dark:text-gray-400">Nenhuma característica especial listada.</p>`; }
+            
             updateGallery();
             detailsModal.classList.add('show');
         }
@@ -269,29 +388,27 @@
         document.getElementById('next-image').addEventListener('click', () => { if (currentProperty.images && currentProperty.images.length > 1) { currentImageIndex = (currentImageIndex + 1) % currentProperty.images.length; updateGallery(); } });
         document.getElementById('close-modal-button').addEventListener('click', () => detailsModal.classList.remove('show'));
         
+        // Lógica do Formulário de Contato (AJUSTADA para Venda/Aluguel)
         document.getElementById('contact-form').addEventListener('submit', async (e) => { 
             e.preventDefault();
             const guestName = document.getElementById('guest-name').value.trim();
             const guestContact = document.getElementById('guest-contact').value.trim();
-            if (!guestName || !guestContact) {
-                showAlert('Por favor, preencha o seu nome e contato.');
-                return;
-            }
+            if (!guestName || !guestContact) { showAlert('Por favor, preencha o seu nome e contato.'); return; }
 
-            const message = `Olá! Tenho interesse no imóvel "${currentProperty.name}" (ID: ${currentProperty.id}).\n\nNome: ${guestName}\nContato: ${guestContact}\n\nMensagem: ${document.getElementById('guest-message').value.trim()}`;
+            const contactMessagePrefix = currentProperty.mode === 'sale' ? 'compra' : 'aluguel';
+            const locationForMessage = currentProperty.location;
+            
+            const message = `Olá! Tenho interesse no ${contactMessagePrefix} do imóvel "${currentProperty.name}" (ID: ${currentProperty.id}) em ${locationForMessage}.\n\nNome: ${guestName}\nContato: ${guestContact}\n\nMensagem: ${document.getElementById('guest-message').value.trim()}`;
             const whatsappUrl = `https://api.whatsapp.com/send?phone=5548991311442&text=${encodeURIComponent(message)}`;
             
             window.open(whatsappUrl, '_blank');
 
-            // Opcional: Ainda guardar no Firebase para o seu controlo
             try {
                 const contactData = { propertyId: currentProperty.id, propertyName: currentProperty.name, guestName, guestContact, message: document.getElementById('guest-message').value.trim(), submissionDate: serverTimestamp() };
                 await addDoc(collection(db, "contacts"), contactData);
                 detailsModal.classList.remove('show');
                 document.getElementById('contact-form').reset();
-            } catch (error) {
-                console.error("Erro ao guardar contato no Firebase:", error);
-            }
+            } catch (error) { console.error("Erro ao guardar contato no Firebase:", error); }
         });
         
         function renderAppreciationChart() {
@@ -323,7 +440,7 @@
                                 callback: function(value) { return value + '%'; },
                                 color: labelColor,
                             },
-                             grid: { color: gridColor }
+                            grid: { color: gridColor }
                         },
                         x: {
                             ticks: { color: labelColor },
@@ -344,6 +461,26 @@
             });
         }
 
+        // NOVO: Lógica dos botões Comprar/Alugar
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentMode = btn.dataset.mode;
+                
+                document.querySelectorAll('.mode-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
+                
+                btn.classList.add('active');
+                
+                // Re-renderizar a grid e resetar filtros de tipo
+                renderProperties(allProperties);
+                // Clica no filtro "Todos" para redefinir o sub-filtro
+                document.querySelector('.filter-btn[data-filter="all"]').click(); 
+                // Recria os filtros de tipo para o modo selecionado
+                renderFilters(allProperties); 
+            });
+        });
+
         const themeToggle = document.getElementById('theme-toggle'), sunIcon = document.getElementById('theme-icon-sun'), moonIcon = document.getElementById('theme-icon-moon');
         const applyTheme = theme => { if (theme === 'dark') { document.documentElement.classList.add('dark'); sunIcon.classList.remove('hidden'); moonIcon.classList.add('hidden'); } else { document.documentElement.classList.remove('dark'); sunIcon.classList.add('hidden'); moonIcon.classList.remove('hidden'); } };
         themeToggle.addEventListener('click', () => { const isDark = document.documentElement.classList.toggle('dark'), newTheme = isDark ? 'dark' : 'light'; localStorage.setItem('theme', newTheme); applyTheme(newTheme); });
@@ -352,4 +489,3 @@
     </script>
 </body>
 </html>
-
