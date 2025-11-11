@@ -197,7 +197,6 @@
         
         function dateStringToFirebaseTimestamp(dateString) {
             if (dateString) {
-                // Adiciona um dia para garantir que o fuso horário não altere a data salva
                 const date = new Date(dateString);
                 date.setDate(date.getDate() + 1); 
                 return date;
@@ -359,13 +358,15 @@
             }
         });
         
+        // CORRIGIDO: Adicionado onerror para miniaturas e placeholder URL
         function renderImagePreviews() { 
             const container = document.getElementById('image-preview-container'); 
+            const placeholderUrl = 'https://placehold.co/100x100/e2e8f0/e2e8f0?text=Link+Inválido!';
             container.innerHTML = ''; 
             tempImages.forEach((url, index) => { 
                 const imgContainer = document.createElement('div'); 
                 imgContainer.className = 'relative'; 
-                imgContainer.innerHTML = `<img src="${url}" onerror="this.onerror=null;this.src='https://placehold.co/100x100/e2e8f0/e2e8f0?text=Link+Inválido'" class="w-full h-full object-cover rounded-md"><button type="button" data-index="${index}" class="remove-image-button absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center">&times;</button>`; 
+                imgContainer.innerHTML = `<img src="${url}" onerror="this.onerror=null;this.src='${placeholderUrl}'" class="w-full h-full object-cover rounded-md"><button type="button" data-index="${index}" class="remove-image-button absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center">&times;</button>`; 
                 container.appendChild(imgContainer); 
             }); 
         }
