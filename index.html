@@ -167,6 +167,15 @@
         // Função para formatar números para BRL
         const formatBRL = (number) => number.toLocaleString('pt-BR');
 
+        // Função para formatar um objeto Timestamp do Firebase em data legível
+        const formatTimestamp = (timestamp) => {
+            if (timestamp && timestamp.seconds) {
+                const date = new Date(timestamp.seconds * 1000);
+                return date.toLocaleDateString('pt-BR');
+            }
+            return 'Não especificado';
+        };
+
         async function main() { 
             if (!firebaseConfig.apiKey) { loadingEl.innerHTML = `<p class="text-red-500">Erro: Configuração do Firebase ausente.</p>`; return; } 
             try { 
@@ -203,7 +212,7 @@
             filterContainer.querySelectorAll('.filter-btn:not([data-filter="all"])').forEach(btn => btn.remove());
             
             // Filtra as propriedades de acordo com o modo atual para gerar os filtros de tipo corretos
-            const propertiesToFilter = properties.filter(p => p.mode === currentMode);
+            const propertiesToFilter = properties.filter(p => (p.mode || 'sale') === currentMode);
             const propertyTypes = [...new Set(propertiesToFilter.map(p => p.property_type))];
             
             propertyTypes.forEach(type => {
@@ -227,7 +236,7 @@
                     const filter = btn.dataset.filter; 
                     
                     // Aplica o filtro de tipo APENAS nos imóveis já filtrados pelo MODO
-                    const propertiesToRender = allProperties.filter(p => p.mode === currentMode);
+                    const propertiesToRender = allProperties.filter(p => (p.mode || 'sale') === currentMode);
                     if (filter === 'all') renderProperties(propertiesToRender); 
                     else renderProperties(propertiesToRender.filter(p => p.property_type === filter)); 
                 });
@@ -235,18 +244,11 @@
         }
 
         function renderProperties(properties) { 
-            // Localize esta linha (aproximadamente linha 200):
-// const filteredByMode = properties.filter(p => p.mode === currentMode);
-
-// SUBSTITUA por esta lógica corrigida:
-const filteredByMode = properties.filter(p => {
-    // Se o modo for 'sale', aceita tanto 'sale' quanto undefined/null (imóveis antigos)
-    if (currentMode === 'sale') {
-        return p.mode === 'sale' || !p.mode; 
-    }
-    // Se o modo for 'rent', exige explicitamente o modo 'rent'
-    return p.mode === currentMode;
-});
+            // CORREÇÃO: Lógica de filtro para incluir imóveis antigos no modo 'sale'
+            const filteredByMode = properties.filter(p => {
+                const mode = p.mode || 'sale';
+                return mode === currentMode;
+            });
 
             propertiesGridEl.innerHTML = ''; 
             if (filteredByMode.length === 0) {
@@ -258,8 +260,9 @@ const filteredByMode = properties.filter(p => {
                 let displayPrice = '';
                 let badgeHtml = '';
                 let priceClass = '';
+                const mode = prop.mode || 'sale';
                 
-                if (prop.mode === 'sale') {
+                if (mode === 'sale') {
                     displayPrice = `R$ ${prop.price_sale ? formatBRL(prop.price_sale) : 'Consulte'}`;
                     badgeHtml = `<span class="absolute top-3 left-3 px-3 py-1 text-sm font-bold rounded-full z-10 bg-green-600 text-white">VENDA</span>`;
                     priceClass = 'text-green-600';
@@ -298,7 +301,7 @@ const filteredByMode = properties.filter(p => {
         const featureIcons = { piscina: 'fa-swimmer', garagem: 'fa-car', churrasqueira: 'fa-hamburger', vista_mar: 'fa-water', mobiliado: 'fa-couch', academia: 'fa-dumbbell', salao_festas: 'fa-glass-cheers', portaria_24h: 'fa-user-shield' };
         const featureLabels = { piscina: 'Piscina', garagem: 'Garagem', churrasqueira: 'Churrasqueira', vista_mar: 'Vista p/ Mar', mobiliado: 'Mobiliado', academia: 'Academia', salao_festas: 'Salão de Festas', portaria_24h: 'Portaria 24h' };
 
-        // openDetailsModal ajustado para Aluguel/Venda
+        // openDetailsModal corrigido para Aluguel/Venda
         function openDetailsModal(prop) {
             currentImageIndex = 0;
             document.getElementById('modal-title').textContent = prop.name;
@@ -321,38 +324,36 @@ const filteredByMode = properties.filter(p => {
             document.getElementById('modal-area').textContent = prop.area_sqm;
             document.getElementById('modal-description').textContent = prop.description;
 
-            // Lógica de Preço do Modal (NOVA)
+            // --- Lógica de Preço Dinâmico e Datas (CORRIGIDA) ---
             const priceLabelEl = document.getElementById('modal-price-label');
             const priceValueEl = document.getElementById('modal-price');
             const datesInfoEl = document.getElementById('dates-info');
             
+            const mode = prop.mode || 'sale';
             let displayPriceValue = 'Consulte';
 
-            if (prop.mode === 'sale') {
+            if (mode === 'sale') {
                 priceLabelEl.textContent = 'Preço de Venda';
                 displayPriceValue = prop.price_sale ? formatBRL(prop.price_sale) : 'Consulte';
                 datesInfoEl.classList.add('hidden');
             } else { // mode === 'rent'
+                // Rótulo de Aluguel
+                let rentPrice = 'Consulte';
                 if (prop.price_daily) {
                     priceLabelEl.textContent = 'Valor da Diária (Est.)';
-                    displayPriceValue = formatBRL(prop.price_daily);
+                    rentPrice = formatBRL(prop.price_daily);
                 } else if (prop.price_monthly) {
                     priceLabelEl.textContent = 'Valor Mensal (Est.)';
-                    displayPriceValue = formatBRL(prop.price_monthly);
+                    rentPrice = formatBRL(prop.price_monthly);
                 } else {
                     priceLabelEl.textContent = 'Preço';
-                    displayPriceValue = 'Consulte';
                 }
+                displayPriceValue = rentPrice;
                 
                 // Exibir Datas de Aluguel
                 if (prop.available_start && prop.available_end) {
-                     const startDate = new Date(prop.available_start.seconds * 1000);
-                     const endDate = new Date(prop.available_end.seconds * 1000);
-                     
-                     // Formata a data para dd/mm/aaaa
-                     const start = startDate.toLocaleDateString('pt-BR');
-                     const end = endDate.toLocaleDateString('pt-BR');
-
+                     const start = formatTimestamp(prop.available_start);
+                     const end = formatTimestamp(prop.available_end);
                      datesInfoEl.innerHTML = `<i class="fas fa-calendar-alt mr-1"></i> Disponível: ${start} até ${end}`;
                      datesInfoEl.classList.remove('hidden');
                 } else {
@@ -361,7 +362,7 @@ const filteredByMode = properties.filter(p => {
             }
             priceValueEl.textContent = displayPriceValue;
 
-            // --- Lógica de Features (permanece a mesma) ---
+            // --- Lógica de Features ---
             const featuresContainer = document.getElementById('modal-features');
             featuresContainer.innerHTML = '';
             if (prop.features && prop.features.length > 0) {
