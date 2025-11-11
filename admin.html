@@ -358,15 +358,17 @@
             }
         });
         
-        // CORRIGIDO: Adicionado onerror para miniaturas e placeholder URL
+        // CORRIGIDO: Adicionado onerror robusto usando Base64 como fallback
         function renderImagePreviews() { 
             const container = document.getElementById('image-preview-container'); 
-            const placeholderUrl = 'https://placehold.co/100x100/e2e8f0/e2e8f0?text=Link+Inválido!';
+            // Placeholder Base64: Um pequeno SVG/Placeholder codificado
+            const base64Placeholder = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjRTJFQThGMiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iSW50ZXIsIGFyaWFsIiBmb250LXNpemU9IjEwcHgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2NjY2NjYiPkwgSW52YWxpZG88L3RleHQ+PC9zdmc+';
+            
             container.innerHTML = ''; 
             tempImages.forEach((url, index) => { 
                 const imgContainer = document.createElement('div'); 
                 imgContainer.className = 'relative'; 
-                imgContainer.innerHTML = `<img src="${url}" onerror="this.onerror=null;this.src='${placeholderUrl}'" class="w-full h-full object-cover rounded-md"><button type="button" data-index="${index}" class="remove-image-button absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center">&times;</button>`; 
+                imgContainer.innerHTML = `<img src="${url}" onerror="this.onerror=null;this.src='${base64Placeholder}'" class="w-full h-full object-cover rounded-md"><button type="button" data-index="${index}" class="remove-image-button absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center">&times;</button>`; 
                 container.appendChild(imgContainer); 
             }); 
         }
