@@ -15,11 +15,13 @@
         .modal { display: none; }
         .modal.show { display: flex; }
         #property-modal .modal-content { max-height: 90vh; overflow-y: auto; }
-        /* Transição para os campos de aluguel/venda */
+        /* Estilos de Transição para os campos condicionais */
         .hidden-transition {
             opacity: 0;
             height: 0;
             overflow: hidden;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
             transition: opacity 0.3s ease, height 0.3s ease;
         }
         .visible-transition {
@@ -71,33 +73,34 @@
                 <div><label for="name" class="block text-sm font-medium">Nome / Título do Anúncio</label><input type="text" id="name" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
                 <div><label for="location" class="block text-sm font-medium">Localização (Cidade, Bairro)</label><input type="text" id="location" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
                 
-                <div class="mb-4">
-                    <label for="property-mode" class="block text-sm font-medium">Tipo de Transação</label>
-                    <select id="property-mode" required onchange="toggleRentFields(this.value)"
-                        class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm">
-                        <option value="sale">Venda</option>
-                        <option value="rent">Aluguel</option>
-                    </select>
-                </div>
-
                 <div class="grid grid-cols-2 gap-4">
-                    <div><label for="property_type" class="block text-sm font-medium">Tipo de Imóvel</label><select id="property_type" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"><option>Apartamento</option><option>Casa</option><option>Terreno</option><option>Comercial</option></select></div>
-                    
+                    <div><label for="property_type" class="block text-sm font-medium">Tipo de Imóvel</label><select id="property_type" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"><option>Apartamento</option><option>Casa</option><option>Terreno</option><option>Comercial</option><option>Chácara</option><option>Sítio</option></select></div>
+                    <div>
+                        <label for="property-mode" class="block text-sm font-medium">Tipo de Transação</label>
+                        <select id="property-mode" required onchange="toggleRentFields(this.value)"
+                            class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm">
+                            <option value="sale">Venda</option>
+                            <option value="rent">Aluguel</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="price-fields-container">
                     <div id="sale-fields" class="visible-transition">
                         <label for="price_sale" class="block text-sm font-medium">Preço de Venda (R$)</label>
                         <input type="number" id="price_sale" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm">
                     </div>
-                </div>
-                
-                <div id="rent-fields" class="hidden-transition hidden">
-                    <h3 class="text-lg font-semibold border-b border-gray-200 dark:border-gray-700 pb-2 mb-2 text-blue-500">Detalhes do Aluguel</h3>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div><label for="price_daily" class="block text-sm font-medium">Preço Diário (R$)</label><input type="number" id="price_daily" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
-                        <div><label for="price_monthly" class="block text-sm font-medium">Preço Mensal (R$)</label><input type="number" id="price_monthly" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4 mt-4">
-                        <div><label for="available_start" class="block text-sm font-medium">Início da Disponibilidade</label><input type="date" id="available_start" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
-                        <div><label for="available_end" class="block text-sm font-medium">Fim da Disponibilidade</label><input type="date" id="available_end" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
+
+                    <div id="rent-fields" class="hidden-transition hidden">
+                        <h3 class="text-lg font-semibold border-b border-gray-200 dark:border-gray-700 pb-2 mb-2 text-blue-500">Detalhes do Aluguel</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div><label for="price_daily" class="block text-sm font-medium">Preço Diário (R$)</label><input type="number" id="price_daily" placeholder="Ex: 550" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
+                            <div><label for="price_monthly" class="block text-sm font-medium">Preço Mensal (R$)</label><input type="number" id="price_monthly" placeholder="Ex: 3500 (Baixa Temporada)" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mt-4">
+                            <div><label for="available_start" class="block text-sm font-medium">Início da Disponibilidade</label><input type="date" id="available_start" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
+                            <div><label for="available_end" class="block text-sm font-medium">Fim da Disponibilidade</label><input type="date" id="available_end" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
+                        </div>
                     </div>
                 </div>
                 
@@ -155,25 +158,25 @@
         
         // --- FUNÇÕES DE CONTROLE DE ALUGUEL/DATA ---
         
-        // NOVO: Função para alternar campos de Venda/Aluguel no modal
         function toggleRentFields(mode) {
             const saleFields = document.getElementById('sale-fields');
             const rentFields = document.getElementById('rent-fields');
         
             if (mode === 'rent') {
                 saleFields.classList.add('hidden-transition', 'hidden');
+                saleFields.classList.remove('visible-transition');
+                
                 rentFields.classList.remove('hidden-transition', 'hidden');
                 rentFields.classList.add('visible-transition');
-                saleFields.classList.remove('visible-transition');
             } else {
                 rentFields.classList.add('hidden-transition', 'hidden');
+                rentFields.classList.remove('visible-transition');
+                
                 saleFields.classList.remove('hidden-transition', 'hidden');
                 saleFields.classList.add('visible-transition');
-                rentFields.classList.remove('visible-transition');
             }
         }
         
-        // NOVO: Função para converter o objeto Timestamp (Firebase) para o formato 'yyyy-mm-dd' do input type="date"
         function firebaseTimestampToDateString(timestamp) {
             if (timestamp && timestamp.seconds) {
                 const date = new Date(timestamp.seconds * 1000);
@@ -182,11 +185,12 @@
             return '';
         }
         
-        // NOVO: Função para converter a string 'yyyy-mm-dd' para o objeto Date (para Firebase)
         function dateStringToFirebaseTimestamp(dateString) {
             if (dateString) {
-                // Converte para objeto Date. O Firestore armazena isso como Timestamp.
-                return new Date(dateString); 
+                // Adiciona um dia para garantir que o fuso horário não altere a data salva
+                const date = new Date(dateString);
+                date.setDate(date.getDate() + 1); 
+                return date;
             }
             return null;
         }
@@ -230,7 +234,6 @@
         
         function loadAdminProperties() { onSnapshot(query(collection(db, propertiesCollectionPath), orderBy("name")), snapshot => { loadingEl.style.display = 'none'; const props = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); renderAdminPropertyList(props); }); }
 
-        // MODIFICADO: Exibir modo e preço correto na lista
         function renderAdminPropertyList(properties) {
             adminPropertiesListEl.innerHTML = '';
             if (properties.length === 0) {
@@ -240,7 +243,11 @@
             properties.forEach(prop => {
                 let priceDisplay = '';
                 let modeLabel = '';
-                if (prop.mode === 'rent') {
+                
+                // Trata Imóveis Antigos que não tem o campo mode
+                const currentMode = prop.mode || 'sale'; 
+
+                if (currentMode === 'rent') {
                     modeLabel = `<span class="text-blue-500 font-medium">ALUGUEL</span>`;
                     if (prop.price_daily) {
                         priceDisplay = `R$ ${prop.price_daily.toLocaleString('pt-BR')} / Diária`;
@@ -283,7 +290,6 @@
             }
         }
 
-        // NOVO: Resetar campos de aluguel/venda ao abrir o modal
         document.getElementById('add-property-button').addEventListener('click', () => { 
             propertyForm.reset(); 
             document.getElementById('property-id').value = ''; 
@@ -291,12 +297,11 @@
             renderImagePreviews(); 
             setupFeaturesCheckboxes(); 
             modalTitle.textContent = 'Adicionar Imóvel'; 
-            document.getElementById('property-mode').value = 'sale'; // Garante o modo de venda no novo cadastro
+            document.getElementById('property-mode').value = 'sale'; 
             toggleRentFields('sale');
             propertyModal.classList.add('show'); 
         });
         
-        // MODIFICADO: Lógica de edição para carregar dados de aluguel
         adminPropertiesListEl.addEventListener('click', async e => {
             const button = e.target.closest('button');
             if (!button) return;
@@ -310,7 +315,6 @@
                     propertyForm.reset();
                     document.getElementById('property-id').value = propId;
                     
-                    // Carregar e alternar o modo
                     const mode = prop.mode || 'sale';
                     document.getElementById('property-mode').value = mode;
                     toggleRentFields(mode);
@@ -350,7 +354,6 @@
         document.getElementById('add-image-button').addEventListener('click', () => { const imageUrlInput = document.getElementById('image-url'); const url = imageUrlInput.value.trim(); if (url) { tempImages.push(url); renderImagePreviews(); imageUrlInput.value = ''; } });
         document.getElementById('image-preview-container').addEventListener('click', (e) => { if (e.target.classList.contains('remove-image-button')) { const index = parseInt(e.target.dataset.index, 10); tempImages.splice(index, 1); renderImagePreviews(); } });
 
-        // MODIFICADO: Lógica de envio para salvar dados de aluguel e venda condicionalmente
         propertyForm.addEventListener('submit', async e => { 
             e.preventDefault(); 
             const propId = document.getElementById('property-id').value; 
