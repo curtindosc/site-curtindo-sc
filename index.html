@@ -235,8 +235,18 @@
         }
 
         function renderProperties(properties) { 
-            // Filtra pelo modo atual (sale ou rent)
-            const filteredByMode = properties.filter(p => p.mode === currentMode);
+            // Localize esta linha (aproximadamente linha 200):
+// const filteredByMode = properties.filter(p => p.mode === currentMode);
+
+// SUBSTITUA por esta lógica corrigida:
+const filteredByMode = properties.filter(p => {
+    // Se o modo for 'sale', aceita tanto 'sale' quanto undefined/null (imóveis antigos)
+    if (currentMode === 'sale') {
+        return p.mode === 'sale' || !p.mode; 
+    }
+    // Se o modo for 'rent', exige explicitamente o modo 'rent'
+    return p.mode === currentMode;
+});
 
             propertiesGridEl.innerHTML = ''; 
             if (filteredByMode.length === 0) {
