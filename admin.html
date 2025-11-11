@@ -102,7 +102,7 @@
                     </div>
 
                     <div id="rent-fields" class="hidden-transition hidden">
-                        <h3 class="text-lg font-semibold border-b border-gray-200 dark:border-gray-700 pb-2 mb-2 text-blue-500">Detalhes do Aluguel</h3>
+                        <h3 class="text-lg font-semibold border-b border-gray-200 dark:border-gray-700 pb-2 mb-2 text-blue-500">Detalhes do Aluguel (Airbnb, Temporada)</h3>
                         <div class="grid grid-cols-2 gap-4">
                             <div><label for="price_daily" class="block text-sm font-medium">Preço Diário (R$)</label><input type="number" id="price_daily" placeholder="Ex: 550" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
                             <div><label for="price_monthly" class="block text-sm font-medium">Preço Mensal (R$)</label><input type="number" id="price_monthly" placeholder="Ex: 3500 (Baixa Temporada)" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm"></div>
@@ -386,7 +386,7 @@
                 bathrooms: parseInt(document.getElementById('bathrooms').value, 10) || 0,
                 area_sqm: parseInt(document.getElementById('area_sqm').value, 10),
                 description: document.getElementById('description').value,
-                images: tempImages.filter(url => url && url.startsWith('http')), // Salva apenas links válidos/não vazios
+                images: tempImages.filter(url => url && url.startsWith('http')), 
                 features: selectedFeatures,
                 mode: mode 
             };
