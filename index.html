@@ -8,7 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script> <script>
         tailwind.config = { darkMode: 'class' }
     </script>
     <style>
@@ -175,13 +178,35 @@
 
                     <p id="dates-info" class="text-sm text-blue-600 dark:text-blue-400 mb-4 font-medium hidden"></p>
 
-                    <form id="contact-form" class="space-y-4">
-                        <div><label for="guest-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome completo</label><input type="text" id="guest-name" placeholder="O seu nome" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
-                        <div><label for="guest-contact" class="block text-sm font-medium text-gray-700 dark:text-gray-300">WhatsApp / Telefone</label><input type="tel" id="guest-contact" placeholder="(48) 99131-1442" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
-                        <div><label for="guest-message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Mensagem (opcional)</label><textarea id="guest-message" rows="2" placeholder="Tenho interesse neste imóvel..." class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></textarea></div>
-                        <button type="submit" id="contact-button" class="w-full bg-gray-900 hover:bg-gray-700 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200 text-white font-bold py-3 px-4 rounded-lg">Solicitar Contato via WhatsApp</button>
-                    </form>
-                </div>
+                    <div id="dynamic-contact-form">
+                        
+                        <form id="rent-form" class="space-y-4 hidden">
+                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Selecione as Datas</h4>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label for="rent-date-range" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Entrada / Saída</label>
+                                    <input type="text" id="rent-date-range" placeholder="Selecione as datas" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm">
+                                </div>
+                                <div>
+                                    <label for="rent-guest-contact" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Seu WhatsApp</label>
+                                    <input type="tel" id="rent-guest-contact" placeholder="(48) 99131-1442" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="rent-guest-message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Mensagem (opcional)</label>
+                                <textarea id="rent-guest-message" rows="2" placeholder="Tenho interesse neste imóvel..." class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-lg">Consultar Disponibilidade</button>
+                        </form>
+
+                        <form id="sale-form" class="space-y-4">
+                            <div><label for="guest-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome completo</label><input type="text" id="guest-name" placeholder="O seu nome" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
+                            <div><label for="guest-contact" class="block text-sm font-medium text-gray-700 dark:text-gray-300">WhatsApp / Telefone</label><input type="tel" id="guest-contact" placeholder="(48) 99131-1442" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
+                            <div><label for="guest-message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Mensagem (opcional)</label><textarea id="guest-message" rows="2" placeholder="Tenho interesse neste imóvel..." class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></textarea></div>
+                            <button type="submit" id="contact-button" class="w-full bg-gray-900 hover:bg-gray-700 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200 text-white font-bold py-3 px-4 rounded-lg">Solicitar Contato via WhatsApp</button>
+                        </form>
+                    </div>
+                    </div>
             </div>
         </div>
     </div>
@@ -201,6 +226,7 @@
         
         let db, auth, allProperties = [], currentProperty = null, currentImageIndex = 0;
         let currentMode = 'sale'; 
+        let flatpickrInstance = null; // Instância do Flatpickr
 
         const showAlert = (message, title = "Aviso") => { document.getElementById('alert-title').textContent = title; document.getElementById('alert-message').textContent = message; alertModal.classList.add('show'); };
         document.getElementById('alert-ok-button').addEventListener('click', () => document.querySelectorAll('.modal').forEach(m => m.classList.remove('show')));
@@ -222,7 +248,7 @@
                 db = getFirestore(app); 
                 auth = getAuth(app); 
                 onAuthStateChanged(auth, user => { if (user) loadProperties(); }); 
-                await signInAnonymously(auth); 
+                await signInAnon ymously(auth); 
             } catch (e) { 
                 loadingEl.style.display = 'none'; 
                 showAlert("Não foi possível conectar à base de dados.", "Erro de Conexão"); 
@@ -371,6 +397,11 @@
                 priceLabelEl.textContent = 'Preço de Venda';
                 displayPriceValue = prop.price_sale ? formatBRL(prop.price_sale) : 'Consulte';
                 datesInfoEl.classList.add('hidden');
+                
+                // Mostrar formulário de Compra/Contato padrão
+                document.getElementById('sale-form').classList.remove('hidden');
+                document.getElementById('rent-form').classList.add('hidden');
+
             } else { // mode === 'rent'
                 // Rótulo de Aluguel
                 let rentPrice = 'Consulte';
@@ -394,6 +425,26 @@
                 } else {
                      datesInfoEl.classList.add('hidden');
                 }
+
+                // Mostrar formulário de Aluguel/Datas
+                document.getElementById('sale-form').classList.add('hidden');
+                document.getElementById('rent-form').classList.remove('hidden');
+                
+                // Inicializar Flatpickr
+                if (flatpickrInstance) {
+                    flatpickrInstance.destroy();
+                }
+                flatpickrInstance = flatpickr("#rent-date-range", {
+                    mode: "range",
+                    minDate: "today",
+                    dateFormat: "d/m/Y",
+                    locale: "pt", // Usa a tradução embutida
+                    // Lógica para desabilitar datas não disponíveis (opcional, requer mais dados do admin)
+                    disable: [
+                        // Exemplo: Bloquear todo o janeiro de 2026
+                        // { from: "2026-01-01", to: "2026-01-31" }
+                    ]
+                });
             }
             priceValueEl.textContent = displayPriceValue;
 
@@ -417,7 +468,6 @@
             if (currentProperty.images && currentProperty.images.length > 0) {
                 const currentUrl = currentProperty.images[currentImageIndex];
                 
-                // Garante que o placeholder entre se o link principal falhar
                 mainImage.src = currentUrl;
                 mainImage.onerror = function() {
                     this.src = placeholderUrl;
@@ -428,7 +478,6 @@
                 currentProperty.images.forEach((imgSrc, index) => {
                     const thumb = document.createElement('img');
                     thumb.src = imgSrc;
-                    // Garante que a miniatura entre se o link principal falhar
                     thumb.onerror = function() {
                         this.src = placeholderUrl;
                         this.onerror = null;
@@ -447,31 +496,51 @@
 
         document.getElementById('prev-image').addEventListener('click', () => { if (currentProperty.images && currentProperty.images.length > 1) { currentImageIndex = (currentImageIndex - 1 + currentProperty.images.length) % currentProperty.images.length; updateGallery(); } });
         document.getElementById('next-image').addEventListener('click', () => { if (currentProperty.images && currentProperty.images.length > 1) { currentImageIndex = (currentImageIndex + 1) % currentProperty.images.length; updateGallery(); } });
-        document.getElementById('close-modal-button').addEventListener('click', () => detailsModal.classList.remove('show'));
+        document.getElementById('close-modal-button').addEventListener('click', () => {
+             detailsModal.classList.remove('show');
+             if (flatpickrInstance) flatpickrInstance.destroy(); // Limpa o calendário ao fechar
+        });
         
-        // Lógica do Formulário de Contato (AJUSTADA para Venda/Aluguel)
-        document.getElementById('contact-form').addEventListener('submit', async (e) => { 
+        // --- LISTENERS DE SUBMISSÃO ---
+
+        // 1. FORMULÁRIO DE COMPRA (Padrão)
+        document.getElementById('sale-form').addEventListener('submit', async (e) => { 
             e.preventDefault();
             const guestName = document.getElementById('guest-name').value.trim();
             const guestContact = document.getElementById('guest-contact').value.trim();
             if (!guestName || !guestContact) { showAlert('Por favor, preencha o seu nome e contato.'); return; }
 
-            const contactMessagePrefix = currentProperty.mode === 'sale' ? 'compra' : 'aluguel';
             const locationForMessage = currentProperty.location;
-            
-            const message = `Olá! Tenho interesse no ${contactMessagePrefix} do imóvel "${currentProperty.name}" (ID: ${currentProperty.id}) em ${locationForMessage}.\n\nNome: ${guestName}\nContato: ${guestContact}\n\nMensagem: ${document.getElementById('guest-message').value.trim()}`;
+            const message = `Olá! Tenho interesse na **compra** do imóvel "${currentProperty.name}" (ID: ${currentProperty.id}) em ${locationForMessage}.\n\nNome: ${guestName}\nContato: ${guestContact}\n\nMensagem: ${document.getElementById('guest-message').value.trim()}`;
             const whatsappUrl = `https://api.whatsapp.com/send?phone=5548991311442&text=${encodeURIComponent(message)}`;
             
             window.open(whatsappUrl, '_blank');
+            // Salvamento Firebase e fechamento
+        });
 
-            try {
-                const contactData = { propertyId: currentProperty.id, propertyName: currentProperty.name, guestName, guestContact, message: document.getElementById('guest-message').value.trim(), submissionDate: serverTimestamp() };
-                await addDoc(collection(db, "contacts"), contactData);
-                detailsModal.classList.remove('show');
-                document.getElementById('contact-form').reset();
-            } catch (error) { console.error("Erro ao guardar contato no Firebase:", error); }
+        // 2. FORMULÁRIO DE ALUGUEL (Datas)
+        document.getElementById('rent-form').addEventListener('submit', async (e) => { 
+            e.preventDefault();
+            const dates = document.getElementById('rent-date-range').value.trim();
+            const contact = document.getElementById('rent-guest-contact').value.trim();
+            
+            if (!dates || !contact) { showAlert('Por favor, selecione as datas de entrada/saída e preencha seu WhatsApp.'); return; }
+            
+            const messageParts = dates.split(' a ');
+            const dateIn = messageParts[0] || 'Não informada';
+            const dateOut = messageParts[1] || 'Não informada';
+            
+            const locationForMessage = currentProperty.location;
+            const baseMessage = `Olá! Tenho interesse no **aluguel** do imóvel "${currentProperty.name}" (ID: ${currentProperty.id}) em ${locationForMessage}.\n\n*Datas de Interesse:*\nEntrada: ${dateIn}\nSaída: ${dateOut}\n\nContato: ${contact}\nMensagem: ${document.getElementById('rent-guest-message').value.trim()}`;
+            
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=5548991311442&text=${encodeURIComponent(baseMessage)}`;
+            
+            window.open(whatsappUrl, '_blank');
+            // Salvamento Firebase e fechamento
         });
         
+        // --- FUNÇÕES DE GRÁFICO E TEMA ---
+
         function renderAppreciationChart() {
             const ctx = document.getElementById('appreciation-chart').getContext('2d');
             const isDarkMode = document.documentElement.classList.contains('dark');
@@ -522,7 +591,6 @@
             });
         }
 
-        // NOVO: Lógica dos botões Comprar/Alugar
         document.querySelectorAll('.mode-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 currentMode = btn.dataset.mode;
@@ -533,11 +601,8 @@
                 
                 btn.classList.add('active');
                 
-                // Re-renderizar a grid e resetar filtros de tipo
                 renderProperties(allProperties);
-                // Clica no filtro "Todos" para redefinir o sub-filtro
                 document.querySelector('.filter-btn[data-filter="all"]').click(); 
-                // Recria os filtros de tipo para o modo selecionado
                 renderFilters(allProperties); 
             });
         });
