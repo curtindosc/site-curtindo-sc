@@ -41,6 +41,12 @@
             color: #D1D5DB;
             border: 2px solid #4B5563; /* Gray-600 */
         }
+        /* Estilo para embeds do Instagram */
+        .instagram-embed-container {
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+        }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
@@ -66,6 +72,7 @@
                 Alugar
             </button>
         </section>
+
         <section class="mb-12 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
             <h2 class="text-2xl font-bold text-center mb-4 text-gray-900 dark:text-white">Valorização Histórica: Imóveis Pé na Areia de SC 📈</h2>
             <p class="text-center text-gray-600 dark:text-gray-400 mb-6 text-sm">Fonte: Dados simulados baseados no índice FipeZAP+ (2025 é uma projeção)</p>
@@ -74,6 +81,41 @@
             </div>
         </section>
 
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold text-center mb-6 text-gray-900 dark:text-white">Destaques da Serra & Litoral 📸</h2>
+            <p class="text-center text-gray-600 dark:text-gray-400 mb-8">Veja os roteiros mais curtidos que te levam ao seu futuro imóvel.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden p-4">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Refúgio em Urubici</h3>
+                    <div class="instagram-embed-container">
+                        <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe></div>
+                        <p class="text-xs text-gray-500 mt-2">Vídeo placeholder. Substitua pelo código embed do seu Reel!</p>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden p-4">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Melhores Vistas de Palhoça</h3>
+                    <div class="instagram-embed-container">
+                        <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe></div>
+                        <p class="text-xs text-gray-500 mt-2">Vídeo placeholder. Substitua pelo código embed do seu Reel!</p>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden p-4">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Investimento Inteligente</h3>
+                    <div class="instagram-embed-container">
+                        <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe></div>
+                        <p class="text-xs text-gray-500 mt-2">Vídeo placeholder. Substitua pelo código embed do seu Reel!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <a href="https://www.instagram.com/curtindosc/" target="_blank" class="bg-pink-600 hover:bg-pink-500 text-white font-bold py-3 px-6 rounded-lg text-lg shadow-md transition-colors duration-300 flex items-center justify-center mx-auto max-w-xs space-x-2">
+                    <i class="fab fa-instagram fa-lg"></i><span>Ver Mais no Instagram</span>
+                </a>
+            </div>
+        </section>
         <div id="filter-container" class="flex justify-center flex-wrap gap-2 md:gap-4 mb-10">
             <button data-filter="all" class="filter-btn active bg-gray-900 text-white px-6 py-2 rounded-full font-semibold shadow-md">Todos</button>
         </div>
@@ -157,17 +199,14 @@
         const detailsModal = document.getElementById('details-modal');
         const alertModal = document.getElementById('alert-modal');
         
-        // NOVO ESTADO GLOBAL
         let db, auth, allProperties = [], currentProperty = null, currentImageIndex = 0;
-        let currentMode = 'sale'; // 'sale' ou 'rent'
+        let currentMode = 'sale'; 
 
         const showAlert = (message, title = "Aviso") => { document.getElementById('alert-title').textContent = title; document.getElementById('alert-message').textContent = message; alertModal.classList.add('show'); };
         document.getElementById('alert-ok-button').addEventListener('click', () => document.querySelectorAll('.modal').forEach(m => m.classList.remove('show')));
         
-        // Função para formatar números para BRL
         const formatBRL = (number) => number.toLocaleString('pt-BR');
 
-        // Função para formatar um objeto Timestamp do Firebase em data legível
         const formatTimestamp = (timestamp) => {
             if (timestamp && timestamp.seconds) {
                 const date = new Date(timestamp.seconds * 1000);
@@ -198,7 +237,7 @@
                 loadingEl.style.display = 'none'; 
                 allProperties = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); 
                 renderFilters(allProperties);
-                renderProperties(allProperties); // Inicia a renderização no modo 'sale' (padrão)
+                renderProperties(allProperties);
             }, error => { 
                 loadingEl.style.display = 'none'; 
                 showAlert("Não foi possível carregar os imóveis. Verifique as regras de segurança do Firestore.", "Erro de Conexão"); 
@@ -208,10 +247,8 @@
 
         function renderFilters(properties) {
             const filterContainer = document.getElementById('filter-container');
-            // Remove botões de filtro antigos (exceto "Todos")
             filterContainer.querySelectorAll('.filter-btn:not([data-filter="all"])').forEach(btn => btn.remove());
             
-            // Filtra as propriedades de acordo com o modo atual para gerar os filtros de tipo corretos
             const propertiesToFilter = properties.filter(p => (p.mode || 'sale') === currentMode);
             const propertyTypes = [...new Set(propertiesToFilter.map(p => p.property_type))];
             
@@ -235,7 +272,6 @@
                     btn.classList.remove('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); 
                     const filter = btn.dataset.filter; 
                     
-                    // Aplica o filtro de tipo APENAS nos imóveis já filtrados pelo MODO
                     const propertiesToRender = allProperties.filter(p => (p.mode || 'sale') === currentMode);
                     if (filter === 'all') renderProperties(propertiesToRender); 
                     else renderProperties(propertiesToRender.filter(p => p.property_type === filter)); 
@@ -244,7 +280,6 @@
         }
 
         function renderProperties(properties) { 
-            // CORREÇÃO: Lógica de filtro para incluir imóveis antigos no modo 'sale'
             const filteredByMode = properties.filter(p => {
                 const mode = p.mode || 'sale';
                 return mode === currentMode;
@@ -377,12 +412,27 @@
 
         function updateGallery() {
             const mainImage = document.getElementById('modal-main-image'), thumbnailContainer = document.getElementById('thumbnail-container');
+            const placeholderUrl = 'https://placehold.co/600x400/e2e8f0/e2e8f0?text=Imóvel+Não+Carregado';
+            
             if (currentProperty.images && currentProperty.images.length > 0) {
-                mainImage.src = currentProperty.images[currentImageIndex];
+                const currentUrl = currentProperty.images[currentImageIndex];
+                
+                // Garante que o placeholder entre se o link principal falhar
+                mainImage.src = currentUrl;
+                mainImage.onerror = function() {
+                    this.src = placeholderUrl;
+                    this.onerror = null; 
+                };
+
                 thumbnailContainer.innerHTML = '';
                 currentProperty.images.forEach((imgSrc, index) => {
                     const thumb = document.createElement('img');
                     thumb.src = imgSrc;
+                    // Garante que a miniatura entre se o link principal falhar
+                    thumb.onerror = function() {
+                        this.src = placeholderUrl;
+                        this.onerror = null;
+                    };
                     thumb.className = `thumbnail h-16 w-16 object-cover rounded ${index === currentImageIndex ? 'active' : ''}`;
                     thumb.dataset.index = index;
                     thumb.addEventListener('click', () => { currentImageIndex = index; updateGallery(); });
@@ -390,7 +440,7 @@
                 });
                 thumbnailContainer.children[currentImageIndex]?.scrollIntoView({ behavior: 'smooth', inline: 'center' });
             } else {
-                mainImage.src = 'https://placehold.co/600x400/e2e8f0/e2e8f0?text=Imóvel';
+                mainImage.src = placeholderUrl;
                 thumbnailContainer.innerHTML = '';
             }
         }
