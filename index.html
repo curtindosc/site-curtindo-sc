@@ -48,10 +48,15 @@
         .tiktok-embed-vertical {
             width: 100%;
             height: 0;
-            padding-bottom: 177.78%; /* 16:9 vertical (9 / 16 = 0.5625; 1/0.5625 = 1.7778) */
+            padding-bottom: 177.78%; /* Proporção 9:16 vertical */
             position: relative;
             overflow: hidden;
             background-color: #000;
+            
+            /* CORREÇÃO PARA DESKTOP */
+            max-width: 400px; /* Limita a largura máxima do vídeo */
+            margin-left: auto; /* Centraliza o bloco na coluna */
+            margin-right: auto;
         }
         .tiktok-embed-vertical iframe {
             position: absolute;
@@ -432,7 +437,6 @@
                 document.getElementById('rent-form').classList.add('hidden');
 
             } else { // mode === 'rent'
-                // Rótulo de Aluguel
                 let rentPrice = 'Consulte';
                 if (prop.price_daily) {
                     priceLabelEl.textContent = 'Valor da Diária (Est.)';
@@ -465,13 +469,11 @@
                 // Inicializar Flatpickr (Apenas no modo Aluguel)
                 flatpickrInstance = flatpickr("#rent-date-range", {
                     mode: "range",
-                    minDate: "today", // Pode começar a reservar a partir de hoje
+                    minDate: "today", 
                     dateFormat: "d/m/Y",
                     locale: "pt",
-                    // Configuração de datas mínimas/máximas baseadas no Admin
                     minDate: availableStart || "today",
                     maxDate: availableEnd || null,
-                    // Desabilitar todas as datas FORA do range de disponibilidade
                     disable: availableStart && availableEnd ? [
                         { from: "1900-01-01", to: availableStart },
                         { from: availableEnd, to: "2100-01-01" }
