@@ -44,11 +44,22 @@
             color: #D1D5DB;
             border: 2px solid #4B5563; /* Gray-600 */
         }
-        /* Estilo para embeds do Instagram */
-        .instagram-embed-container {
+        /* Estilo para embeds do TikTok (Proporção 9:16 Vertical) */
+        .tiktok-embed-vertical {
+            width: 100%;
+            height: 0;
+            padding-bottom: 177.78%; /* 16:9 vertical (9 / 16 = 0.5625; 1/0.5625 = 1.7778) */
+            position: relative;
+            overflow: hidden;
+            background-color: #000;
+        }
+        .tiktok-embed-vertical iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            min-height: 400px;
+            border: none;
         }
     </style>
 </head>
@@ -85,37 +96,41 @@
         </section>
 
         <section class="mb-12">
-            <h2 class="text-3xl font-bold text-center mb-6 text-gray-900 dark:text-white">Destaques da Serra & Litoral 📸</h2>
-            <p class="text-center text-gray-600 dark:text-gray-400 mb-8">Veja os roteiros mais curtidos que te levam ao seu futuro imóvel.</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <h2 class="text-3xl font-bold text-center mb-6 text-gray-900 dark:text-white">Destaques do TikTok: Onde Curtir e Investir 🤳</h2>
+            <p class="text-center text-gray-600 dark:text-gray-400 mb-8">Vídeos que te levam ao seu futuro imóvel em SC.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden p-4">
-                    <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Refúgio em Urubici</h3>
-                    <div class="instagram-embed-container">
-                        <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe></div>
-                        <p class="text-xs text-gray-500 mt-2">Vídeo placeholder. Substitua pelo código embed do seu Reel!</p>
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden p-3">
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Praias Paradisíacas</h3>
+                    <div class="tiktok-embed-vertical">
+                        <iframe src="https://www.tiktok.com/embed/v2/7574496577407061255?lang=pt-BR" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden p-4">
-                    <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Melhores Vistas de Palhoça</h3>
-                    <div class="instagram-embed-container">
-                        <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe></div>
-                        <p class="text-xs text-gray-500 mt-2">Vídeo placeholder. Substitua pelo código embed do seu Reel!</p>
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden p-3">
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">A Força da Serra</h3>
+                    <div class="tiktok-embed-vertical">
+                        <iframe src="https://www.tiktok.com/embed/v2/7575153747588844808?lang=pt-BR" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden p-4">
-                    <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Investimento Inteligente</h3>
-                    <div class="instagram-embed-container">
-                        <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe></div>
-                        <p class="text-xs text-gray-500 mt-2">Vídeo placeholder. Substitua pelo código embed do seu Reel!</p>
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden p-3">
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Seu Próximo Passo</h3>
+                    <div class="tiktok-embed-vertical">
+                        <iframe src="https://www.tiktok.com/embed/v2/7572274629688003847?lang=pt-BR" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden p-3">
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Viver em Palhoça é...</h3>
+                    <div class="tiktok-embed-vertical">
+                        <iframe src="https://www.tiktok.com/embed/v2/7571926969747508488?lang=pt-BR" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
             <div class="text-center mt-8">
-                <a href="https://www.instagram.com/curtindosc/" target="_blank" class="bg-pink-600 hover:bg-pink-500 text-white font-bold py-3 px-6 rounded-lg text-lg shadow-md transition-colors duration-300 flex items-center justify-center mx-auto max-w-xs space-x-2">
-                    <i class="fab fa-instagram fa-lg"></i><span>Ver Mais no Instagram</span>
+                <a href="https://www.tiktok.com/@curtindosc" target="_blank" class="bg-black hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-lg text-lg shadow-md transition-colors duration-300 flex items-center justify-center mx-auto max-w-xs space-x-2">
+                    <i class="fab fa-tiktok fa-lg"></i><span>Ver Mais no TikTok</span>
                 </a>
             </div>
         </section>
@@ -132,11 +147,11 @@
                 <p class="font-bold text-lg text-gray-800 dark:text-white">Curtindo SC Imóveis</p>
                 <p class="text-sm mt-2">Transformando sonhos em realidade no litoral e na serra catarinense.</p>
                 <div class="flex justify-center space-x-6 mt-4">
-                    <a href="https://www.instagram.com/curtindoscoficial/" target="_blank" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="https://www.instagram.com/curtindosc/" target="_blank" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"><i class="fab fa-instagram fa-lg"></i></a>
                     <a href="https://www.tiktok.com/@curtindosc" target="_blank" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"><i class="fab fa-tiktok fa-lg"></i></a>
                     <a href="https://api.whatsapp.com/send/?phone=5548991311442" target="_blank" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"><i class="fab fa-whatsapp fa-lg"></i></a>
                     <a href="https://www.facebook.com/curtindosc" target="_blank" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
-                    <a href="https://www.youtube.com/@curtindoscoficial" target="_blank" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"><i class="fab fa-youtube fa-lg"></i></a>
+                    <a href="https://www.youtube.com/@curtindosc" target="_blank" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"><i class="fab fa-youtube fa-lg"></i></a>
                 </div>
             </div>
         </div>
@@ -226,7 +241,7 @@
         
         let db, auth, allProperties = [], currentProperty = null, currentImageIndex = 0;
         let currentMode = 'sale'; 
-        let flatpickrInstance = null; // Instância do Flatpickr
+        let flatpickrInstance = null; 
 
         const showAlert = (message, title = "Aviso") => { document.getElementById('alert-title').textContent = title; document.getElementById('alert-message').textContent = message; alertModal.classList.add('show'); };
         document.getElementById('alert-ok-button').addEventListener('click', () => document.querySelectorAll('.modal').forEach(m => m.classList.remove('show')));
@@ -241,7 +256,6 @@
             return 'Não especificado';
         };
         
-        // Função utilitária para converter Timestamp para formato ISO
         const timestampToISODate = (timestamp) => {
             if (timestamp && timestamp.seconds) {
                 const date = new Date(timestamp.seconds * 1000);
@@ -256,7 +270,6 @@
                 const app = initializeApp(firebaseConfig); 
                 db = getFirestore(app); 
                 auth = getAuth(app); 
-                // A autenticação anônima deve vir antes do listener onAuthStateChanged no caso de Github Pages
                 await signInAnonymously(auth); 
                 onAuthStateChanged(auth, user => { if (user) loadProperties(); }); 
             } catch (e) { 
@@ -403,7 +416,7 @@
             const mode = prop.mode || 'sale';
             let displayPriceValue = 'Consulte';
 
-            // Destruir instância do Flatpickr existente
+            // Destruir instância do Flatpickr existente para evitar duplicação
             if (flatpickrInstance) {
                 flatpickrInstance.destroy();
                 flatpickrInstance = null;
@@ -419,6 +432,7 @@
                 document.getElementById('rent-form').classList.add('hidden');
 
             } else { // mode === 'rent'
+                // Rótulo de Aluguel
                 let rentPrice = 'Consulte';
                 if (prop.price_daily) {
                     priceLabelEl.textContent = 'Valor da Diária (Est.)';
@@ -431,7 +445,10 @@
                 }
                 displayPriceValue = rentPrice;
                 
-                // Exibir Datas de Aluguel
+                // Exibir Datas de Aluguel (Disponibilidade cadastrada no Admin)
+                const availableStart = timestampToISODate(prop.available_start);
+                const availableEnd = timestampToISODate(prop.available_end);
+                
                 if (prop.available_start && prop.available_end) {
                      const start = formatTimestamp(prop.available_start);
                      const end = formatTimestamp(prop.available_end);
@@ -446,23 +463,19 @@
                 document.getElementById('rent-form').classList.remove('hidden');
                 
                 // Inicializar Flatpickr (Apenas no modo Aluguel)
-                const availableStart = timestampToISODate(prop.available_start);
-                const availableEnd = timestampToISODate(prop.available_end);
-                
-                // Configuração básica de bloqueio
-                let disableDates = [];
-                // Se houver datas de disponibilidade, bloqueamos tudo que estiver fora desse intervalo.
-                if (availableStart && availableEnd) {
-                    // É mais fácil desabilitar o que está fora do range
-                }
-
                 flatpickrInstance = flatpickr("#rent-date-range", {
                     mode: "range",
-                    minDate: availableStart || "today",
-                    maxDate: availableEnd || null,
+                    minDate: "today", // Pode começar a reservar a partir de hoje
                     dateFormat: "d/m/Y",
                     locale: "pt",
-                    disable: disableDates
+                    // Configuração de datas mínimas/máximas baseadas no Admin
+                    minDate: availableStart || "today",
+                    maxDate: availableEnd || null,
+                    // Desabilitar todas as datas FORA do range de disponibilidade
+                    disable: availableStart && availableEnd ? [
+                        { from: "1900-01-01", to: availableStart },
+                        { from: availableEnd, to: "2100-01-01" }
+                    ] : []
                 });
             }
             priceValueEl.textContent = displayPriceValue;
@@ -517,12 +530,11 @@
         document.getElementById('next-image').addEventListener('click', () => { if (currentProperty.images && currentProperty.images.length > 1) { currentImageIndex = (currentImageIndex + 1) % currentProperty.images.length; updateGallery(); } });
         document.getElementById('close-modal-button').addEventListener('click', () => {
              detailsModal.classList.remove('show');
-             if (flatpickrInstance) flatpickrInstance.destroy(); // Limpa o calendário ao fechar
+             if (flatpickrInstance) flatpickrInstance.destroy(); 
         });
         
         // --- LISTENERS DE SUBMISSÃO ---
 
-        // 1. FORMULÁRIO DE COMPRA (Padrão)
         document.getElementById('sale-form').addEventListener('submit', async (e) => { 
             e.preventDefault();
             const guestName = document.getElementById('guest-name').value.trim();
@@ -534,10 +546,8 @@
             const whatsappUrl = `https://api.whatsapp.com/send?phone=5548991311442&text=${encodeURIComponent(message)}`;
             
             window.open(whatsappUrl, '_blank');
-            // Salvamento Firebase e fechamento
         });
 
-        // 2. FORMULÁRIO DE ALUGUEL (Datas)
         document.getElementById('rent-form').addEventListener('submit', async (e) => { 
             e.preventDefault();
             const dates = document.getElementById('rent-date-range').value.trim();
@@ -555,7 +565,6 @@
             const whatsappUrl = `https://api.whatsapp.com/send?phone=5548991311442&text=${encodeURIComponent(baseMessage)}`;
             
             window.open(whatsappUrl, '_blank');
-            // Salvamento Firebase e fechamento
         });
         
         // --- FUNÇÕES DE GRÁFICO E TEMA ---
