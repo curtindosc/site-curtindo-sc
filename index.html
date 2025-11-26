@@ -11,7 +11,9 @@
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script> <script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+
+    <script>
         tailwind.config = { darkMode: 'class' }
     </script>
     <style>
@@ -30,32 +32,30 @@
         .gallery-arrow:hover { background-color: rgba(0, 0, 0, 0.8); }
         /* Estilos para os botões de modo */
         .mode-btn.active {
-            background-color: #1F2937; /* Gray-900 */
+            background-color: #1F2937; 
             color: white;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
         .mode-btn:not(.active) {
             background-color: white;
             color: #1F2937;
-            border: 2px solid #D1D5DB; /* Gray-300 */
+            border: 2px solid #D1D5DB; 
         }
         .dark .mode-btn:not(.active) {
             background-color: #1F2937;
             color: #D1D5DB;
-            border: 2px solid #4B5563; /* Gray-600 */
+            border: 2px solid #4B5563; 
         }
-        /* Estilo para embeds do TikTok (Proporção 9:16 Vertical) */
+        /* Estilo para embeds do TikTok */
         .tiktok-embed-vertical {
             width: 100%;
             height: 0;
-            padding-bottom: 177.78%; /* Proporção 9:16 vertical */
+            padding-bottom: 177.78%; 
             position: relative;
             overflow: hidden;
             background-color: #000;
-            
-            /* CORREÇÃO PARA DESKTOP */
-            max-width: 400px; /* Limita a largura máxima do vídeo */
-            margin-left: auto; /* Centraliza o bloco na coluna */
+            max-width: 400px; 
+            margin-left: auto; 
             margin-right: auto;
         }
         .tiktok-embed-vertical iframe {
@@ -139,6 +139,7 @@
                 </a>
             </div>
         </section>
+
         <div id="filter-container" class="flex justify-center flex-wrap gap-2 md:gap-4 mb-10">
             <button data-filter="all" class="filter-btn active bg-gray-900 text-white px-6 py-2 rounded-full font-semibold shadow-md">Todos</button>
         </div>
@@ -207,16 +208,35 @@
                                     <label for="rent-date-range" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Entrada / Saída</label>
                                     <input type="text" id="rent-date-range" placeholder="Selecione as datas" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm">
                                 </div>
-                                <div class="col-span-2">
-                                    <label for="rent-guest-contact" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Seu WhatsApp</label>
-                                    <input type="tel" id="rent-guest-contact" placeholder="(48) 99131-1442" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm">
+                            </div>
+
+                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 pt-2 border-t border-gray-300 dark:border-gray-700">Quem vai se hospedar?</h4>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label for="guests-adults" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Adultos</label>
+                                    <input type="number" id="guests-adults" value="2" min="1" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm">
+                                </div>
+                                <div>
+                                    <label for="guests-children" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Crianças (0-12)</label>
+                                    <input type="number" id="guests-children" value="0" min="0" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm">
                                 </div>
                             </div>
+                            
+                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 pt-2 border-t border-gray-300 dark:border-gray-700">Seus Dados</h4>
+                            <div>
+                                <label for="rent-guest-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome Completo</label>
+                                <input type="text" id="rent-guest-name" placeholder="Seu nome" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm">
+                            </div>
+                            <div>
+                                <label for="rent-guest-contact" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Seu WhatsApp</label>
+                                <input type="tel" id="rent-guest-contact" placeholder="(48) 99131-1442" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm">
+                            </div>
+
                             <div>
                                 <label for="rent-guest-message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Mensagem (opcional)</label>
                                 <textarea id="rent-guest-message" rows="2" placeholder="Tenho interesse neste imóvel..." class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></textarea>
                             </div>
-                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-lg">Consultar Disponibilidade</button>
+                            <button type="submit" id="reserve-button" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-lg">Verificar Preço e Reservar</button>
                         </form>
 
                         <form id="sale-form" class="space-y-4">
@@ -554,15 +574,71 @@
             e.preventDefault();
             const dates = document.getElementById('rent-date-range').value.trim();
             const contact = document.getElementById('rent-guest-contact').value.trim();
+            const name = document.getElementById('rent-guest-name').value.trim();
+            const adults = parseInt(document.getElementById('guests-adults').value) || 0;
+            const children = parseInt(document.getElementById('guests-children').value) || 0;
             
-            if (!dates || !contact) { showAlert('Por favor, selecione as datas de entrada/saída e preencha seu WhatsApp.'); return; }
+            if (!dates || !contact || !name || adults === 0) { 
+                showAlert('Por favor, preencha o nome, WhatsApp, as datas e a quantidade de adultos.', 'Dados Faltando'); 
+                return; 
+            }
             
+            // --- LÓGICA DE CÁLCULO DE PREÇO ---
+            const dailyRate = currentProperty.price_daily || currentProperty.price_monthly;
+            let totalValue = 0;
+            let priceType = 'Diária/Mês não cadastrado';
+            let numberOfNights = 0;
+
             const messageParts = dates.split(' a ');
-            const dateIn = messageParts[0] || 'Não informada';
-            const dateOut = messageParts[1] || 'Não informada';
-            
+            const dateInStr = messageParts[0];
+            const dateOutStr = messageParts[1];
+
+            if (dateOutStr && dailyRate) {
+                const [dayIn, monthIn, yearIn] = dateInStr.split('/').map(Number);
+                const [dayOut, monthOut, yearOut] = dateOutStr.split('/').map(Number);
+
+                const dateIn = new Date(yearIn, monthIn - 1, dayIn);
+                const dateOut = new Date(yearOut, monthOut - 1, dayOut);
+                
+                const timeDifference = dateOut.getTime() - dateIn.getTime();
+                numberOfNights = Math.ceil(timeDifference / (1000 * 3600 * 24)); 
+
+                if (numberOfNights <= 0) {
+                    showAlert('A data de saída deve ser posterior à data de entrada.', 'Erro de Datas');
+                    return;
+                }
+                
+                if (currentProperty.price_daily) {
+                    totalValue = numberOfNights * dailyRate;
+                    priceType = `Diária (${formatBRL(dailyRate)} x ${numberOfNights} noites)`;
+                } else if (currentProperty.price_monthly) {
+                    totalValue = dailyRate; // Se for mensal, usa o preço mensal fixo
+                    priceType = `Mensalidade (${formatBRL(dailyRate)})`;
+                }
+            } else if (!dailyRate) {
+                showAlert('Este imóvel não tem preço de diária/mês cadastrado para cálculo.', 'Erro de Cadastro');
+                return;
+            } else if (!dateOutStr) {
+                showAlert('Selecione tanto a data de entrada quanto a data de saída para calcular.', 'Datas Incompletas');
+                return;
+            }
+
+            // --- GERAÇÃO DA MENSAGEM DE ORÇAMENTO COMPLETO ---
             const locationForMessage = currentProperty.location;
-            const baseMessage = `Olá! Tenho interesse no **aluguel** do imóvel "${currentProperty.name}" (ID: ${currentProperty.id}) em ${locationForMessage}.\n\n*Datas de Interesse:*\nEntrada: ${dateIn}\nSaída: ${dateOut}\n\nContato: ${contact}\nMensagem: ${document.getElementById('rent-guest-message').value.trim()}`;
+            const msgGuests = `${adults} adultos e ${children} crianças.`;
+            
+            const baseMessage = `*ORÇAMENTO DE RESERVA - CURTINDO SC*\n\n` +
+                                `Imóvel: "${currentProperty.name}" (ID: ${currentProperty.id})\n` +
+                                `Local: ${locationForMessage}\n\n` +
+                                `*DETALHES DA RESERVA:*\n` +
+                                `Período: ${dateIn} até ${dateOut}\n` +
+                                `Hóspedes: ${msgGuests}\n` +
+                                `Cálculo: ${priceType}\n` +
+                                `*Valor Total Estimado: R$ ${formatBRL(totalValue)}*\n\n` +
+                                `Nome: ${name}\n` +
+                                `Contato: ${contact}\n` +
+                                `Mensagem: ${document.getElementById('rent-guest-message').value.trim()}\n\n` +
+                                `*Clique em Enviar para confirmar o orçamento e os dados de pagamento (Pix/Cartão).*`;
             
             const whatsappUrl = `https://api.whatsapp.com/send?phone=5548991311442&text=${encodeURIComponent(baseMessage)}`;
             
