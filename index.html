@@ -52,8 +52,6 @@
             height: 0;
             padding-bottom: 177.78%; 
             position: relative;
-            overflow: hidden;
-            background-color: #000;
             max-width: 400px; 
             margin-left: auto; 
             margin-right: auto;
@@ -236,6 +234,14 @@
                                 <label for="rent-guest-message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Mensagem (opcional)</label>
                                 <textarea id="rent-guest-message" rows="2" placeholder="Tenho interesse neste imóvel..." class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></textarea>
                             </div>
+
+                            <div id="reservation-summary" class="bg-blue-100 dark:bg-blue-900 p-3 rounded-md mb-3 space-y-1 hidden">
+                                <p class="text-blue-800 dark:text-blue-200 font-semibold">Resumo do Orçamento:</p>
+                                <p id="summary-nights" class="text-sm text-gray-700 dark:text-gray-300"></p>
+                                <p id="summary-guests" class="text-sm text-gray-700 dark:text-gray-300"></p>
+                                <p id="summary-total" class="text-lg font-bold text-blue-800 dark:text-blue-200"></p>
+                            </div>
+
                             <button type="submit" id="reserve-button" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-lg">Verificar Preço e Reservar</button>
                         </form>
 
@@ -570,6 +576,7 @@
             window.open(whatsappUrl, '_blank');
         });
 
+        // FORMULÁRIO DE ALUGUEL (Checkout via Mercado Pago + Notificação WhatsApp)
         document.getElementById('rent-form').addEventListener('submit', async (e) => { 
             e.preventDefault();
             const dates = document.getElementById('rent-date-range').value.trim();
@@ -577,6 +584,9 @@
             const name = document.getElementById('rent-guest-name').value.trim();
             const adults = parseInt(document.getElementById('guests-adults').value) || 0;
             const children = parseInt(document.getElementById('guests-children').value) || 0;
+            
+            const summaryDiv = document.getElementById('reservation-summary');
+            const reserveButton = document.getElementById('reserve-button');
             
             if (!dates || !contact || !name || adults === 0) { 
                 showAlert('Por favor, preencha o nome, WhatsApp, as datas e a quantidade de adultos.', 'Dados Faltando'); 
@@ -586,63 +596,74 @@
             // --- LÓGICA DE CÁLCULO DE PREÇO ---
             const dailyRate = currentProperty.price_daily || currentProperty.price_monthly;
             let totalValue = 0;
-            let priceType = 'Diária/Mês não cadastrado';
             let numberOfNights = 0;
 
             const messageParts = dates.split(' a ');
             const dateInStr = messageParts[0];
             const dateOutStr = messageParts[1];
 
-            if (dateOutStr && dailyRate) {
-                const [dayIn, monthIn, yearIn] = dateInStr.split('/').map(Number);
-                const [dayOut, monthOut, yearOut] = dateOutStr.split('/').map(Number);
-
-                const dateIn = new Date(yearIn, monthIn - 1, dayIn);
-                const dateOut = new Date(yearOut, monthOut - 1, dayOut);
-                
-                const timeDifference = dateOut.getTime() - dateIn.getTime();
-                numberOfNights = Math.ceil(timeDifference / (1000 * 3600 * 24)); 
-
-                if (numberOfNights <= 0) {
-                    showAlert('A data de saída deve ser posterior à data de entrada.', 'Erro de Datas');
-                    return;
-                }
-                
-                if (currentProperty.price_daily) {
-                    totalValue = numberOfNights * dailyRate;
-                    priceType = `Diária (${formatBRL(dailyRate)} x ${numberOfNights} noites)`;
-                } else if (currentProperty.price_monthly) {
-                    totalValue = dailyRate; // Se for mensal, usa o preço mensal fixo
-                    priceType = `Mensalidade (${formatBRL(dailyRate)})`;
-                }
-            } else if (!dailyRate) {
-                showAlert('Este imóvel não tem preço de diária/mês cadastrado para cálculo.', 'Erro de Cadastro');
+            if (!dailyRate) {
+                showAlert('Preço não cadastrado para cálculo.', 'Erro de Cadastro');
                 return;
-            } else if (!dateOutStr) {
+            }
+            if (!dateOutStr) {
                 showAlert('Selecione tanto a data de entrada quanto a data de saída para calcular.', 'Datas Incompletas');
                 return;
             }
 
-            // --- GERAÇÃO DA MENSAGEM DE ORÇAMENTO COMPLETO ---
-            const locationForMessage = currentProperty.location;
-            const msgGuests = `${adults} adultos e ${children} crianças.`;
+            const [dayIn, monthIn, yearIn] = dateInStr.split('/').map(Number);
+            const [dayOut, monthOut, yearOut] = dateOutStr.split('/').map(Number);
+            const dateIn = new Date(yearIn, monthIn - 1, dayIn);
+            const dateOut = new Date(yearOut, monthOut - 1, dayOut);
             
-            const baseMessage = `*ORÇAMENTO DE RESERVA - CURTINDO SC*\n\n` +
-                                `Imóvel: "${currentProperty.name}" (ID: ${currentProperty.id})\n` +
-                                `Local: ${locationForMessage}\n\n` +
-                                `*DETALHES DA RESERVA:*\n` +
-                                `Período: ${dateIn} até ${dateOut}\n` +
-                                `Hóspedes: ${msgGuests}\n` +
-                                `Cálculo: ${priceType}\n` +
-                                `*Valor Total Estimado: R$ ${formatBRL(totalValue)}*\n\n` +
-                                `Nome: ${name}\n` +
-                                `Contato: ${contact}\n` +
-                                `Mensagem: ${document.getElementById('rent-guest-message').value.trim()}\n\n` +
-                                `*Clique em Enviar para confirmar o orçamento e os dados de pagamento (Pix/Cartão).*`;
+            const timeDifference = dateOut.getTime() - dateIn.getTime();
+            numberOfNights = Math.ceil(timeDifference / (1000 * 3600 * 24)); 
+
+            if (numberOfNights <= 0) {
+                showAlert('A data de saída deve ser posterior à data de entrada.', 'Erro de Datas');
+                return;
+            }
             
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=5548991311442&text=${encodeURIComponent(baseMessage)}`;
+            // Cálculo do valor total (usando diária)
+            totalValue = numberOfNights * dailyRate;
+            const totalValueBRL = formatBRL(totalValue);
+
+            // --- URL DE CHECKOUT (REDIRECIONAMENTO DIRETO) ---
             
-            window.open(whatsappUrl, '_blank');
+            // ⚠️ SUBSTITUA ESTE LINK PELO SEU LINK DE CHECKOUT DO MERCADO PAGO
+            // Use o link de pagamento estático gerado no Mercado Pago para o produto/reserva.
+            // *ATENÇÃO: O valor abaixo é fixo no link do MP. O valor calculado é apenas informativo para o cliente.*
+            const MERCADOPAGO_CHECKOUT_URL = "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=SEU_ID_DA_PREFERENCIA_AQUI"; // <-- SUBSTITUA AQUI
+            
+            // --- ATUALIZAÇÃO DO RESUMO NA TELA ---
+            document.getElementById('summary-nights').textContent = `Período: ${dateInStr} até ${dateOutStr} (${numberOfNights} noites)`;
+            document.getElementById('summary-guests').textContent = `Hóspedes: ${adults} adultos e ${children} crianças`;
+            document.getElementById('summary-total').textContent = `Valor Total: R$ ${totalValueBRL}`;
+            summaryDiv.classList.remove('hidden');
+
+            // --- AÇÕES FINAIS ---
+
+            // 1. Notificar o proprietário/agente via WhatsApp (com o valor calculado)
+            const whatsappMessage = encodeURIComponent(
+                `*🚨 PRÉ-RESERVA FEITA - PAGAMENTO PENDENTE*\n` +
+                `O cliente *${name}* está finalizando a reserva.\n` +
+                `Imóvel: "${currentProperty.name}"\n` +
+                `Período: ${dateInStr} a ${dateOutStr} (${numberOfNights} noites)\n` +
+                `VALOR TOTAL CALCULADO: R$ ${totalValueBRL}\n\n` +
+                `*Cliente: ${name} (${contact})*\n` +
+                `*Redirecionado para o Checkout do Mercado Pago.*`
+            );
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=5548991311442&text=${whatsappMessage}`;
+            
+            window.open(whatsappUrl, '_blank'); 
+            
+            // 2. Redirecionar para o Checkout Pro (Checkout Transparente)
+            window.open(MERCADOPAGO_CHECKOUT_URL, '_blank'); 
+
+            // Ação no botão: Mudar o texto para indicar que a reserva foi processada
+            reserveButton.textContent = "Finalizando Pagamento...";
+            reserveButton.classList.remove('bg-blue-600', 'hover:bg-blue-500');
+            reserveButton.classList.add('bg-green-600', 'hover:bg-green-500');
         });
         
         // --- FUNÇÕES DE GRÁFICO E TEMA ---
