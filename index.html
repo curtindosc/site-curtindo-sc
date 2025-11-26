@@ -588,6 +588,7 @@
             const summaryDiv = document.getElementById('reservation-summary');
             const reserveButton = document.getElementById('reserve-button');
             
+            // 1. VALIDAÇÃO DE DADOS
             if (!dates || !contact || !name || adults === 0) { 
                 showAlert('Por favor, preencha o nome, WhatsApp, as datas e a quantidade de adultos.', 'Dados Faltando'); 
                 return; 
@@ -597,13 +598,13 @@
             const dailyRate = currentProperty.price_daily || currentProperty.price_monthly;
             let totalValue = 0;
             let numberOfNights = 0;
-
+            
             const messageParts = dates.split(' a ');
             const dateInStr = messageParts[0];
             const dateOutStr = messageParts[1];
 
             if (!dailyRate) {
-                showAlert('Preço não cadastrado para cálculo.', 'Erro de Cadastro');
+                showAlert('Preço não cadastrado para cálculo. Contate o administrador.', 'Erro de Cadastro');
                 return;
             }
             if (!dateOutStr) {
@@ -630,9 +631,8 @@
 
             // --- URL DE CHECKOUT (REDIRECIONAMENTO DIRETO) ---
             
-            // ⚠️ SUBSTITUA ESTE LINK PELO SEU LINK DE CHECKOUT DO MERCADO PAGO
-            // Use o link de pagamento estático gerado no Mercado Pago para o produto/reserva.
-            // *ATENÇÃO: O valor abaixo é fixo no link do MP. O valor calculado é apenas informativo para o cliente.*
+            // ⚠️ SUBSTITUA ESTE LINK PELO SEU LINK DE CHECKOUT ESTÁTICO DO MERCADO PAGO
+            // Este é o link para o seu produto/reserva no Mercado Pago
             const MERCADOPAGO_CHECKOUT_URL = "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=SEU_ID_DA_PREFERENCIA_AQUI"; // <-- SUBSTITUA AQUI
             
             // --- ATUALIZAÇÃO DO RESUMO NA TELA ---
@@ -643,7 +643,7 @@
 
             // --- AÇÕES FINAIS ---
 
-            // 1. Notificar o proprietário/agente via WhatsApp (com o valor calculado)
+            // 1. Geração da Mensagem de Notificação para Agente
             const whatsappMessage = encodeURIComponent(
                 `*🚨 PRÉ-RESERVA FEITA - PAGAMENTO PENDENTE*\n` +
                 `O cliente *${name}* está finalizando a reserva.\n` +
@@ -655,13 +655,14 @@
             );
             const whatsappUrl = `https://api.whatsapp.com/send?phone=5548991311442&text=${whatsappMessage}`;
             
+            // 2. Notificar o agente via WhatsApp em uma nova aba (IMPORTANTE)
             window.open(whatsappUrl, '_blank'); 
             
-            // 2. Redirecionar para o Checkout Pro (Checkout Transparente)
+            // 3. Redirecionar para o Checkout Pro (Checkout Transparente)
             window.open(MERCADOPAGO_CHECKOUT_URL, '_blank'); 
 
             // Ação no botão: Mudar o texto para indicar que a reserva foi processada
-            reserveButton.textContent = "Finalizando Pagamento...";
+            reserveButton.textContent = "Pagamento Redirecionado!";
             reserveButton.classList.remove('bg-blue-600', 'hover:bg-blue-500');
             reserveButton.classList.add('bg-green-600', 'hover:bg-green-500');
         });
