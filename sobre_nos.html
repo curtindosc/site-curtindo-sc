@@ -46,6 +46,13 @@
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
+        /* Ajuste no CSS para a logo ficar menor e responsiva */
+        .logo-img {
+            height: 40px; /* Altura fixa para a logo */
+            width: auto; /* Largura automática para manter a proporção */
+            border-radius: 9999px; /* Mantém a forma arredondada */
+            object-fit: cover; /* Garante que a imagem preencha a área sem distorcer */
+        }
     </style>
 </head>
 <body class="font-body bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
@@ -53,18 +60,16 @@
 <header class="sticky top-0 z-50 w-full bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-sm">
 <div class="container mx-auto px-4">
 <div class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-gray-800 py-4">
-<div class="flex items-center gap-4 text-brand-navy dark:text-gray-100">
-<svg class="h-6 w-6 text-brand-green" fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
+<div class="flex items-center gap-3 text-brand-navy dark:text-gray-100">
+<!-- NOVO LOGO: Usando a imagem da capa do perfil Curtindo SC com ajuste de tamanho --><img src="https://media.bio.site/sites/15fc0509-6c95-4782-9a79-fe69fe78ce69/fetqsktutwxDYURdXexgei.jpg" alt="Logo Curtindo SC" class="logo-img">
 <h2 class="font-display text-xl font-bold leading-tight tracking-[-0.015em] text-text-dark dark:text-gray-100">Curtindo SC</h2>
 </div>
 <nav class="hidden md:flex items-center gap-8">
-<a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green transition-colors" href="#">Início</a>
-<a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green transition-colors" href="#">Comprar</a>
-<a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green transition-colors" href="#">Alugar</a>
-<a class="font-display text-sm font-bold leading-normal text-brand-green transition-colors" href="#">Sobre nós</a>
-<a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green transition-colors" href="#">Contato</a>
+<a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green transition-colors" href="index.html">Início</a>
+<a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green transition-colors" href="imoveis.html">Comprar</a>
+<a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green transition-colors" href="imoveis.html">Alugar</a>
+<a class="font-display text-sm font-bold leading-normal text-brand-green transition-colors" href="sobre_nos.html">Sobre nós</a>
+<a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green transition-colors" href="contato.html">Contato</a>
 </nav>
 <div class="hidden md:flex items-center">
 <button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-brand-coral text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-colors font-display">
@@ -171,15 +176,15 @@
 <h2 class="font-display text-3xl sm:text-4xl font-bold text-brand-navy dark:text-white leading-tight tracking-tight">Conecte-se Conosco</h2>
 <p class="mt-4 text-text-light dark:text-text-dark-secondary">Siga nossa jornada, inspire-se com nosso conteúdo e faça parte da comunidade Curtindo SC. Veja por que tantos se apaixonam por este lugar.</p>
 <div class="mt-8 flex justify-center gap-4">
-<a class="w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-gray-700 text-text-light dark:text-gray-200 hover:bg-brand-green hover:text-white transition-colors" href="#"><span class="sr-only">Instagram</span><svg class="w-6 h-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a>
-<a class="w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-gray-700 text-text-light dark:text-gray-200 hover:bg-brand-green hover:text-white transition-colors" href="#"><span class="sr-only">TikTok</span><svg class="w-6 h-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M22 4s-.7 2.1-2 3.4c1.6 1.4 3.3 4.9 3.3 9.7C23.3 21.8 19.5 24 15 24c-4.5 0-8.3-2.2-8.3-6.9 0-4.8 1.7-8.3 3.3-9.7-1.3-1.3-2-3.4-2-3.4s-1.4 2.4-3 7.8c0 0-1.3 7.2 4.3 9.4 5.6 2.2 11.7-1.5 11.7-8.9 0-3.2-1.7-6.5-2.8-8.2z"></path></svg></a>
-<a class="w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-gray-700 text-text-light dark:text-gray-200 hover:bg-brand-green hover:text-white transition-colors" href="#"><span class="sr-only">Facebook</span><svg class="w-6 h-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+<a class="w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-gray-700 text-text-light dark:text-gray-200 hover:bg-brand-green hover:text-white transition-colors" href="https://www.instagram.com/curtindosc" target="_blank"><span class="sr-only">Instagram</span><svg class="w-6 h-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a>
+<a class="w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-gray-700 text-text-light dark:text-gray-200 hover:bg-brand-green hover:text-white transition-colors" href="https://www.tiktok.com/@curtindosc" target="_blank"><span class="sr-only">TikTok</span><svg class="w-6 h-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M22 4s-.7 2.1-2 3.4c1.6 1.4 3.3 4.9 3.3 9.7C23.3 21.8 19.5 24 15 24c-4.5 0-8.3-2.2-8.3-6.9 0-4.8 1.7-8.3 3.3-9.7-1.3-1.3-2-3.4-2-3.4s-1.4 2.4-3 7.8c0 0-1.3 7.2 4.3 9.4 5.6 2.2 11.7-1.5 11.7-8.9 0-3.2-1.7-6.5-2.8-8.2z"></path></svg></a>
+<a class="w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-gray-700 text-text-light dark:text-gray-200 hover:bg-brand-green hover:text-white transition-colors" href="https://www.facebook.com/curtindosc" target="_blank"><span class="sr-only">Facebook</span><svg class="w-6 h-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
 </div>
 </div>
 <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 <div class="aspect-video overflow-hidden rounded-xl shadow-lg"><img alt="Exemplo de conteúdo: Pôr do sol na praia" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuhhzpU0OF8iHN8OgnkQp5aMOTY5EDD9rdY-bWuiBor67bR3zsqe0PpleOwa3rbpQsBa5z1c_MBX20zsL8CIkGBOjZpSdNxwzSd0QZrIAN8Zev52QxlabdtScYJ-LcDPhrKy9un2Dq3mouxo8JAJGfCasfIq3QaXGrXZfGikJPGAwWWUloe2mtERy6XXhxvUdjnAQNOVBjxXNey-KAg3LZJegvoOEJScOAxhagPJp4Wi6R-yvxTj5aIItS3xkzv_LCsegly0_UfsY" loading="lazy"/></div>
 <div class="aspect-video overflow-hidden rounded-xl shadow-lg"><img alt="Exemplo de conteúdo: Trilha com vista para o mar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdRfJsEAEb-Hqf_86a2EhgFsu4ik0j9W1ekij9ec8Mbpwq8LzdmE2n3lKMaTP8iF7LoDLyF3azID57-FLQrBnGuj_uRTaRPRIgD1MfJTxLVn-oU1RPrS5fvyX66T5WAhAw_0f01UAPp20k5YWNVomZXpErA54BdQIxqq8VkduiM1ee0EBE2qrZNxD7TpT9mXTaf4CtCg_YkRLWBsLs-QyGqf8Sye4wrN9M2UZgkb_wenq2z_zL8jASPME5MAjb2klcPEo5f9Hd3Ew" loading="lazy"/></div>
-<div class="aspect-video overflow-hidden rounded-xl shadow-lg"><img alt="Exemplo de conteúdo: Pessoas praticando stand-up paddle" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdeNNCDbaWopr-0z6kK_VKhdQf3e2iK2fYG3glecaffI0assqcnD3noXCyTGh24ZxTUmy9U-5qhk941gTNd7Yz-5PFfpNvqAmELKT7Hkz7MkOk0w0Z5SfJwVoLujfoIs4rzHuMt241C-Ie6XzjhkfReU4Mk4BJHh3qW6uM6UnIKTPhRdRwewbs6go1s9LhAKDKqwlqEZoX3hCJJbzXhF4ZI8Dafro0tVB6R5pyG7eULhpkivDjmTvDFbdFYkMpxaJe2QuuKjmu6FM" loading="lazy"/></div>
+<div class="aspect-video overflow-hidden rounded-xl shadow-lg"><img alt="Exemplo de conteúdo: Pessoas praticando stand-up paddle" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdeNNCDbaWopr-0z6kK_VKhdQf3e2iK2fYG3glecaffI0assqcnD3noXCyTGh24ZxTUmy9U-5qhk941gTNd7Yz-5PFfpNvqAmELKT7Hkz7MkOk0w0Z5SfJwVoLujfoIs4rzHuMt241C-Ie6XzjhkfReU4Mk4BJHh3qW6uM6UnIKTPhRdRwewbs6go1s9LhAKDKqwlqEZoX3hCJJbzXhF4ZI8Dafro0tVB6R5py7GULhpkivDjmTvDFbdFYkMpxaJe2QuuKjmu6FM" loading="lazy"/></div>
 </div>
 </div>
 </section>
@@ -220,21 +225,3 @@
 <label class="block text-sm font-medium text-text-dark dark:text-gray-300" for="subject">Assunto</label>
 <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green focus:ring-brand-green dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm" id="subject" name="subject" placeholder="Ex: Interesse em imóvel" type="text"/>
 </div>
-<div>
-<label class="block text-sm font-medium text-text-dark dark:text-gray-300" for="message">Mensagem</label>
-<textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green focus:ring-brand-green dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm" id="message" name="message" placeholder="Deixe sua mensagem aqui..." rows="4"></textarea>
-</div>
-<div>
-<button class="w-full flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-brand-coral text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-colors" type="submit">
-<span class="truncate">Enviar Mensagem</span>
-</button>
-</div>
-</form>
-</div>
-</div>
-</div>
-</section>
-</main>
-</div>
-</body>
-</html>
