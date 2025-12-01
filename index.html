@@ -1,745 +1,318 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="">
+<html class="light" lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curtindo SC - Imóveis à Venda e Aluguel</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
-
-    <script>
-        tailwind.config = { darkMode: 'class' }
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Curtindo SC Imóveis: Lotes, Terrenos e Casas em Palhoça, SC</title>
+<meta name="description" content="Encontre imóveis de alto valor em Palhoça, SC. Lotes e Casas na Praia do Sonho, Guarda do Embaú e Pinheira. Viva o lifestyle da Serra e do Litoral.">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#32a852", // Logo Green
+                        "primary-dark": "#003366", // Navy Blue
+                        "primary-light": "#1e81b0", // Turquoise
+                        "accent": "#ff8c69", // Soft Coral/Orange
+                        "background-light": "#fdf8f0", // Light Sand/Beige
+                        "background-dark": "#0d1a26", // Darker Navy for dark mode
+                        "text-light": "#6b7280", // Light Gray
+                        "text-dark": "#1f2937", // Dark Gray
+                    },
+                    fontFamily: {
+                        "heading": ["Montserrat", "sans-serif"],
+                        "body": ["Lato", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
     </script>
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .modal { display: none; }
-        .modal.show { display: flex; }
-        .property-card:hover .property-image { transform: scale(1.05); }
-        .property-image { transition: transform 0.3s ease-in-out; }
-        .thumbnail-container { scrollbar-width: thin; scrollbar-color: #4B5563 #1F2937; }
-        .thumbnail-container::-webkit-scrollbar { height: 8px; }
-        .thumbnail-container::-webkit-scrollbar-track { background: #1F2937; }
-        .thumbnail-container::-webkit-scrollbar-thumb { background-color: #4B5563; border-radius: 4px; }
-        .thumbnail { cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; }
-        .thumbnail.active { border-color: #3B82F6; }
-        .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background-color 0.2s; }
-        .gallery-arrow:hover { background-color: rgba(0, 0, 0, 0.8); }
-        /* Estilos para os botões de modo */
-        .mode-btn.active {
-            background-color: #1F2937; 
-            color: white;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .mode-btn:not(.active) {
-            background-color: white;
-            color: #1F2937;
-            border: 2px solid #D1D5DB; 
-        }
-        .dark .mode-btn:not(.active) {
-            background-color: #1F2937;
-            color: #D1D5DB;
-            border: 2px solid #4B5563; 
-        }
-        /* Estilo para embeds do TikTok */
-        .tiktok-embed-vertical {
-            width: 100%;
-            height: 0;
-            padding-bottom: 177.78%; 
-            position: relative;
-            max-width: 400px; 
-            margin-left: auto; 
-            margin-right: auto;
-        }
-        .tiktok-embed-vertical iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
     </style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+<body class="bg-background-light dark:bg-background-dark font-body">
+<div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="sticky top-0 z-50 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-gray-200/50 dark:border-gray-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between whitespace-nowrap h-16">
+<div class="flex items-center gap-4 text-gray-800 dark:text-gray-100">
+<div class="size-8 text-primary">
+<svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold leading-tight tracking-[-0.015em] text-primary-dark dark:text-white font-heading">Curtindo SC</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9">
+<a class="text-primary-dark dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal" href="#">Imóveis</a>
+<a class="text-primary-dark dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal" href="#">Lifestyle</a>
+<a class="text-primary-dark dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal" href="#">Sobre Nós</a>
+<a class="text-primary-dark dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal" href="#">Contato</a>
+</div>
+<a class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-accent text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-accent/90 transition-colors" href="https://wa.me/5548999998888" target="_blank">
+<span class="truncate">Fale Conosco</span>
+</a>
+</div>
+<button class="md:hidden text-primary-dark dark:text-gray-100">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-1">
+<section class="relative h-[80vh] md:h-screen w-full overflow-hidden">
+<video autoplay="" class="absolute z-0 w-full h-full object-cover" loop="" muted="" playsinline="">
+<source src="https://storage.googleapis.com/builder-clips/beach-sunset.mp4" type="video/mp4"/>
+</video>
+<div class="absolute inset-0 bg-primary-dark/60"></div>
+<div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
+<h1 class="text-4xl md:text-7xl font-black leading-tight tracking-tighter drop-shadow-lg font-heading">Viver Palhoça com Curtindo SC</h1>
+<p class="mt-4 max-w-3xl text-lg md:text-2xl font-light drop-shadow-md">Viver na Praia com Qualidade de Vida e Segurança em SC</p>
+<div class="mt-8 flex flex-col sm:flex-row gap-4">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors font-heading">
+<span class="truncate">Comprar Imóveis</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-white/20 text-white text-base font-bold leading-normal tracking-[0.015em] backdrop-blur-sm border border-white/30 hover:bg-white/30 transition-colors font-heading">
+<span class="truncate">Alugar Experiências</span>
+</button>
+</div>
+</div>
+</section>
+<section class="w-full bg-white dark:bg-gray-900 py-16 lg:py-24">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center">
+<h2 class="text-3xl font-bold tracking-tight text-primary-dark dark:text-white sm:text-4xl font-heading">Por que Palhoça?</h2>
+<p class="mt-4 max-w-3xl mx-auto text-lg leading-8 text-text-light dark:text-gray-300">Descubra os motivos que fazem de Palhoça o lugar ideal para viver e investir.</p>
+</div>
+<div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
+<div class="flex flex-col items-center text-center p-6 bg-background-light dark:bg-gray-800 rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-5xl text-accent mb-4">favorite</span>
+<h3 class="text-xl font-bold text-primary-dark dark:text-white font-heading">Qualidade de Vida</h3>
+<p class="mt-2 text-text-light dark:text-gray-300">IDH de 0.757 (Alto). Praias paradisíacas, contato com a natureza e um ritmo de vida tranquilo.</p>
+</div>
+<div class="flex flex-col items-center text-center p-6 bg-background-light dark:bg-gray-800 rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-5xl text-accent mb-4">security</span>
+<h3 class="text-xl font-bold text-primary-dark dark:text-white font-heading">Segurança</h3>
+<p class="mt-2 text-text-light dark:text-gray-300">Santa Catarina é o 2º estado mais seguro do Brasil. Viva com a paz de espírito que sua família merece.</p>
+</div>
+<div class="flex flex-col items-center text-center p-6 bg-background-light dark:bg-gray-800 rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-5xl text-accent mb-4">real_estate_agent</span>
+<h3 class="text-xl font-bold text-primary-dark dark:text-white font-heading">Valorização de Imóveis</h3>
+<p class="mt-2 text-text-light dark:text-gray-300">Mercado em constante crescimento, com valorização média de 18% ao ano. Um investimento sólido e rentável.</p>
+</div>
+</div>
+<div class="mt-16 bg-background-light dark:bg-gray-800 p-8 rounded-xl shadow-lg">
+<h3 class="text-2xl font-bold text-primary-dark dark:text-white text-center font-heading">Gráfico de Valorização de Imóveis em Palhoça, SC</h3>
+<div class="mt-8 flex justify-between text-sm text-gray-600 dark:text-gray-400 border-b border-gray-300 dark:border-gray-700 pb-2">
+<span>2021</span><span>2022</span><span>2023</span><span>2024 (proj.)</span>
+</div>
+<div class="mt-4 h-56 flex items-end gap-4 md:gap-8">
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-gray-200 dark:bg-gray-700 rounded-lg h-full flex items-end">
+<div class="w-full bg-primary-light/70 rounded-lg" style="height: 45%;"></div>
+</div><span class="font-bold text-primary-dark dark:text-gray-100 font-heading">+9%</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-gray-200 dark:bg-gray-700 rounded-lg h-full flex items-end">
+<div class="w-full bg-primary-light/80 rounded-lg" style="height: 60%;"></div>
+</div><span class="font-bold text-primary-dark dark:text-gray-100 font-heading">+14%</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-gray-200 dark:bg-gray-700 rounded-lg h-full flex items-end">
+<div class="w-full bg-primary-light/90 rounded-lg" style="height: 78%;"></div>
+</div><span class="font-bold text-primary-dark dark:text-gray-100 font-heading">+17%</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-gray-200 dark:bg-gray-700 rounded-lg h-full flex items-end">
+<div class="w-full bg-primary rounded-lg" style="height: 90%;"></div>
+</div><span class="font-bold text-primary-dark dark:text-gray-100 font-heading">+22%</span>
+</div>
+</div>
+<p class="text-xs text-center mt-4 text-gray-500 dark:text-gray-400">Fonte: FipeZAP+ (Dados ilustrativos)</p>
+</div>
+</div>
+</section>
+<section class="w-full bg-background-light dark:bg-background-dark py-16 lg:py-24">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center">
+<h2 class="text-3xl font-bold tracking-tight text-primary-dark dark:text-white sm:text-4xl font-heading">Explore o Lifestyle Curtindo SC</h2>
+<p class="mt-4 max-w-3xl mx-auto text-lg leading-8 text-text-light dark:text-gray-300">Siga-nos para conteúdos virais, dicas exclusivas e um vislumbre do paraíso em Palhoça. Faça parte da nossa comunidade!</p>
+</div>
+<div class="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+<a class="group flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300" href="#">
+<svg class="h-10 w-10 text-[#1877F2]" fill="currentColor" viewBox="0 0 24 24">
+<path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"></path>
+</svg>
+<h3 class="mt-4 text-lg font-semibold text-primary-dark dark:text-white font-heading">Facebook</h3>
+</a>
+<a class="group flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300" href="#">
+<svg class="h-10 w-10 text-primary-dark dark:text-white" fill="currentColor" viewBox="0 0 24 24">
+<path d="M12.525.02c1.31-.02 2.61-.01 3.91.02 2.5.06 4.13 1.05 4.96 3.33 1.15 3.15.24 6.67-1.74 9.35-1.15 1.55-2.67 2.8-4.22 3.91-1.2.85-2.52 1.52-3.82 2.06-1.7.73-3.48.95-5.27.51-1.37-.33-2.65-.89-3.8-1.61-1.77-1.1-3.2-2.6-4.08-4.43-.88-1.83-1.1-3.83-1.01-5.8.08-1.7.54-3.35 1.48-4.76 1.03-1.5 2.5-2.63 4.17-3.33 1.3-.53 2.68-.8 4.08-.87 1.2-.06 2.4-.06 3.6-.05zM9.53 5.43c.27-.12.57-.1.84.03 2.27.93 4.54 1.87 6.81 2.8 1.1.45 1.83 1.3 1.83 2.44 0 1.1-.73 1.98-1.83 2.43-2.28.93-4.55 1.87-6.83 2.8-1.2.5-2.53.07-3.2-.82-.6-1.4-.4-3.23.4-4.5 1.2-1.87 2.4-3.73 3.6-5.6z"></path>
+</svg>
+<h3 class="mt-4 text-lg font-semibold text-primary-dark dark:text-white font-heading">TikTok</h3>
+</a>
+<a class="group flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300" href="#">
+<svg class="h-10 w-10 text-[#E1306C]" fill="currentColor" viewBox="0 0 24 24">
+<path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.802C8.843 3.965 8.548 3.977 7.243 4.032c-2.92.13-4.148 1.358-4.28 4.28-.054 1.305-.066 1.601-.066 4.688s.012 3.383.066 4.688c.132 2.922 1.36 4.15 4.28 4.28 1.305.054 1.601.066 4.688.066s3.383-.012 4.688-.066c2.922-.13 4.15-1.358 4.28-4.28.054-1.305.066-1.601.066-4.688s-.012-3.383-.066-4.688c-.13-2.922-1.358-4.15-4.28-4.28-1.305-.055-1.601-.067-4.688-.067zm0 3.39c-3.41 0-6.162 2.752-6.162 6.162s2.752 6.162 6.162 6.162 6.162-2.752 6.162-6.162-2.752-6.162-6.162-6.162zm0 10.518c-2.404 0-4.356-1.952-4.356-4.356s1.952-4.356 4.356-4.356 4.356 1.952 4.356 4.356-1.952 4.356-4.356 4.356zm4.43-8.83a1.44 1.44 0 1 1 2.88 0 1.44 1.44 0 0 1-2.88 0z"></path>
+</svg>
+<h3 class="mt-4 text-lg font-semibold text-primary-dark dark:text-white font-heading">Instagram</h3>
+</a>
+<a class="group flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300" href="#">
+<svg class="h-10 w-10 text-[#FF0000]" fill="currentColor" viewBox="0 0 24 24">
+<path d="M21.582 7.042c-.218-1.554-1.503-2.835-3.058-3.05C16.94 3.75 12 3.75 12 3.75s-4.94 0-6.524.242C3.922 4.207 2.637 5.488 2.419 7.042 2.175 8.625 2.175 12 2.175 12s0 3.375.244 4.958c.218 1.554 1.503 2.835 3.058 3.05C7.06 20.25 12 20.25 12 20.25s4.94 0 6.524-.242c1.555-.215 2.84-1.496 3.058-3.05C21.825 15.375 21.825 12 21.825 12s0-3.375-.243-4.958zM9.75 15.375V8.625l5.625 3.375-5.625 3.375z"></path>
+</svg>
+<h3 class="mt-4 text-lg font-semibold text-primary-dark dark:text-white font-heading">YouTube</h3>
+</a>
+</div>
+</div>
+</section>
+<section class="w-full bg-white dark:bg-gray-900 py-16 lg:py-24">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center">
+<h2 class="text-3xl font-bold tracking-tight text-primary-dark dark:text-white sm:text-4xl font-heading">Imóveis em Destaque</h2>
+<p class="mt-4 max-w-3xl mx-auto text-lg leading-8 text-text-light dark:text-gray-300">Uma seleção especial de imóveis que capturam a essência do lifestyle de Palhoça.</p>
+</div>
+<div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="group relative overflow-hidden rounded-xl shadow-lg bg-white dark:bg-gray-800">
+<img alt="Casa moderna com piscina e vista para o mar" class="h-64 w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQWr66uTJiCxpEEC2kU9O7mC8AFMT39XsOr4c6O5AhVzf6bDTAa5RYR76ksJQ6dRKt6dTVa2nE9HjrecWUDea-PxIInZ8eTjGrNoEr84PEyTTIaoLqAnYf-wu8WLlmEUMP9UwlEb1ZiIULHSZavPV2lZQMd4MRtDFCzHZReFEZYVT5fH5UHxMDLxp_4R2XcAnsQGz-VG2G1wqi8oNoUTllBninRP2_nclvzdgUtFdEN5jikOUfuOSNYAmbIACSBOAoubR2JxPdc1w"/>
+<div class="p-6">
+<span class="text-sm font-semibold text-primary font-heading">Venda</span>
+<h3 class="mt-2 text-xl font-bold text-primary-dark dark:text-white font-heading">Casa de Luxo na Praia do Sonho</h3>
+<p class="mt-1 text-text-light dark:text-gray-300">4 quartos • 5 banheiros • Vista para o mar</p>
+<p class="mt-4 text-2xl font-black text-primary-dark dark:text-white font-heading">R$ 2.500.000</p>
+</div>
+</div>
+<div class="group relative overflow-hidden rounded-xl shadow-lg bg-white dark:bg-gray-800">
+<img alt="Apartamento aconchegante perto da praia" class="h-64 w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7IIfBJrYidgqgCvKOXkQSxvY5fcjTh31ssjQIeVEJvVz_YOqvRC2w5ArigrMKnOEdsV21pcmQLT77hsv0N8S2UJaV_4u3zqEZ1euHHCRsY0RfLg7mVcJjd_FcjQ7np5AocuKmEXbtFIHi_vDWmVdfBFWBmlAotzRebSJWCoUbM0FhsMYIVIC1JyH8NQarRAnJA4tTS-M0CJe77A-Y6xFhQ72JPe9dI_eegc8bYvcT2bOFVOlrPFE3rxhsE4V1SyNwmSJDLRZSVw8"/>
+<div class="p-6">
+<span class="text-sm font-semibold text-primary font-heading">Aluguel</span>
+<h3 class="mt-2 text-xl font-bold text-primary-dark dark:text-white font-heading">Apto na Guarda do Embaú</h3>
+<p class="mt-1 text-text-light dark:text-gray-300">2 quartos • 2 banheiros • Perto da praia</p>
+<p class="mt-4 text-2xl font-black text-primary-dark dark:text-white font-heading">R$ 450 / diária</p>
+</div>
+</div>
+<div class="group relative overflow-hidden rounded-xl shadow-lg bg-white dark:bg-gray-800">
+<img alt="Terreno amplo em condomínio fechado" class="h-64 w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDW5KunHpGD5ge6GVTRYoxzdjDjz1xvRwrcehMbWeJP9g6kkgr2sYQm_QAREW24UZcbDvIQ9mqyh_06CPdjH2Ib4TkCnG2pl5Er687kcgZFq9RvXyFh7e4ianyEhBdRVUAi0jMVsn5t3Uw4mqTRhjJVxOp-LtFR2lmDJLvtyV1LbcGsBKpeuC1MVpm4Bn_l2yZp8e9ToslacCFFgT-5xqoB1yNkkamJJ9fd8s01tVorQ2kSc4b_EW0ti1LPAJ-mhqJCzVDkPvye9Fg"/>
+<div class="p-6">
+<span class="text-sm font-semibold text-primary font-heading">Venda</span>
+<h3 class="mt-2 text-xl font-bold text-primary-dark dark:text-white font-heading">Terreno na Pinheira</h3>
+<p class="mt-1 text-text-light dark:text-gray-300">800m² • Condomínio fechado • Pronto para construir</p>
+<p class="mt-4 text-2xl font-black text-primary-dark dark:text-white font-heading">R$ 800.000</p>
+</div>
+</div>
+</div>
+<div class="mt-12 text-center">
+<a class="inline-flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors font-heading" href="#">
+<span class="truncate">Ver Todos os Imóveis</span>
+</a>
+</div>
+</div>
+</section>
+<section class="w-full bg-background-light dark:bg-background-dark py-16 lg:py-24">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-primary-dark dark:text-white text-3xl font-bold text-center mb-12 font-heading">O que dizem nossos clientes</h2>
+<div class="relative">
+<div class="overflow-hidden">
+<div class="flex transition-transform duration-500 ease-in-out">
+<div class="w-full flex-shrink-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
+<img alt="Foto do cliente João S." class="h-20 w-20 rounded-full object-cover mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBjNBBNvWqeq-lZ4bEnwWVM6Mct5qWQDIuqk40W6qDUo676_B9hRYTIikl80bwsgvUHZ-5xZvuOvTtWpBNq8J-IjhmfPchUhubSNQdMt98JHJVUmt6VV5zlpNp1ZBoYtSXH5A-P96q0MHVoxDa1GuHBMs_wmwiE7mriphefve5mSmcgWSrIAN2n2bohZ6BSADNtJM0N1J4LUqaJf7j2qPrSbJBNuRWxThh9VdwDOEyposzPUkdUXjbqy1MorPrIx0GS7fXMCo9e10"/>
+<p class="text-text-light dark:text-gray-300 italic mb-4">"Encontrar a Curtindo SC foi um divisor de águas. Vivemos em total harmonia com a natureza, algo que sempre sonhamos."</p>
+<h4 class="font-bold text-primary-dark dark:text-gray-100 font-heading">João S.</h4>
+<p class="text-sm text-gray-500 dark:text-gray-400">Morador da Praia do Sonho</p>
+</div>
+<div class="flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
+<img alt="Foto da cliente Maria L." class="h-20 w-20 rounded-full object-cover mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZ3QzIyLKb_K5f33G4brGUvji1hdEzV4inm3wjBujUjxL__A_Pg1n34vSpGu8FD55dB6oL_ypyjFQz_zvNm6X4mbb-OdKgrm3fNyOBlGv7ALKIMgIuAOz1aaytUOCyO6qa_TN1snp2Xf5xH-LGF861uAGBO-vxVoXshJM9MZUFfOqXyaa7bbKqiXALwAWTurgGKgg4Ry6hyXKjXXLskOk8D7hiU5UdWQL_Hxz1e1p_xa6xPRzz3XjaCgKJa9NZUWLgm2UhwHBRbJk"/>
+<p class="text-text-light dark:text-gray-300 italic mb-4">"A liberdade e a paz que encontramos aqui não têm preço. A equipe nos ajudou a achar o refúgio perfeito para nossa família."</p>
+<h4 class="font-bold text-primary-dark dark:text-gray-100 font-heading">Maria L.</h4>
+<p class="text-sm text-gray-500 dark:text-gray-400">Proprietária na Guarda do Embaú</p>
+</div>
+<div class="flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
+<img alt="Foto do casal Carlos e Ana" class="h-20 w-20 rounded-full object-cover mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLPrY0p6IVD4nbdITQ0V4dRvDaIs-SByc7QKwCCBFUWxzmF6yoSAVVJTlLLaMUSGO0xRSOS1cwfH-va8uOl94354rYmDJ1OCsctqk6pM1bcXipeY0OZhs2r6Ly00joYpxou62_z2-cyoaFr9wLuNDWV9plkd-HjwhGkS79pklZNlTUZyd9eWODJzkQ9ON1RBBLM6CT7DxKqxhbyNJBaRX4_uSsGimNWWcUCLl-ebDos8fLK29ffU2o74DnmxFqQYf_KYz5ZMlp8O0"/>
+<p class="text-text-light dark:text-gray-300 italic mb-4">"O lifestyle naturista aqui é incrível. Respeito, comunidade e uma conexão profunda com o ambiente. Recomendamos!"</p>
+<h4 class="font-bold text-primary-dark dark:text-gray-100 font-heading">Carlos & Ana</h4>
+<p class="text-sm text-gray-500 dark:text-gray-400">Veranistas na Pinheira</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-primary-dark dark:bg-black text-gray-300">
+<div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="col-span-2 md:col-span-1">
+<div class="flex items-center gap-3">
+<div class="size-8 text-primary">
+<svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold text-white font-heading">Curtindo SC</h2>
+</div>
+<p class="mt-4 text-sm text-gray-400">Seu paraíso particular em Palhoça começa aqui. Viva a liberdade, viva a natureza.</p>
+</div>
+<div>
+<h3 class="text-sm font-semibold tracking-wider uppercase text-gray-200 font-heading">Explorar</h3>
+<ul class="mt-4 space-y-2">
+<li><a class="text-base text-gray-400 hover:text-white" href="#">Imóveis à Venda</a></li>
+<li><a class="text-base text-gray-400 hover:text-white" href="#">Aluguel de Temporada</a></li>
+<li><a class="text-base text-gray-400 hover:text-white" href="#">Lifestyle Naturista</a></li>
+<li><a class="text-base text-gray-400 hover:text-white" href="#">Sobre Nós</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-sm font-semibold tracking-wider uppercase text-gray-200 font-heading">Contato</h3>
+<ul class="mt-4 space-y-2">
+<li class="flex items-start gap-2 text-base text-gray-400">Palhoça, Santa Catarina</li>
+<li class="flex items-start gap-2 text-base text-gray-400">(48) 99999-8888</li>
+<li class="flex items-start gap-2 text-base text-gray-400">contato@curtindosc.com.br</li>
+</ul>
+</div>
+<div>
+<h3 class="text-sm font-semibold tracking-wider uppercase text-gray-200 font-heading">Redes Sociais</h3>
+<div class="flex mt-4 space-x-4">
+<a class="text-gray-400 hover:text-white" href="#">
+<span class="sr-only">Facebook</span>
+<svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+<path clip-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" fill-rule="evenodd"></path>
+</svg>
+</a>
+<a class="text-gray-400 hover:text-white" href="#">
+<span class="sr-only">Instagram</span>
+<svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+<path clip-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.316 1.363.364 2.427.048 1.067.06 1.407.06 3.808s-.012 2.741-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-.316 1.363-.364 2.427C2.013 14.741 2 14.4 2 12s.013-2.741.06-3.808c.049-1.064.218 1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363.316 2.427-.364C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.132 2.922 1.36 4.15 4.28 4.28 1.305.054 1.601.066 4.688.066s3.383-.012 4.688-.066c2.922-.13 4.15-1.358 4.28-4.28.054-1.305.066-1.601.066-4.688s-.012-3.383-.066-4.688c-.13-2.922-1.358-4.15-4.28-4.28-1.305-.055-1.601-.067-4.688-.067zm0 3.39c-3.41 0-6.162 2.752-6.162 6.162s2.752 6.162 6.162 6.162 6.162-2.752 6.162-6.162-2.752-6.162-6.162-6.162zm0 10.518c-2.404 0-4.356-1.952-4.356-4.356s1.952-4.356 4.356-4.356 4.356 1.952 4.356 4.356-1.952 4.356-4.356 4.356zm4.43-8.83a1.44 1.44 0 1 1 2.88 0 1.44 1.44 0 0 1-2.88 0z" fill-rule="evenodd"></path>
+</svg>
+</a>
+</div>
+</div>
+</div>
+<div class="mt-8 border-t border-gray-700 pt-8 text-center text-base text-gray-400">
+<p>© 2024 Curtindo SC. Todos os direitos reservados.</p>
+</div>
+</div>
+</footer>
+</div>
+</div>
 
-    <div class="container mx-auto p-4 md:p-8">
-        <div class="absolute top-4 right-4">
-            <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                <svg id="theme-icon-sun" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                <svg id="theme-icon-moon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-            </button>
-        </div>
-        <header class="text-center mb-6 pt-10">
-            <img src="https://media.bio.site/sites/15fc0509-6c95-4782-9a79-fe69fe78ce69/fetqsktutwxDYURdXexgei.jpg" alt="Logo Curtindo SC" class="mx-auto mb-4 h-32 w-32 object-cover rounded-full border-4 border-white dark:border-gray-700 shadow-lg">
-            <h1 class="text-5xl font-bold text-gray-900 dark:text-white">Curtindo SC Imóveis</h1>
-            <p class="text-gray-500 dark:text-gray-400 mt-2 text-xl font-medium">Seu passaporte para **curtir para sempre** em SC.</p>
-        </header>
-
-        <section class="mb-10 flex justify-center space-x-4">
-            <button data-mode="sale" id="filter-sale" class="mode-btn px-8 py-3 rounded-xl font-bold text-lg transition-all duration-300 active">
-                Comprar
-            </button>
-            <button data-mode="rent" id="filter-rent" class="mode-btn px-8 py-3 rounded-xl font-bold text-lg transition-all duration-300">
-                Alugar
-            </button>
-        </section>
-
-        <section class="mb-12 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-            <h2 class="text-2xl font-bold text-center mb-4 text-gray-900 dark:text-white">Valorização Histórica: Imóveis Pé na Areia de SC 📈</h2>
-            <p class="text-center text-gray-600 dark:text-gray-400 mb-6 text-sm">Fonte: Dados simulados baseados no índice FipeZAP+ (2025 é uma projeção)</p>
-            <div class="h-64 md:h-80">
-                <canvas id="appreciation-chart"></canvas>
-            </div>
-        </section>
-
-        <section class="mb-12">
-            <h2 class="text-3xl font-bold text-center mb-6 text-gray-900 dark:text-white">Destaques do TikTok: Onde Curtir e Investir 🤳</h2>
-            <p class="text-center text-gray-600 dark:text-gray-400 mb-8">Vídeos que te levam ao seu futuro imóvel em SC.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden p-3">
-                    <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Praias Paradisíacas</h3>
-                    <div class="tiktok-embed-vertical">
-                        <iframe src="https://www.tiktok.com/embed/v2/7574496577407061255?lang=pt-BR" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden p-3">
-                    <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">A Força da Serra</h3>
-                    <div class="tiktok-embed-vertical">
-                        <iframe src="https://www.tiktok.com/embed/v2/7575153747588844808?lang=pt-BR" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden p-3">
-                    <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Seu Próximo Passo</h3>
-                    <div class="tiktok-embed-vertical">
-                        <iframe src="https://www.tiktok.com/embed/v2/7572274629688003847?lang=pt-BR" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden p-3">
-                    <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Viver em Palhoça é...</h3>
-                    <div class="tiktok-embed-vertical">
-                        <iframe src="https://www.tiktok.com/embed/v2/7571926969747508488?lang=pt-BR" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-8">
-                <a href="https://www.tiktok.com/@curtindosc" target="_blank" class="bg-black hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-lg text-lg shadow-md transition-colors duration-300 flex items-center justify-center mx-auto max-w-xs space-x-2">
-                    <i class="fab fa-tiktok fa-lg"></i><span>Ver Mais no TikTok</span>
-                </a>
-            </div>
-        </section>
-
-        <div id="filter-container" class="flex justify-center flex-wrap gap-2 md:gap-4 mb-10">
-            <button data-filter="all" class="filter-btn active bg-gray-900 text-white px-6 py-2 rounded-full font-semibold shadow-md">Todos</button>
-        </div>
-        <main id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></main>
-        <div id="loading" class="text-center py-12"><p class="text-gray-600 dark:text-gray-400 text-lg">A carregar os melhores imóveis...</p></div>
-    </div>
-
-    <footer class="bg-white dark:bg-gray-800 mt-16 border-t border-gray-200 dark:border-gray-700">
-        <div class="container mx-auto py-8 px-4">
-            <div class="text-center text-gray-600 dark:text-gray-400">
-                <p class="font-bold text-lg text-gray-800 dark:text-white">Curtindo SC Imóveis</p>
-                <p class="text-sm mt-2">Transformando sonhos em realidade no litoral e na serra catarinense.</p>
-                <div class="flex justify-center space-x-6 mt-4">
-                    <a href="https://www.instagram.com/curtindosc/" target="_blank" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"><i class="fab fa-instagram fa-lg"></i></a>
-                    <a href="https://www.tiktok.com/@curtindosc" target="_blank" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"><i class="fab fa-tiktok fa-lg"></i></a>
-                    <a href="https://api.whatsapp.com/send/?phone=5548991311442" target="_blank" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"><i class="fab fa-whatsapp fa-lg"></i></a>
-                    <a href="https://www.facebook.com/curtindosc" target="_blank" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
-                    <a href="https://www.youtube.com/@curtindosc" target="_blank" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"><i class="fab fa-youtube fa-lg"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="bg-gray-50 dark:bg-gray-900 py-4">
-            <div class="container mx-auto text-center text-xs text-gray-500 dark:text-gray-400">
-                <p>&copy; 2025 Curtindo SC Imóveis. Todos os direitos reservados.</p>
-                <p class="mt-1">CRECI/SC 38249 | Responsável Técnico: Diego Lemes</p>
-            </div>
-        </div>
-    </footer>
-
-
-    <div id="details-modal" class="modal fixed inset-0 bg-black bg-opacity-60 items-center justify-center p-4 z-50">
-        <div class="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col md:flex-row">
-            <div class="w-full md:w-1/2 flex flex-col bg-black rounded-t-lg md:rounded-l-lg md:rounded-t-none">
-                <div class="relative flex-grow"><img id="modal-main-image" src="" class="w-full h-full object-contain"><div id="prev-image" class="gallery-arrow left-2"><i class="fas fa-chevron-left"></i></div><div id="next-image" class="gallery-arrow right-2"><i class="fas fa-chevron-right"></i></div></div>
-                <div id="thumbnail-container" class="thumbnail-container flex space-x-2 p-2 overflow-x-auto bg-black/50"></div>
-            </div>
-            <div class="w-full md:w-1/2 p-8 flex flex-col overflow-y-auto">
-                <div class="flex-grow">
-                    <div class="flex justify-between items-start"><h2 id="modal-title" class="text-3xl font-bold text-gray-900 dark:text-white"></h2><button id="close-modal-button" class="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white text-3xl">&times;</button></div>
-                    <p id="modal-location" class="text-gray-500 dark:text-gray-400 mt-1 mb-4"><i class="fas fa-map-marker-alt mr-1"></i></p>
-                    <div class="flex flex-wrap items-center gap-x-4 gap-y-2 mb-4 text-gray-600 dark:text-gray-300">
-                        <span id="bedrooms-info"><i class="fas fa-bed mr-1"></i> <span id="modal-bedrooms"></span> Quarto(s)</span>
-                        <span id="bathrooms-info"><i class="fas fa-bath mr-1"></i> <span id="modal-bathrooms"></span> Banheiro(s)</span>
-                        <span><i class="fas fa-ruler-combined mr-1"></i> <span id="modal-area"></span> m²</span>
-                    </div>
-                    <p id="modal-description" class="text-gray-600 dark:text-gray-300 mb-6"></p>
-                    <div class="mb-6"><h4 class="font-bold mb-2 text-gray-900 dark:text-white">Características</h4><div id="modal-features" class="grid grid-cols-2 gap-4 text-sm"></div></div>
-                </div>
-                <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg mt-auto">
-                    <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Gostou deste imóvel?</h3>
-                    
-                    <p id="modal-price-label" class="text-base text-gray-700 dark:text-gray-300 font-semibold"></p>
-                    
-                    <p class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                        <span id="modal-price"></span>
-                    </p>
-
-                    <p id="dates-info" class="text-sm text-blue-600 dark:text-blue-400 mb-4 font-medium hidden"></p>
-
-                    <div id="dynamic-contact-form">
-                        
-                        <form id="rent-form" class="space-y-4 hidden">
-                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Selecione as Datas</h4>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="col-span-2">
-                                    <label for="rent-date-range" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Entrada / Saída</label>
-                                    <input type="text" id="rent-date-range" placeholder="Selecione as datas" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm">
-                                </div>
-                            </div>
-
-                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 pt-2 border-t border-gray-300 dark:border-gray-700">Quem vai se hospedar?</h4>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label for="guests-adults" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Adultos</label>
-                                    <input type="number" id="guests-adults" value="2" min="1" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm">
-                                </div>
-                                <div>
-                                    <label for="guests-children" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Crianças (0-12)</label>
-                                    <input type="number" id="guests-children" value="0" min="0" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm">
-                                </div>
-                            </div>
-                            
-                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 pt-2 border-t border-gray-300 dark:border-gray-700">Seus Dados</h4>
-                            <div>
-                                <label for="rent-guest-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome Completo</label>
-                                <input type="text" id="rent-guest-name" placeholder="Seu nome" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm">
-                            </div>
-                            <div>
-                                <label for="rent-guest-contact" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Seu WhatsApp</label>
-                                <input type="tel" id="rent-guest-contact" placeholder="(48) 99131-1442" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm">
-                            </div>
-
-                            <div>
-                                <label for="rent-guest-message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Mensagem (opcional)</label>
-                                <textarea id="rent-guest-message" rows="2" placeholder="Tenho interesse neste imóvel..." class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></textarea>
-                            </div>
-
-                            <div id="reservation-summary" class="bg-blue-100 dark:bg-blue-900 p-3 rounded-md mb-3 space-y-1 hidden">
-                                <p class="text-blue-800 dark:text-blue-200 font-semibold">Resumo do Orçamento:</p>
-                                <p id="summary-nights" class="text-sm text-gray-700 dark:text-gray-300"></p>
-                                <p id="summary-guests" class="text-sm text-gray-700 dark:text-gray-300"></p>
-                                <p id="summary-total" class="text-lg font-bold text-blue-800 dark:text-blue-200"></p>
-                            </div>
-
-                            <button type="submit" id="reserve-button" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-lg">Verificar Preço e Reservar</button>
-                        </form>
-
-                        <form id="sale-form" class="space-y-4">
-                            <div><label for="guest-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome completo</label><input type="text" id="guest-name" placeholder="O seu nome" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
-                            <div><label for="guest-contact" class="block text-sm font-medium text-gray-700 dark:text-gray-300">WhatsApp / Telefone</label><input type="tel" id="guest-contact" placeholder="(48) 99131-1442" required class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></div>
-                            <div><label for="guest-message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Mensagem (opcional)</label><textarea id="guest-message" rows="2" placeholder="Tenho interesse neste imóvel..." class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm"></textarea></div>
-                            <button type="submit" id="contact-button" class="w-full bg-gray-900 hover:bg-gray-700 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200 text-white font-bold py-3 px-4 rounded-lg">Solicitar Contato via WhatsApp</button>
-                        </form>
-                    </div>
-                    </div>
-            </div>
-        </div>
-    </div>
-    <div id="alert-modal" class="modal fixed inset-0 bg-black bg-opacity-75 items-center justify-center p-4 z-50"><div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-sm text-center"><h2 id="alert-title" class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Aviso</h2><p id="alert-message" class="mb-6 text-gray-600 dark:text-gray-300"></p><button id="alert-ok-button" class="px-6 py-2 bg-gray-900 dark:bg-gray-100 dark:text-gray-900 text-white rounded-lg font-semibold">OK</button></div></div>
-    
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, doc, getDoc, addDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        
-        const firebaseConfig = { apiKey: "AIzaSyBjQ2S36qboQhqH96hiWZe-F8QPw6e31dA", authDomain: "curtindo-sc-reservas.firebaseapp.com", projectId: "curtindo-sc-reservas", storageBucket: "curtindo-sc-reservas.appspot.com", messagingSenderId: "720754493665", appId: "1:720754493665:web:7c7bed51a6b2a04a0f4fa0", measurementId: "G-Z7Q538WYZ2" };
-
-        const loadingEl = document.getElementById('loading');
-        const propertiesGridEl = document.getElementById('properties-grid');
-        const detailsModal = document.getElementById('details-modal');
-        const alertModal = document.getElementById('alert-modal');
-        
-        let db, auth, allProperties = [], currentProperty = null, currentImageIndex = 0;
-        let currentMode = 'sale'; 
-        let flatpickrInstance = null; 
-
-        const showAlert = (message, title = "Aviso") => { document.getElementById('alert-title').textContent = title; document.getElementById('alert-message').textContent = message; alertModal.classList.add('show'); };
-        document.getElementById('alert-ok-button').addEventListener('click', () => document.querySelectorAll('.modal').forEach(m => m.classList.remove('show')));
-        
-        const formatBRL = (number) => number.toLocaleString('pt-BR');
-
-        const formatTimestamp = (timestamp) => {
-            if (timestamp && timestamp.seconds) {
-                const date = new Date(timestamp.seconds * 1000);
-                return date.toLocaleDateString('pt-BR');
-            }
-            return 'Não especificado';
-        };
-        
-        const timestampToISODate = (timestamp) => {
-            if (timestamp && timestamp.seconds) {
-                const date = new Date(timestamp.seconds * 1000);
-                return date.toISOString().split('T')[0];
-            }
-            return null;
-        };
-
-        async function main() { 
-            if (!firebaseConfig.apiKey) { loadingEl.innerHTML = `<p class="text-red-500">Erro: Configuração do Firebase ausente.</p>`; return; } 
-            try { 
-                const app = initializeApp(firebaseConfig); 
-                db = getFirestore(app); 
-                auth = getAuth(app); 
-                await signInAnonymously(auth); 
-                onAuthStateChanged(auth, user => { if (user) loadProperties(); }); 
-            } catch (e) { 
-                loadingEl.style.display = 'none'; 
-                showAlert("Não foi possível conectar à base de dados.", "Erro de Conexão"); 
-                console.error("Erro na inicialização:", e); 
-            } 
-        }
-
-        function loadProperties() { 
-            renderAppreciationChart();
-            const path = "properties"; 
-            onSnapshot(query(collection(db, path), orderBy("name")), snapshot => { 
-                loadingEl.style.display = 'none'; 
-                allProperties = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); 
-                renderFilters(allProperties);
-                renderProperties(allProperties);
-            }, error => { 
-                loadingEl.style.display = 'none'; 
-                showAlert("Não foi possível carregar os imóveis. Verifique as regras de segurança do Firestore.", "Erro de Conexão"); 
-                console.error("Erro no loadProperties:", error); 
-            }); 
-        }
-
-        function renderFilters(properties) {
-            const filterContainer = document.getElementById('filter-container');
-            filterContainer.querySelectorAll('.filter-btn:not([data-filter="all"])').forEach(btn => btn.remove());
-            
-            const propertiesToFilter = properties.filter(p => (p.mode || 'sale') === currentMode);
-            const propertyTypes = [...new Set(propertiesToFilter.map(p => p.property_type))];
-            
-            propertyTypes.forEach(type => {
-                if (type && !document.querySelector(`button[data-filter="${type}"]`)) {
-                    const button = document.createElement('button');
-                    button.dataset.filter = type;
-                    button.className = 'filter-btn bg-white text-gray-800 border border-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 px-6 py-2 rounded-full font-semibold shadow-md';
-                    button.textContent = type;
-                    filterContainer.appendChild(button);
-                }
-            });
-
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', () => { 
-                    document.querySelectorAll('.filter-btn').forEach(b => { 
-                        b.classList.remove('bg-gray-900', 'text-white', 'active'); 
-                        b.classList.add('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); 
-                    }); 
-                    btn.classList.add('bg-gray-900', 'text-white', 'active'); 
-                    btn.classList.remove('bg-white', 'text-gray-800', 'border', 'border-gray-200', 'dark:bg-gray-800', 'dark:text-gray-200', 'dark:border-gray-700'); 
-                    const filter = btn.dataset.filter; 
-                    
-                    const propertiesToRender = allProperties.filter(p => (p.mode || 'sale') === currentMode);
-                    if (filter === 'all') renderProperties(propertiesToRender); 
-                    else renderProperties(propertiesToRender.filter(p => p.property_type === filter)); 
-                });
-            });
-        }
-
-        function renderProperties(properties) { 
-            const filteredByMode = properties.filter(p => {
-                const mode = p.mode || 'sale';
-                return mode === currentMode;
-            });
-
-            propertiesGridEl.innerHTML = ''; 
-            if (filteredByMode.length === 0) {
-                propertiesGridEl.innerHTML = `<p class="col-span-full text-center text-gray-500 dark:text-gray-400 py-10">Nenhum imóvel de ${currentMode === 'sale' ? 'Venda' : 'Aluguel'} encontrado.</p>`;
-                return;
-            }
-            
-            filteredByMode.forEach(prop => {
-                let displayPrice = '';
-                let badgeHtml = '';
-                let priceClass = '';
-                const mode = prop.mode || 'sale';
-                
-                if (mode === 'sale') {
-                    displayPrice = `R$ ${prop.price_sale ? formatBRL(prop.price_sale) : 'Consulte'}`;
-                    badgeHtml = `<span class="absolute top-3 left-3 px-3 py-1 text-sm font-bold rounded-full z-10 bg-green-600 text-white">VENDA</span>`;
-                    priceClass = 'text-green-600';
-                } else { // mode === 'rent'
-                    if (prop.price_daily) {
-                        displayPrice = `R$ ${formatBRL(prop.price_daily)} / Diária`;
-                    } else if (prop.price_monthly) {
-                        displayPrice = `R$ ${formatBRL(prop.price_monthly)} / Mês`;
-                    } else {
-                        displayPrice = 'Consulte';
-                    }
-                    badgeHtml = `<span class="absolute top-3 left-3 px-3 py-1 text-sm font-bold rounded-full z-10 bg-blue-600 text-white">ALUGUEL</span>`;
-                    priceClass = 'text-blue-600';
-                }
-
-                const card = document.createElement('div'); 
-                card.className = 'property-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer group'; 
-                card.dataset.id = prop.id; 
-                card.innerHTML = `
-                    <div class="relative overflow-hidden h-64">
-                        ${badgeHtml}
-                        <img src="${(prop.images && prop.images.length > 0) ? prop.images[0] : 'https://placehold.co/600x400/e2e8f0/e2e8f0?text=Imóvel'}" alt="${prop.name}" class="property-image w-full h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">${prop.name}</h3>
-                        <p class="text-gray-500 dark:text-gray-400 mt-1"><i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}</p>
-                        <p class="text-lg font-bold ${priceClass} mt-4">${displayPrice}</p>
-                    </div>
-                `; 
-                propertiesGridEl.appendChild(card); 
-            }); 
-        }
-        
-        propertiesGridEl.addEventListener('click', e => { const card = e.target.closest('.property-card'); if (card) { currentProperty = allProperties.find(p => p.id === card.dataset.id); if (currentProperty) openDetailsModal(currentProperty); } });
-        
-        const featureIcons = { piscina: 'fa-swimmer', garagem: 'fa-car', churrasqueira: 'fa-hamburger', vista_mar: 'fa-water', mobiliado: 'fa-couch', academia: 'fa-dumbbell', salao_festas: 'fa-glass-cheers', portaria_24h: 'fa-user-shield' };
-        const featureLabels = { piscina: 'Piscina', garagem: 'Garagem', churrasqueira: 'Churrasqueira', vista_mar: 'Vista p/ Mar', mobiliado: 'Mobiliado', academia: 'Academia', salao_festas: 'Salão de Festas', portaria_24h: 'Portaria 24h' };
-
-        // openDetailsModal corrigido para Aluguel/Venda
-        function openDetailsModal(prop) {
-            currentImageIndex = 0;
-            document.getElementById('modal-title').textContent = prop.name;
-            document.getElementById('modal-location').innerHTML = `<i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}`;
-            
-            const bedroomsInfo = document.getElementById('bedrooms-info');
-            const bathroomsInfo = document.getElementById('bathrooms-info');
-            
-            // Exibir/Ocultar Quartos/Banheiros
-            if (prop.bedrooms && prop.bedrooms > 0) {
-                document.getElementById('modal-bedrooms').textContent = prop.bedrooms;
-                bedroomsInfo.style.display = 'inline-block';
-            } else { bedroomsInfo.style.display = 'none'; }
-
-            if (prop.bathrooms && prop.bathrooms > 0) {
-                document.getElementById('modal-bathrooms').textContent = prop.bathrooms;
-                bathroomsInfo.style.display = 'inline-block';
-            } else { bathroomsInfo.style.display = 'none'; }
-            
-            document.getElementById('modal-area').textContent = prop.area_sqm;
-            document.getElementById('modal-description').textContent = prop.description;
-
-            // --- Lógica de Preço Dinâmico e Datas ---
-            const priceLabelEl = document.getElementById('modal-price-label');
-            const priceValueEl = document.getElementById('modal-price');
-            const datesInfoEl = document.getElementById('dates-info');
-            
-            const mode = prop.mode || 'sale';
-            let displayPriceValue = 'Consulte';
-
-            // Destruir instância do Flatpickr existente para evitar duplicação
-            if (flatpickrInstance) {
-                flatpickrInstance.destroy();
-                flatpickrInstance = null;
-            }
-
-            if (mode === 'sale') {
-                priceLabelEl.textContent = 'Preço de Venda';
-                displayPriceValue = prop.price_sale ? formatBRL(prop.price_sale) : 'Consulte';
-                datesInfoEl.classList.add('hidden');
-                
-                // Mostrar formulário de Compra/Contato padrão
-                document.getElementById('sale-form').classList.remove('hidden');
-                document.getElementById('rent-form').classList.add('hidden');
-
-            } else { // mode === 'rent'
-                let rentPrice = 'Consulte';
-                if (prop.price_daily) {
-                    priceLabelEl.textContent = 'Valor da Diária (Est.)';
-                    rentPrice = formatBRL(prop.price_daily);
-                } else if (prop.price_monthly) {
-                    priceLabelEl.textContent = 'Valor Mensal (Est.)';
-                    rentPrice = formatBRL(prop.price_monthly);
-                } else {
-                    priceLabelEl.textContent = 'Preço';
-                }
-                displayPriceValue = rentPrice;
-                
-                // Exibir Datas de Aluguel (Disponibilidade cadastrada no Admin)
-                const availableStart = timestampToISODate(prop.available_start);
-                const availableEnd = timestampToISODate(prop.available_end);
-                
-                if (prop.available_start && prop.available_end) {
-                     const start = formatTimestamp(prop.available_start);
-                     const end = formatTimestamp(prop.available_end);
-                     datesInfoEl.innerHTML = `<i class="fas fa-calendar-alt mr-1"></i> Disponível: ${start} até ${end}`;
-                     datesInfoEl.classList.remove('hidden');
-                } else {
-                     datesInfoEl.classList.add('hidden');
-                }
-
-                // Mostrar formulário de Aluguel/Datas
-                document.getElementById('sale-form').classList.add('hidden');
-                document.getElementById('rent-form').classList.remove('hidden');
-                
-                // Inicializar Flatpickr (Apenas no modo Aluguel)
-                flatpickrInstance = flatpickr("#rent-date-range", {
-                    mode: "range",
-                    minDate: "today", 
-                    dateFormat: "d/m/Y",
-                    locale: "pt",
-                    minDate: availableStart || "today",
-                    maxDate: availableEnd || null,
-                    disable: availableStart && availableEnd ? [
-                        { from: "1900-01-01", to: availableStart },
-                        { from: availableEnd, to: "2100-01-01" }
-                    ] : []
-                });
-            }
-            priceValueEl.textContent = displayPriceValue;
-
-            // --- Lógica de Features ---
-            const featuresContainer = document.getElementById('modal-features');
-            featuresContainer.innerHTML = '';
-            if (prop.features && prop.features.length > 0) {
-                prop.features.forEach(key => {
-                    featuresContainer.innerHTML += `<div class="flex items-center space-x-2"><i class="fas ${featureIcons[key] || 'fa-check'} text-gray-500 dark:text-gray-400 w-5 text-center"></i><span>${featureLabels[key] || key}</span></div>`;
-                });
-            } else { featuresContainer.innerHTML = `<p class="text-gray-500 dark:text-gray-400">Nenhuma característica especial listada.</p>`; }
-            
-            updateGallery();
-            detailsModal.classList.add('show');
-        }
-
-        function updateGallery() {
-            const mainImage = document.getElementById('modal-main-image'), thumbnailContainer = document.getElementById('thumbnail-container');
-            const placeholderUrl = 'https://placehold.co/600x400/e2e8f0/e2e8f0?text=Imóvel+Não+Carregado';
-            
-            if (currentProperty.images && currentProperty.images.length > 0) {
-                const currentUrl = currentProperty.images[currentImageIndex];
-                
-                mainImage.src = currentUrl;
-                mainImage.onerror = function() {
-                    this.src = placeholderUrl;
-                    this.onerror = null; 
-                };
-
-                thumbnailContainer.innerHTML = '';
-                currentProperty.images.forEach((imgSrc, index) => {
-                    const thumb = document.createElement('img');
-                    thumb.src = imgSrc;
-                    thumb.onerror = function() {
-                        this.src = placeholderUrl;
-                        this.onerror = null;
-                    };
-                    thumb.className = `thumbnail h-16 w-16 object-cover rounded ${index === currentImageIndex ? 'active' : ''}`;
-                    thumb.dataset.index = index;
-                    thumb.addEventListener('click', () => { currentImageIndex = index; updateGallery(); });
-                    thumbnailContainer.appendChild(thumb);
-                });
-                thumbnailContainer.children[currentImageIndex]?.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-            } else {
-                mainImage.src = placeholderUrl;
-                thumbnailContainer.innerHTML = '';
-            }
-        }
-
-        document.getElementById('prev-image').addEventListener('click', () => { if (currentProperty.images && currentProperty.images.length > 1) { currentImageIndex = (currentImageIndex - 1 + currentProperty.images.length) % currentProperty.images.length; updateGallery(); } });
-        document.getElementById('next-image').addEventListener('click', () => { if (currentProperty.images && currentProperty.images.length > 1) { currentImageIndex = (currentImageIndex + 1) % currentProperty.images.length; updateGallery(); } });
-        document.getElementById('close-modal-button').addEventListener('click', () => {
-             detailsModal.classList.remove('show');
-             if (flatpickrInstance) flatpickrInstance.destroy(); 
-        });
-        
-        // --- LISTENERS DE SUBMISSÃO ---
-
-        document.getElementById('sale-form').addEventListener('submit', async (e) => { 
-            e.preventDefault();
-            const guestName = document.getElementById('guest-name').value.trim();
-            const guestContact = document.getElementById('guest-contact').value.trim();
-            if (!guestName || !guestContact) { showAlert('Por favor, preencha o seu nome e contato.'); return; }
-
-            const locationForMessage = currentProperty.location;
-            const message = `Olá! Tenho interesse na **compra** do imóvel "${currentProperty.name}" (ID: ${currentProperty.id}) em ${locationForMessage}.\n\nNome: ${guestName}\nContato: ${guestContact}\n\nMensagem: ${document.getElementById('guest-message').value.trim()}`;
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=5548991311442&text=${encodeURIComponent(message)}`;
-            
-            window.open(whatsappUrl, '_blank');
-        });
-
-        // FORMULÁRIO DE ALUGUEL (Checkout via Mercado Pago + Notificação WhatsApp)
-        document.getElementById('rent-form').addEventListener('submit', async (e) => { 
-            e.preventDefault();
-            const dates = document.getElementById('rent-date-range').value.trim();
-            const contact = document.getElementById('rent-guest-contact').value.trim();
-            const name = document.getElementById('rent-guest-name').value.trim();
-            const adults = parseInt(document.getElementById('guests-adults').value) || 0;
-            const children = parseInt(document.getElementById('guests-children').value) || 0;
-            
-            const summaryDiv = document.getElementById('reservation-summary');
-            const reserveButton = document.getElementById('reserve-button');
-            
-            // 1. VALIDAÇÃO DE DADOS
-            if (!dates || !contact || !name || adults === 0) { 
-                showAlert('Por favor, preencha o nome, WhatsApp, as datas e a quantidade de adultos.', 'Dados Faltando'); 
-                return; 
-            }
-            
-            // --- LÓGICA DE CÁLCULO DE PREÇO ---
-            const dailyRate = currentProperty.price_daily || currentProperty.price_monthly;
-            let totalValue = 0;
-            let numberOfNights = 0;
-            
-            const messageParts = dates.split(' a ');
-            const dateInStr = messageParts[0];
-            const dateOutStr = messageParts[1];
-
-            if (!dailyRate) {
-                showAlert('Preço não cadastrado para cálculo. Contate o administrador.', 'Erro de Cadastro');
-                return;
-            }
-            if (!dateOutStr) {
-                showAlert('Selecione tanto a data de entrada quanto a data de saída para calcular.', 'Datas Incompletas');
-                return;
-            }
-
-            const [dayIn, monthIn, yearIn] = dateInStr.split('/').map(Number);
-            const [dayOut, monthOut, yearOut] = dateOutStr.split('/').map(Number);
-            const dateIn = new Date(yearIn, monthIn - 1, dayIn);
-            const dateOut = new Date(yearOut, monthOut - 1, dayOut);
-            
-            const timeDifference = dateOut.getTime() - dateIn.getTime();
-            numberOfNights = Math.ceil(timeDifference / (1000 * 3600 * 24)); 
-
-            if (numberOfNights <= 0) {
-                showAlert('A data de saída deve ser posterior à data de entrada.', 'Erro de Datas');
-                return;
-            }
-            
-            // Cálculo do valor total (usando diária)
-            totalValue = numberOfNights * dailyRate;
-            const totalValueBRL = formatBRL(totalValue);
-
-            // --- URL DE CHECKOUT (REDIRECIONAMENTO DIRETO) ---
-            
-            // ⚠️ SUBSTITUA ESTE LINK PELO SEU LINK DE CHECKOUT ESTÁTICO DO MERCADO PAGO
-            // Este é o link para o seu produto/reserva no Mercado Pago
-            const MERCADOPAGO_CHECKOUT_URL = "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=SEU_ID_DA_PREFERENCIA_AQUI"; // <-- SUBSTITUA AQUI
-            
-            // --- ATUALIZAÇÃO DO RESUMO NA TELA ---
-            document.getElementById('summary-nights').textContent = `Período: ${dateInStr} até ${dateOutStr} (${numberOfNights} noites)`;
-            document.getElementById('summary-guests').textContent = `Hóspedes: ${adults} adultos e ${children} crianças`;
-            document.getElementById('summary-total').textContent = `Valor Total: R$ ${totalValueBRL}`;
-            summaryDiv.classList.remove('hidden');
-
-            // --- AÇÕES FINAIS ---
-
-            // 1. Geração da Mensagem de Notificação para Agente
-            const whatsappMessage = encodeURIComponent(
-                `*🚨 PRÉ-RESERVA FEITA - PAGAMENTO PENDENTE*\n` +
-                `O cliente *${name}* está finalizando a reserva.\n` +
-                `Imóvel: "${currentProperty.name}"\n` +
-                `Período: ${dateInStr} a ${dateOutStr} (${numberOfNights} noites)\n` +
-                `VALOR TOTAL CALCULADO: R$ ${totalValueBRL}\n\n` +
-                `*Cliente: ${name} (${contact})*\n` +
-                `*Redirecionado para o Checkout do Mercado Pago.*`
-            );
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=5548991311442&text=${whatsappMessage}`;
-            
-            // 2. Notificar o agente via WhatsApp em uma nova aba (IMPORTANTE)
-            window.open(whatsappUrl, '_blank'); 
-            
-            // 3. Redirecionar para o Checkout Pro (Checkout Transparente)
-            window.open(MERCADOPAGO_CHECKOUT_URL, '_blank'); 
-
-            // Ação no botão: Mudar o texto para indicar que a reserva foi processada
-            reserveButton.textContent = "Pagamento Redirecionado!";
-            reserveButton.classList.remove('bg-blue-600', 'hover:bg-blue-500');
-            reserveButton.classList.add('bg-green-600', 'hover:bg-green-500');
-        });
-        
-        // --- FUNÇÕES DE GRÁFICO E TEMA ---
-
-        function renderAppreciationChart() {
-            const ctx = document.getElementById('appreciation-chart').getContext('2d');
-            const isDarkMode = document.documentElement.classList.contains('dark');
-            const gridColor = isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
-            const labelColor = isDarkMode ? '#cbd5e1' : '#4b5563';
-
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['2022', '2023', '2024', '2025 (Proj.)'],
-                    datasets: [{
-                        label: 'Valorização Média Anual (%)',
-                        data: [14.1, 16.5, 17.2, 18.0],
-                        borderColor: '#3B82F6',
-                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                        fill: true,
-                        tension: 0.4,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: false,
-                            ticks: {
-                                callback: function(value) { return value + '%'; },
-                                color: labelColor,
-                            },
-                            grid: { color: gridColor }
-                        },
-                        x: {
-                            ticks: { color: labelColor },
-                            grid: { color: gridColor }
-                        }
-                    },
-                    plugins: {
-                        legend: { labels: { color: labelColor } },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return ` Valorização: ${context.parsed.y}%`;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        document.querySelectorAll('.mode-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                currentMode = btn.dataset.mode;
-                
-                document.querySelectorAll('.mode-btn').forEach(b => {
-                    b.classList.remove('active');
-                });
-                
-                btn.classList.add('active');
-                
-                renderProperties(allProperties);
-                document.querySelector('.filter-btn[data-filter="all"]').click(); 
-                renderFilters(allProperties); 
-            });
-        });
-
-        const themeToggle = document.getElementById('theme-toggle'), sunIcon = document.getElementById('theme-icon-sun'), moonIcon = document.getElementById('theme-icon-moon');
-        const applyTheme = theme => { if (theme === 'dark') { document.documentElement.classList.add('dark'); sunIcon.classList.remove('hidden'); moonIcon.classList.add('hidden'); } else { document.documentElement.classList.remove('dark'); sunIcon.classList.add('hidden'); moonIcon.classList.remove('hidden'); } };
-        themeToggle.addEventListener('click', () => { const isDark = document.documentElement.classList.toggle('dark'), newTheme = isDark ? 'dark' : 'light'; localStorage.setItem('theme', newTheme); applyTheme(newTheme); });
-        applyTheme(localStorage.getItem('theme') || 'light');
-        main();
-    </script>
 </body>
 </html>
