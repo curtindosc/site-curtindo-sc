@@ -18,21 +18,21 @@
                     colors: {
                         "primary": {
                             DEFAULT: "#32a852", // logo green
-                            dark: "#4a7729" 
+                            dark: "#4a7729" // lighter green for dark mode
                         },
                         "secondary": {
                             DEFAULT: "#003366", // navy blue
                             dark: "#1e81b0"
                         },
                         "accent": {
-                            DEFAULT: "#ff8c69", // coral
-                            light: "#ffe4d6"
+                            DEFAULT: "#FF7F50", // coral
+                            light: "#FFE4D6"
                         },
                         "background-light": "#fdf8f0", // light sand
                         "background-dark": "#0d1a26",
                         "sand": {
                             DEFAULT: "#f5f3f0", // light sand
-                            dark: "#e8e0d5" 
+                            dark: "#e8e0d5" // original sand
                         }
                     },
                     fontFamily: {
@@ -69,6 +69,12 @@
                 gap: 0;
             }
         }
+    .logo-img {
+        height: 40px; 
+        width: auto; 
+        border-radius: 9999px; 
+        object-fit: cover; 
+    }
     </style>
 </head>
 <body class="font-body bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
@@ -76,14 +82,17 @@
 <div class="layout-container flex h-full grow flex-col">
 <header class="flex items-center justify-between whitespace-nowrap border-b border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-background-dark/80 backdrop-blur-sm sticky top-0 z-30 px-4 sm:px-6 lg:px-8 h-16">
 <div class="flex items-center gap-4 text-primary">
-<span class="material-symbols-outlined text-secondary text-2xl"> real_estate_agent </span>
-<h2 class="text-lg font-display font-bold tracking-tight text-gray-900 dark:text-white">Imóveis Palhoça</h2>
+    <!-- LOGO CORRIGIDA -->
+    <img src="https://media.bio.site/sites/15fc0509-6c95-4782-9a79-fe69fe78ce69/fetqsktutwxDYURdXexgei.jpg" alt="Logo Curtindo SC" class="logo-img">
+    <h2 class="text-lg font-display font-bold tracking-tight text-gray-900 dark:text-white">Curtindo SC</h2>
 </div>
 <div class="hidden md:flex flex-1 justify-center gap-8">
 <div class="flex items-center gap-9">
-<a class="text-sm font-medium hover:text-primary dark:hover:text-primary-dark transition-colors" href="#">Comprar</a>
-<a class="text-sm font-medium hover:text-primary dark:hover:text-primary-dark transition-colors" href="#">Alugar</a>
-<a class="text-sm font-medium hover:text-primary dark:hover:text-primary-dark transition-colors" href="#">Anunciar Imóvel</a>
+    <!-- LINKS DE NAVEGAÇÃO CORRIGIDOS -->
+    <a class="text-sm font-medium hover:text-primary dark:hover:text-primary-dark transition-colors" href="imoveis.html">Comprar</a>
+    <a class="text-sm font-medium hover:text-primary dark:hover:text-primary-dark transition-colors" href="imoveis.html">Alugar</a>
+    <a class="text-sm font-medium hover:text-primary dark:hover:text-primary-dark transition-colors" href="sobre_nos.html">Anunciar Imóvel</a>
+    <a class="text-sm font-medium hover:text-primary dark:hover:text-primary-dark transition-colors" href="contato.html">Contato</a>
 </div>
 </div>
 <div class="flex items-center gap-2">
