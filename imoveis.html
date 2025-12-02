@@ -10,6 +10,9 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,0" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script> 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script id="tailwind-config">
     tailwind.config = {
       darkMode: "class",
@@ -19,7 +22,7 @@
             "primary": "#137fec", /* Azul/Primary do Index */
             "background-light": "#f6f7f8", /* Light do Index */
             "background-dark": "#101922", /* Dark do Index */
-            "secondary": "#003366", /* Navy Blue para texto secundário/header */
+            "secondary": "#003366", /* Navy Blue */
             "accent": "#FF7F50", /* Coral */
             "sand": {
                 DEFAULT: "#f5f3f0", // light sand
@@ -44,14 +47,13 @@
         }
         /* Estilos para o filtro em mobile */
         .mobile-filter-container {
-            /* Divide os selects em mobile */
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 8px;
         }
         @media (min-width: 640px) { /* sm breakpoint */
             .mobile-filter-container {
-                display: flex; /* Volta para flex em tablet/desktop */
+                display: flex; 
                 gap: 0;
             }
         }
@@ -61,6 +63,27 @@
         width: auto; 
         border-radius: 9999px; 
         object-fit: cover; 
+    }
+    /* Estilo do Modal Dinâmico */
+    .modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.75);
+        z-index: 50;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+    }
+    .modal.show {
+        display: flex;
+    }
+    .modal-content {
+        max-height: 95vh;
+        overflow-y: auto;
+    }
+    .flatpickr-calendar {
+        z-index: 9999; /* Garante que o calendário fique sobre o modal */
     }
     </style>
 </head>
@@ -72,13 +95,11 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="flex items-center justify-between whitespace-nowrap h-16">
 <div class="flex items-center gap-4 text-gray-800 dark:text-gray-100">
-    <!-- LOGO CORRIGIDA E DIMENSIONADA -->
     <img src="https://media.bio.site/sites/15fc0509-6c95-4782-9a79-fe69fe78ce69/fetqsktutwxDYURdXexgei.jpg" alt="Logo Curtindo SC" class="logo-img">
     <h2 class="text-xl font-bold leading-tight tracking-[-0.015em] text-gray-900 dark:text-white">Curtindo SC</h2>
 </div>
 <div class="hidden md:flex flex-1 justify-end gap-8">
 <div class="flex items-center gap-9">
-    <!-- LINKS DE NAVEGAÇÃO CORRIGIDOS -->
     <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="index.html">Início</a>
     <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="imoveis.html">Comprar</a>
     <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="imoveis.html">Alugar</a>
@@ -159,7 +180,7 @@
 </div>
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-<p class="text-sm font-medium text-gray-600 dark:text-gray-300">12 imóveis encontrados</p>
+<p class="text-sm font-medium text-gray-600 dark:text-gray-300">6 imóveis encontrados (Exemplos)</p>
 <div class="flex items-center gap-4 w-full sm:w-auto">
 <div class="relative w-full sm:w-48">
 <select class="w-full appearance-none bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 py-2 pl-3 pr-8 rounded-lg leading-tight focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-primary dark:focus:border-primary-dark focus:ring-1 focus:ring-primary/50 dark:focus:ring-primary-dark/50 text-sm">
@@ -174,138 +195,418 @@
 </div>
 </div>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-<div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-<div class="relative">
-<img class="h-64 w-full object-cover" data-alt="Fachada de uma casa moderna com jardim" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUzRiXmLJ42_onfiXrxsiK4CJfeSm4orWZaDZQB7ugJwzvxvDhdjOSS2utvEHnG_iEy0caSRqUJJKl_zAAdSJddrA2W7H8SjkLC99JEYxcq4QF7EFhIq1Pjj-ggjfTKXgwdxL3rLAHKkt0pib5LWca-PGaRkQ5rB9wpN9hzgdvksbDh8KDVrqet_fPipJeVgm4PmJc4gDAJRn0OKuREijyyxjpLT8mfmoNVzEKvcB5plxnO3JWbjdgh62lYaULmC6C2V6g9jz9cms"/>
-<div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/60 to-transparent"></div>
-<button class="absolute top-3 right-3 bg-white/80 dark:bg-gray-900/60 backdrop-blur-sm p-2 rounded-full text-gray-700 dark:text-gray-200 hover:text-accent dark:hover:text-accent-light transition-colors">
-<span class="material-symbols-outlined"> favorite_border </span>
-</button>
-<div class="absolute bottom-3 left-3 text-white">
-<p class="font-display font-bold text-lg drop-shadow-md">R$ 980 <span class="text-sm font-normal">/ diária</span></p>
-<p class="text-xs">Para até 6 pessoas</p>
-</div>
-</div>
-<div class="p-5">
-<h3 class="font-display font-bold text-lg text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-dark transition-colors">Casa Térrea com Piscina</h3>
-<p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Praia do Sonho, Palhoça</p>
-<p class="text-sm text-gray-600 dark:text-gray-300 italic border-l-2 border-primary dark:border-primary-dark pl-3">"O refúgio perfeito para relaxar e sentir a brisa do mar."</p>
-<button class="w-full mt-4 py-2.5 px-4 bg-primary dark:bg-primary-dark text-white text-sm font-bold rounded-lg hover:bg-primary/90 dark:hover:bg-primary-dark/90 transition-colors">Ver Detalhes</button>
-</div>
-</div>
-<div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-<div class="relative">
-<img class="h-64 w-full object-cover" data-alt="Apartamento moderno com sacada e vista para a cidade" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrhKgRWX177WRPwk_g13wOtuyRGA89CkVKEHAMS0nRCh5VYgy6vjjAovXM6hhgKKitQMKei69HWd8_RE9_hFEwzVlPpk8BkStcHlKP9ic2hhZ_RYpn-ljttn8DyMyeuRlGksQMHufgLtUlrziCnygwnNxvWXyE0pA8MF8nAl0YX1jy8g15VsYEMNoVOaQJLLmho8r--H9BGibx_LPH8iGRw671MDfKSJc9bCRGSozavZtNLcMo6kJphfPSfJyXxnn4Oksiedb1UPQ"/>
-<div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/60 to-transparent"></div>
-<button class="absolute top-3 right-3 bg-white/80 dark:bg-gray-900/60 backdrop-blur-sm p-2 rounded-full text-accent dark:text-accent-light transition-colors">
-<span class="material-symbols-outlined fill-current"> favorite </span>
-</button>
-<div class="absolute bottom-3 left-3 text-white">
-<p class="font-display font-bold text-lg drop-shadow-md">R$ 650 <span class="text-sm font-normal">/ diária</span></p>
-<p class="text-xs">Para até 4 pessoas</p>
-</div>
-</div>
-<div class="p-5">
-<h3 class="font-display font-bold text-lg text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-dark transition-colors">Apartamento Moderno</h3>
-<p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Guarda do Embaú, Palhoça</p>
-<p class="text-sm text-gray-600 dark:text-gray-300 italic border-l-2 border-primary dark:border-primary-dark pl-3">"Viva o agito e a beleza de uma das praias mais famosas."</p>
-<button class="w-full mt-4 py-2.5 px-4 bg-primary dark:bg-primary-dark text-white text-sm font-bold rounded-lg hover:bg-primary/90 dark:hover:bg-primary-dark/90 transition-colors">Ver Detalhes</button>
-</div>
-</div>
-<div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-<div class="relative">
-<img class="h-64 w-full object-cover" data-alt="Interior de um apartamento loft moderno e iluminado" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkJXXkq4PB_UELQ6Or3FsXQolSU713nYjOVcOg7O7h9mZAMFnw9MLSucLOIX9Xl1UuJz-opoW2DynbxlFCA6jAjz8MblLDqWpcQikwcGl9sFEGvP5WD2Hw1xyprv5Tz8LdpqvA2En5LrYvk93gob6XOpTFdQPhXMdP3SVezlZhgwwtp7JeOSObNCiEA7z_kaov6rgyNhTfy-D2BZ8WdodHZYO0Z7uv9V5sts2uiNskYExbKQzjz7xvYbUrgUAK4W9lxIfRcII13nk"/>
-<div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/60 to-transparent"></div>
-<button class="absolute top-3 right-3 bg-white/80 dark:bg-gray-900/60 backdrop-blur-sm p-2 rounded-full text-gray-700 dark:text-gray-200 hover:text-accent dark:hover:text-accent-light transition-colors">
-<span class="material-symbols-outlined"> favorite_border </span>
-</button>
-<div class="absolute bottom-3 left-3 text-white">
-<p class="font-display font-bold text-lg drop-shadow-md">R$ 480.000</p>
-</div>
-</div>
-<div class="p-5">
-<h3 class="font-display font-bold text-lg text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-dark transition-colors">Loft Mobiliado para Venda</h3>
-<p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Praia da Pinheira, Palhoça</p>
-<p class="text-sm text-gray-600 dark:text-gray-300 italic border-l-2 border-primary dark:border-primary-dark pl-3">"Seu refúgio particular para se reconectar e encontrar a paz."</p>
-<button class="w-full mt-4 py-2.5 px-4 bg-primary dark:bg-primary-dark text-white text-sm font-bold rounded-lg hover:bg-primary/90 dark:hover:bg-primary-dark/90 transition-colors">Ver Detalhes</button>
-</div>
-</div>
-<div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-<div class="relative">
-<img class="h-64 w-full object-cover" data-alt="Casa de dois andares com piscina e palmeiras" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5F4upEOd8bNwUW8GK09B8rySNOI6gRzwPNbXeqSVqBgiL9AB0sBI9Ylsz_UAwga25JXqL1pipTxBzd5jd6PvQ6CnbK1olWrSwxYpuzjDXRovDjEVlPcqE4RWMiIwIQblYMargx5JZq980LWCuZoDKYg0BJh1o7Dt--m_019yEaOuRxNUxuf0g7JdhLAX9gWUyP_QYVw9MXYNi1U2bawsJEi4pc4YbGOk2WE40HWAthZl9Q_HhYZxnLszH3egy9r-W5ukUj5oe4NI"/>
-<div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/60 to-transparent"></div>
-<button class="absolute top-3 right-3 bg-white/80 dark:bg-gray-900/60 backdrop-blur-sm p-2 rounded-full text-gray-700 dark:text-gray-200 hover:text-accent dark:hover:text-accent-light transition-colors">
-<span class="material-symbols-outlined"> favorite_border </span>
-</button>
-<div class="absolute bottom-3 left-3 text-white">
-<p class="font-display font-bold text-lg drop-shadow-md">R$ 1.200.000</p>
-</div>
-</div>
-<div class="p-5">
-<h3 class="font-display font-bold text-lg text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-dark transition-colors">Casa com Vista para o Mar</h3>
-<p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Praia de Fora, Palhoça</p>
-<p class="text-sm text-gray-600 dark:text-gray-300 italic border-l-2 border-primary dark:border-primary-dark pl-3">"Espaço e conforto para criar memórias inesquecíveis em família."</p>
-<button class="w-full mt-4 py-2.5 px-4 bg-primary dark:bg-primary-dark text-white text-sm font-bold rounded-lg hover:bg-primary/90 dark:hover:bg-primary-dark/90 transition-colors">Ver Detalhes</button>
-</div>
-</div>
-<div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-<div class="relative">
-<img class="h-64 w-full object-cover" data-alt="Casa de campo charmosa cercada por vegetação" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkJXXkq4PB_UELQ6Or3FsXQolSU713nYjOVcOg7O7h9mZAMFnw9MLSucLOIX9Xl1UuJz-opoW2DynbxlFCA6jAjz8MblLDqWpcQikwcGl9sFEGvP5WD2Hw1xyprv5Tz8LdpqvA2En5LrYvk93gob6XOpTFdQPhXMdP3SVezlZhgwwtp7JeOSObNCiEA7z_kaov6rgyNhTfy-D2BZ8WdodHZYO0Z7uv9V5sts2uiNskYExbKQzjz7xvYbUrgUAK4W9lxIfRcII13nk"/>
-<div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/60 to-transparent"></div>
-<button class="absolute top-3 right-3 bg-white/80 dark:bg-gray-900/60 backdrop-blur-sm p-2 rounded-full text-gray-700 dark:text-gray-200 hover:text-accent dark:hover:text-accent-light transition-colors">
-<span class="material-symbols-outlined"> favorite_border </span>
-</button>
-<div class="absolute bottom-3 left-3 text-white">
-<p class="font-display font-bold text-lg drop-shadow-md">R$ 1.500.000</p>
-</div>
-</div>
-<div class="p-5">
-<h3 class="font-display font-bold text-lg text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-dark transition-colors">Refúgio em Meio à Natureza</h3>
-<p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Enseada de Brito, Palhoça</p>
-<p class="text-sm text-gray-600 dark:text-gray-300 italic border-l-2 border-primary dark:border-primary-dark pl-3">"Desconecte-se do mundo e reconecte-se com a natureza pura."</p>
-<button class="w-full mt-4 py-2.5 px-4 bg-primary dark:bg-primary-dark text-white text-sm font-bold rounded-lg hover:bg-primary/90 dark:hover:bg-primary-dark/90 transition-colors">Ver Detalhes</button>
-</div>
-</div>
-<div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-<div class="relative">
-<img class="h-64 w-full object-cover" data-alt="Apartamento com vista para o mar de uma sacada ampla" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrhKgRWX177WRPwk_g13wOtuyRGA89CkVKEHAMS0nRCh5VYgy6vjjAovXM6hhgKKitQMKei69HWd8_RE9_hFEwzVlPpk8BkStcHlKP9ic2hhZ_RYpn-ljttn8DyMyeuRlGksQMHufgLtUlrziCnygwnNxvWXyE0pA8MF8nAl0YX1jy8g15VsYEMNoVOaQJLLmho8r--H9BGibx_LPH8iGRw671MDfKSJc9bCRGSozavZtNLcMo6kJphfPSfJyXxnn4Oksiedb1UPQ"/>
-<div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/60 to-transparent"></div>
-<button class="absolute top-3 right-3 bg-white/80 dark:bg-gray-900/60 backdrop-blur-sm p-2 rounded-full text-gray-700 dark:text-gray-200 hover:text-accent dark:hover:text-accent-light transition-colors">
-<span class="material-symbols-outlined"> favorite_border </span>
-</button>
-<div class="absolute bottom-3 left-3 text-white">
-<p class="font-display font-bold text-lg drop-shadow-md">R$ 890 <span class="text-sm font-normal">/ diária</span></p>
-<p class="text-xs">Para até 8 pessoas</p>
-</div>
-</div>
-<div class="p-5">
-<h3 class="font-display font-bold text-lg text-gray-900 dark:text-white group-hover:text-primary dark:group-hover:text-primary-dark transition-colors">Cobertura Duplex Vista Mar</h3>
-<p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Praia do Sonho, Palhoça</p>
-<p class="text-sm text-gray-600 dark:text-gray-300 italic border-l-2 border-primary dark:border-primary-dark pl-3">"A exclusividade e o conforto com a melhor vista da região."</p>
-<button class="w-full mt-4 py-2.5 px-4 bg-primary dark:bg-primary-dark text-white text-sm font-bold rounded-lg hover:bg-primary/90 dark:hover:bg-primary-dark/90 transition-colors">Ver Detalhes</button>
-</div>
-</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="properties-grid">
+<!-- Os cards de imóveis serão gerados aqui pelo JavaScript -->
 </div>
 <div class="flex justify-center mt-12">
-<button class="py-3 px-6 bg-primary/10 dark:bg-primary-dark/20 text-primary dark:text-primary-dark font-bold rounded-lg hover:bg-primary/20 dark:hover:bg-primary-dark/30 transition-colors">Carregar mais imóveis</button>
+<button class="py-3 px-6 bg-primary/10 dark:bg-secondary/20 text-primary dark:text-secondary font-bold rounded-lg hover:bg-primary/20 dark:hover:bg-secondary/30 transition-colors">Carregar mais imóveis</button>
 </div>
 </div>
-<section class="bg-sand dark:bg-gray-800/50 py-16 mt-12 border-t border-gray-200 dark:border-gray-700">
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-<h2 class="text-3xl md:text-4xl font-display font-bold tracking-tight text-gray-900 dark:text-white">Viver em Palhoça: Um Estilo de Vida Único</h2>
-<p class="mt-4 text-lg text-gray-600 dark:text-gray-300">Descubra por que Palhoça é o destino ideal para quem busca qualidade de vida, natureza exuberante e praias paradisíacas. De trilhas ecológicas a uma gastronomia rica, aqui você encontra o equilíbrio perfeito entre tranquilidade e lazer.</p>
-<a class="inline-block mt-8 px-8 py-3 bg-primary dark:bg-primary-dark text-white font-bold rounded-lg hover:bg-primary/90 dark:hover:bg-primary-dark/90 transition-colors" href="#">Saiba Mais sobre a Região</a>
-</div>
-</section>
 </main>
-<!-- RODAPÉ COMPLETO (IDÊNTICO AO INDEX.HTML) -->
+
+<!-- MODAL DE DETALHES DO IMÓVEL (POPUP) -->
+<div id="details-modal" class="modal">
+    <div class="modal-content bg-white dark:bg-background-dark rounded-xl shadow-2xl w-full max-w-5xl flex flex-col lg:flex-row relative">
+        <button id="close-modal-button" class="absolute top-4 right-4 z-40 p-2 rounded-full bg-white/50 dark:bg-gray-900/50 text-gray-800 dark:text-white text-xl hover:bg-white dark:hover:bg-gray-700 transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        
+        <!-- Galeria (Lado Esquerdo) -->
+        <div class="w-full lg:w-2/3 relative h-96 lg:h-auto overflow-hidden rounded-t-xl lg:rounded-l-xl lg:rounded-t-none">
+            <div id="modal-main-image-container" class="w-full h-full bg-black">
+                <img id="modal-main-image" src="" alt="Imagem principal do imóvel" class="w-full h-full object-cover">
+            </div>
+        </div>
+
+        <!-- Detalhes e Formulário (Lado Direito) -->
+        <div class="w-full lg:w-1/3 p-6 space-y-4">
+            <h2 id="modal-title" class="font-display text-2xl font-bold text-secondary dark:text-white"></h2>
+            <p id="modal-location" class="text-gray-600 dark:text-gray-400 text-sm flex items-center gap-1"><span class="material-symbols-outlined text-lg">location_on</span></p>
+
+            <!-- Métricas Principais -->
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-gray-700 dark:text-gray-300 border-b pb-4">
+                <span id="modal-rooms" class="flex items-center gap-1.5"><span class="material-symbols-outlined text-primary">bed</span></span>
+                <span id="modal-baths" class="flex items-center gap-1.5"><span class="material-symbols-outlined text-primary">bathtub</span></span>
+                <span id="modal-area" class="flex items-center gap-1.5"><span class="material-symbols-outlined text-primary">straighten</span></span>
+            </div>
+
+            <div id="modal-price-container">
+                <p id="modal-price-label" class="text-lg font-bold text-gray-600 dark:text-gray-300"></p>
+                <p id="modal-price" class="text-4xl font-black text-primary dark:text-white mt-1"></p>
+                <div id="dates-info" class="text-sm text-red-500 font-medium mt-2"></div>
+            </div>
+            
+            <div id="modal-features-list" class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                <h3 class="font-display text-lg font-bold text-secondary dark:text-white mb-2">Características</h3>
+                <div id="features-container" class="grid grid-cols-2 gap-2 text-sm text-gray-700 dark:text-gray-300">
+                    <!-- Features serão injetadas aqui -->
+                </div>
+            </div>
+            
+            <!-- Formulário de Aluguel/Reserva (Com Hóspedes e Datas) -->
+            <form id="modal-rent-form" class="space-y-4 pt-4 border-t border-gray-200 dark:border-gray-700 hidden">
+                <h4 class="font-display text-xl font-bold text-primary">Calcular e Reservar</h4>
+                
+                <!-- Datas -->
+                <div>
+                    <label for="rent-date-range" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Entrada / Saída</label>
+                    <input type="text" id="rent-date-range" placeholder="Selecione as datas" required class="w-full form-input rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                </div>
+                
+                <!-- Hóspedes -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label for="guests-adults" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Adultos</label>
+                        <input type="number" id="guests-adults" value="2" min="1" required class="w-full form-input rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                    </div>
+                    <div>
+                        <label for="guests-children" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Crianças (0-12)</label>
+                        <input type="number" id="guests-children" value="0" min="0" class="w-full form-input rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                    </div>
+                </div>
+
+                <div id="reservation-summary" class="bg-blue-100 dark:bg-secondary/30 p-3 rounded-lg hidden">
+                    <p class="text-secondary dark:text-white font-semibold">Resumo do Orçamento:</p>
+                    <p id="summary-nights" class="text-sm text-gray-700 dark:text-gray-300"></p>
+                    <p id="summary-guests" class="text-sm text-gray-700 dark:text-gray-300"></p>
+                    <p id="summary-total" class="text-lg font-bold text-blue-800 dark:text-blue-200">Total: <span id="summary-total-value">R$ 0,00</span></p>
+                    <p class="text-xs text-secondary dark:text-gray-300">(Diária: <span id="summary-daily-rate">R$ 0,00</span> x <span id="summary-nights-count">0</span> noites)</p>
+                </div>
+
+                <button type="submit" id="reserve-button" class="w-full flex items-center justify-center h-12 px-4 bg-primary text-white text-lg font-bold rounded-lg hover:bg-primary/90 transition-colors">
+                    <span>Verificar Preço e Reservar</span>
+                </button>
+            </form>
+
+            <!-- Formulário de Venda/Contato (Padrão) -->
+            <form id="modal-sale-form" class="space-y-4 pt-4 border-t border-gray-200 dark:border-gray-700 hidden">
+                <p class="text-sm text-gray-600 dark:text-gray-300">Interessado na compra? Preencha para contato imediato.</p>
+                <input type="text" id="sale-guest-name" placeholder="Seu nome" required class="w-full form-input rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                <input type="tel" id="sale-guest-contact" placeholder="Seu WhatsApp" required class="w-full form-input rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                <button type="submit" class="w-full h-12 px-4 bg-secondary text-white font-bold rounded-lg hover:bg-secondary/90 transition-colors">Falar com Corretor (Venda)</button>
+            </form>
+            
+        </div>
+    </div>
+</div>
+<!-- FIM DO MODAL DE DETALHES -->
+
+<div id="alert-modal" class="modal">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-sm text-center">
+        <h2 id="alert-title" class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Aviso</h2>
+        <p id="alert-message" class="mb-6 text-gray-600 dark:text-gray-300"></p>
+        <button id="alert-ok-button" class="px-6 py-2 bg-gray-900 dark:bg-gray-100 dark:text-gray-900 text-white rounded-lg font-semibold">OK</button>
+    </div>
+</div>
+
+
+<!-- SCRIPTS E LÓGICA DE FUNCIONAMENTO -->
+<script>
+    // Mockup Database (Simulando dados do Firebase para demonstração)
+    const propertyData = [
+        {
+            id: 'venda_luxo',
+            title: 'Casa de Luxo com Piscina na Praia do Sonho',
+            location: 'Praia do Sonho, Palhoça',
+            mode: 'sale',
+            price_sale: 2500000,
+            price_daily: 1800, // Alto potencial para aluguel
+            rooms: 4, baths: 5, area: 220,
+            description: "Esta casa redefine o luxo na Praia do Sonho. Com arquitetura moderna e acabamentos de alto padrão, ela foi projetada para quem busca privacidade e um contato íntimo com o mar. A piscina de borda infinita se funde com a paisagem, criando um cenário perfeito. É uma excelente oportunidade de investimento ou residência de alto padrão em uma região de crescente valorização.",
+            images: [
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuAQWr66uTJiCxpEEC2kU9O7mC8AFMT39XsOr4c6O5AhVzf6bDTAa5RYR76ksJQ6dRKt6dTVa2nE9HjrecWUDea-PxIInZ8eTjGrNoEr84PEyTTIaoLqAnYf-wu8WLlmEUMP9UwlEb1ZiIULHSZavPV2lZQMd4MRtDFCzHZReFEZYVT5fH5UHxMDLxp_4R2XcAnsQGz-VG2G1wqi8oNoUTllBninRP2_nclvzdgUtFdEN5jikOUfuOSNYAmbIACSBOAoubR2JxPdc1w",
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuB7IIfBJrYidgqgCvKOXkQSxvY5fcjTh31ssjQIeVEJvVz_YOqvRC2w5ArigrMKnOEdsV21pcmQLT77hsv0N8S2UJaV_4u3zqEZ1euHHCRsY0RfLg7mVcJjd_FcjQ7np5AocuKmEXbtFIHi_vDWmVdfBFWBmlAotzRebSJWCoUbM0FhsMYIVIC1JyH8NQarRAnJA4tTS-M0CJe77A-Y6xFhQ72JPe9dI_eegc8bYvcT2bOFVOlrPFE3rxhsE4V1SyNwmSJDLRZSVw8"
+            ],
+            features: ['Piscina Infinita', 'Vista para o Mar', 'Acesso Privativo', 'Espaço Gourmet']
+        },
+        {
+            id: 'aluguel_refugio',
+            title: 'Refúgio em Meio à Natureza',
+            location: 'Enseada de Brito, Palhoça',
+            mode: 'rent',
+            price_sale: 800000, 
+            price_daily: 650, 
+            rooms: 2, baths: 1, area: 150,
+            description: "Cabana charmosa, ideal para casais ou famílias pequenas que buscam paz e desconexão. Cercada por Mata Atlântica preservada e próxima a trilhas ecológicas. Vagas limitadas para a alta temporada!",
+            available_start: { seconds: new Date(2025, 0, 1).getTime() / 1000 }, // Jan 1st 2025
+            available_end: { seconds: new Date(2025, 2, 31).getTime() / 1000 }, // Mar 31st 2025
+            images: [
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuCkJXXkq4PB_UELQ6Or3FsXQolSU713nYjOVcOg7O7h9mZAMFnw9MLSucLOIX9Xl1UuJz-opoW2DynbxlFCA6jAjz8MblLDqWpcQikwcGl9sFEGvP5WD2Hw1xyprv5Tz8LdpqvA2En5LrYvk93gob6XOpTFdQPhXMdP3SVezlZhgwwtp7JeOSObNCiEA7z_kaov6rgyNhTfy-D2BZ8WdodHZYO0Z7uv9V5sts2uiNskYExbKQzjz7xvYbUrgUAK4W9lxIfRcII13nk",
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuAUzRiXmLJ42_onfiXrxsiK4CJfeSm4orWZaDZQB7ugJwzvxvDhdjOSS2utvEHnG_iEy0caSRqUJJKl_zAAdSJddrA2W7H8SjkLC99JEYxcq4QF7EFhIq1Pjj-ggjfTKXgwdxL3rLAHKkt0pib5LWca-PGaRkQ5rB9wpN9hzgdvksbDh8KDVrqet_fPipJeVgm4PmJc4gDAJRn0OKuREijyyxjpLT8mfmoNVzEKvcB5plxnO3JWbjdgh62lYaULmC6C2V6g9jz9cms"
+            ],
+            features: ['Mobiliado', 'Próximo à Trilha', 'Lareira', 'Wi-Fi']
+        }
+        // ... adicione mais imóveis aqui ...
+    ];
+
+    let currentProperty = null;
+    let flatpickrInstance = null; 
+    const MODAL_WHATSAPP_NUMBER = '5548999998888'; 
+    const MERCADOPAGO_CHECKOUT_URL = "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=SEU_ID_DA_PREFERENCIA_AQUI"; // LINK MP (MOCKUP)
+
+    // Funções utilitárias
+    const formatBRL = (number) => number ? number.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : 'Consulte';
+    const formatTimestamp = (timestamp) => {
+        if (timestamp && timestamp.seconds) {
+            return new Date(timestamp.seconds * 1000).toLocaleDateString('pt-BR');
+        }
+        return 'Indefinido';
+    };
+    const timestampToISODate = (timestamp) => {
+        if (timestamp && timestamp.seconds) {
+            return new Date(timestamp.seconds * 1000).toISOString().split('T')[0];
+        }
+        return null;
+    };
+    const showAlert = (message, title = "Aviso") => {
+        const alertModal = document.getElementById('alert-modal');
+        if (alertModal) {
+            document.getElementById('alert-title').textContent = title; 
+            document.getElementById('alert-message').textContent = message; 
+            alertModal.classList.add('show'); 
+        }
+    };
+    
+    // Abre o modal e injeta os dados (Chama quando o card é clicado)
+    function openModal(propertyId) {
+        currentProperty = propertyData.find(p => p.id === propertyId);
+        const detailsModal = document.getElementById('details-modal');
+
+        if (!currentProperty || !detailsModal) {
+            showAlert('Imóvel ou modal não encontrado.', 'Erro');
+            return;
+        }
+
+        // 1. Preenchimento de Dados Estáticos
+        document.getElementById('modal-title').textContent = currentProperty.title;
+        document.getElementById('modal-location').textContent = currentProperty.location;
+        document.getElementById('modal-rooms').innerHTML = `<span class="material-symbols-outlined text-primary">bed</span>${currentProperty.rooms} Quartos`;
+        document.getElementById('modal-baths').innerHTML = `<span class="material-symbols-outlined text-primary">bathtub</span>${currentProperty.baths} Banheiros`;
+        document.getElementById('modal-area').innerHTML = `<span class="material-symbols-outlined text-primary">straighten</span>${currentProperty.area} m²`;
+        // Usando a primeira imagem como placeholder no modal
+        document.getElementById('modal-main-image').src = currentProperty.images[0] || 'https://placehold.co/800x600/e2e8f0/e2e8f0?text=Imóvel';
+        
+        // 2. Preenchimento das Características
+        const featuresContainer = document.getElementById('features-container');
+        featuresContainer.innerHTML = currentProperty.features.map(f => 
+            `<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-primary">check_circle</span>${f}</span>`
+        ).join('');
+
+        // 3. Lógica de Preço e Formulário Condicional
+        const mode = currentProperty.mode || 'sale';
+        const rentForm = document.getElementById('modal-rent-form');
+        const saleForm = document.getElementById('modal-sale-form');
+        const priceLabelEl = document.getElementById('modal-price-label');
+        const priceValueEl = document.getElementById('modal-price');
+        const datesInfoEl = document.getElementById('dates-info');
+        const summaryDiv = document.getElementById('reservation-summary');
+
+        summaryDiv.classList.add('hidden');
+        document.getElementById('reserve-button').textContent = "Verificar Preço e Reservar";
+        document.getElementById('reserve-button').classList.remove('bg-green-600', 'hover:bg-green-500');
+        document.getElementById('reserve-button').classList.add('bg-primary', 'hover:bg-primary/90');
+
+
+        if (mode === 'rent') {
+            const dailyRate = currentProperty.price_daily;
+            priceLabelEl.textContent = 'Preço por Diária';
+            priceValueEl.textContent = dailyRate ? formatBRL(dailyRate) : 'Consulte';
+            
+            // Datas de Disponibilidade
+            const availableStart = timestampToISODate(currentProperty.available_start);
+            const availableEnd = timestampToISODate(currentProperty.available_end);
+
+            datesInfoEl.innerHTML = `<span class="material-symbols-outlined text-sm">calendar_month</span> Disponível de ${formatTimestamp(currentProperty.available_start)} até ${formatTimestamp(currentProperty.available_end)}`;
+            datesInfoEl.classList.remove('hidden');
+
+            rentForm.classList.remove('hidden');
+            saleForm.classList.add('hidden');
+            
+            // Inicializar Flatpickr
+            flatpickrInstance = flatpickr("#rent-date-range", {
+                mode: "range",
+                minDate: "today",
+                dateFormat: "d/m/Y",
+                locale: "pt",
+                minDate: availableStart || "today",
+                maxDate: availableEnd || null,
+                disable: availableStart && availableEnd ? [
+                    { from: "1900-01-01", to: availableStart },
+                    { from: availableEnd, to: "2100-01-01" }
+                ] : []
+            });
+
+        } else { // mode === 'sale'
+            priceLabelEl.textContent = 'Preço de Venda';
+            priceValueEl.textContent = currentProperty.price_sale ? formatBRL(currentProperty.price_sale) : 'Consulte';
+            datesInfoEl.classList.add('hidden');
+            
+            rentForm.classList.add('hidden');
+            saleForm.classList.remove('hidden');
+        }
+
+        // 4. Exibir Modal
+        detailsModal.classList.add('show');
+    }
+
+    // Função de Geração de Cards Estáticos
+    function generatePropertyCards() {
+        const grid = document.getElementById('properties-grid');
+        if (!grid) return; // Segurança caso a grid não exista
+
+        grid.innerHTML = propertyData.map(prop => `
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group cursor-pointer" onclick="openModal('${prop.id}')">
+                <div class="relative">
+                    <img class="h-64 w-full object-cover" data-alt="${prop.title}" src="${prop.images[0] || 'https://placehold.co/800x600/e2e8f0/e2e8f0?text=Imóvel'}"/>
+                    <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div class="absolute bottom-3 left-3 text-white">
+                        <p class="font-display font-bold text-lg drop-shadow-md">${prop.mode === 'sale' ? formatBRL(prop.price_sale) : formatBRL(prop.price_daily) + ' / diária'}</p>
+                        <p class="text-xs">${prop.mode === 'sale' ? 'Para Venda' : 'Aluguel'}</p>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-display font-bold text-lg text-gray-900 dark:text-white group-hover:text-primary transition-colors">${prop.title}</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">${prop.location}</p>
+                    <button class="w-full mt-4 py-2.5 px-4 bg-primary dark:bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary/90 transition-colors">Ver Detalhes</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // --- LISTENERS DE SUBMISSÃO E CÁLCULO ---
+
+    // 1. FORMULÁRIO DE COMPRA (Contato Padrão)
+    function setupSaleFormListener() {
+        const saleForm = document.getElementById('modal-sale-form');
+        if (!saleForm) return;
+
+        saleForm.addEventListener('submit', async (e) => { 
+            e.preventDefault();
+            const name = document.getElementById('sale-guest-name').value.trim();
+            const contact = document.getElementById('sale-guest-contact').value.trim();
+
+            if (!name || !contact) { showAlert('Por favor, preencha o seu nome e contato.', 'Dados Faltando'); return; }
+
+            const message = `Olá! Tenho interesse na **compra** do imóvel "${currentProperty.title}" (ID: ${currentProperty.id}).\nNome: ${name}\nContato: ${contact}\nPreço: ${formatBRL(currentProperty.price_sale)}`;
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${MODAL_WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
+            
+            window.open(whatsappUrl, '_blank');
+            document.getElementById('details-modal').classList.remove('show');
+        });
+    }
+
+    // 2. FORMULÁRIO DE ALUGUEL (Cálculo e Checkout)
+    function setupRentFormListener() {
+        const rentForm = document.getElementById('modal-rent-form');
+        if (!rentForm) return;
+
+        rentForm.addEventListener('submit', async (e) => { 
+            e.preventDefault();
+            const dates = document.getElementById('rent-date-range').value.trim();
+            const contact = document.getElementById('rent-guest-contact').value.trim();
+            const name = document.getElementById('rent-guest-name').value.trim();
+            const adults = parseInt(document.getElementById('guests-adults').value) || 0;
+            const children = parseInt(document.getElementById('guests-children').value) || 0;
+            
+            const summaryDiv = document.getElementById('reservation-summary');
+            const dailyRate = currentProperty.price_daily;
+            
+            if (!dates || !contact || !name || adults === 0) { 
+                showAlert('Por favor, preencha o nome, WhatsApp, as datas e a quantidade de adultos.', 'Dados Faltando'); 
+                return; 
+            }
+            
+            // --- LÓGICA DE CÁLCULO DE PREÇO ---
+            let totalValue = 0;
+            let numberOfNights = 0;
+
+            const messageParts = dates.split(' a ');
+            const dateInStr = messageParts[0];
+            const dateOutStr = messageParts[1];
+
+            if (!dailyRate) {
+                showAlert('Este imóvel não tem preço de diária/mês cadastrado para cálculo.', 'Erro de Cadastro');
+                return;
+            }
+            if (!dateOutStr) {
+                showAlert('Selecione tanto a data de entrada quanto a data de saída para calcular.', 'Datas Incompletas');
+                return;
+            }
+
+            const [dayIn, monthIn, yearIn] = dateInStr.split('/').map(Number);
+            const [dayOut, monthOut, yearOut] = dateOutStr.split('/').map(Number);
+            const dateIn = new Date(yearIn, monthIn - 1, dayIn);
+            const dateOut = new Date(yearOut, monthOut - 1, dayOut);
+            
+            const timeDifference = dateOut.getTime() - dateIn.getTime();
+            numberOfNights = Math.ceil(timeDifference / (1000 * 3600 * 24)); 
+
+            if (numberOfNights <= 0) {
+                showAlert('A data de saída deve ser posterior à data de entrada.', 'Erro de Datas');
+                return;
+            }
+            
+            // Cálculo do valor total (usando diária)
+            totalValue = numberOfNights * dailyRate;
+            const totalValueBRL = formatBRL(totalValue);
+
+            // --- ATUALIZAÇÃO DO RESUMO NA TELA ---
+            document.getElementById('summary-nights').textContent = `Período: ${dateInStr} até ${dateOutStr} (${numberOfNights} noites)`;
+            document.getElementById('summary-guests').textContent = `Hóspedes: ${adults} adultos e ${children} crianças`;
+            document.getElementById('summary-total-value').textContent = totalValueBRL;
+            document.getElementById('summary-daily-rate').textContent = formatBRL(dailyRate);
+            document.getElementById('summary-nights-count').textContent = numberOfNights;
+            summaryDiv.classList.remove('hidden');
+
+            // --- AÇÕES DE CHECKOUT ---
+            
+            const whatsappMessage = encodeURIComponent(
+                `*🚨 PRÉ-RESERVA FEITA - PAGAMENTO PENDENTE*\n` +
+                `O cliente *${name}* está finalizando a reserva.\n` +
+                `Imóvel: "${currentProperty.title}"\n` +
+                `Período: ${dateInStr} a ${dateOutStr} (${numberOfNights} noites)\n` +
+                `VALOR TOTAL CALCULADO: R$ ${totalValueBRL}\n\n` +
+                `Cliente: ${name} (WhatsApp: ${contact})`
+            );
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${MODAL_WHATSAPP_NUMBER}&text=${whatsappMessage}`;
+            
+            // Redirecionar para o Checkout Pro e Notificação WhatsApp
+            window.open(whatsappUrl, '_blank'); 
+            window.open(MERCADOPAGO_CHECKOUT_URL, '_blank'); 
+
+            // Alerta final (opcional, para feedback)
+            showAlert('Seu orçamento e link de pagamento foram processados. Você será redirecionado para o Checkout.', 'Reserva Iniciada');
+        });
+    }
+
+    // Inicialização principal
+    function initializePage() {
+        document.getElementById('alert-ok-button').addEventListener('click', () => document.getElementById('alert-modal').classList.remove('show'));
+        
+        setupSaleFormListener();
+        setupRentFormListener();
+        generatePropertyCards();
+    }
+
+    // Garante que o JavaScript só execute após o HTML estar carregado
+    document.addEventListener('DOMContentLoaded', initializePage);
+
+    // Listener de fechar modal (permanece fora da inicialização DOMContentLoaded para funcionar)
+    document.getElementById('close-modal-button').addEventListener('click', () => {
+        document.getElementById('details-modal').classList.remove('show');
+        if (flatpickrInstance) flatpickrInstance.destroy(); 
+    });
+
+
+</script>
+
+
+<!-- RODAPÉ IDÊNTICO AO INDEX.HTML -->
 <footer class="bg-gray-900 dark:bg-black text-gray-300">
 <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
 <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
 <div class="col-span-2 md:col-span-1">
 <div class="flex items-center gap-3">
-    <!-- LOGO NO FOOTER -->
     <img src="https://media.bio.site/sites/15fc0509-6c95-4782-9a79-fe69fe78ce69/fetqsktutwxDYURdXexgei.jpg" alt="Logo Curtindo SC" class="logo-img">
     <h2 class="text-xl font-bold text-white">Curtindo SC</h2>
 </div>
