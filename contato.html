@@ -8,77 +8,75 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Lato:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
 <script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "brand-green": "#3E9C4B", 
-                        "brand-turquoise": "#40E0D0",
-                        "brand-navy": "#003366", 
-                        "brand-coral": "#FF8C66", 
-                        "brand-sand": "#F5F1E9", 
-                        "light-gray": "#f0f2f4",
-                        "background-light": "#f8f9fa",
-                        "background-dark": "#101922",
-                        "text-light": "#6c757d",
-                        "text-dark": "#343a40",
-                        "text-dark-secondary": "#adb5bd"
-                    },
-                    fontFamily: {
-                        "display": ["Montserrat", "sans-serif"],
-                        "body": ["Lato", "sans-serif"],
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.5rem",
-                        "lg": "0.75rem",
-                        "xl": "1rem",
-                        "full": "9999px"
-                    },
-                },
-            },
-        }
-    </script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#137fec", /* Azul/Primary do Index */
+            "background-light": "#f6f7f8", /* Light do Index */
+            "background-dark": "#101922", /* Dark do Index */
+             // Adicionando cores necessárias para o layout da página de Contato
+             "brand-green": "#3E9C4B", 
+             "brand-coral": "#FF8C66", 
+             "brand-navy": "#003366", 
+            "text-light": "#6c757d",
+            "text-dark": "#343a40",
+          },
+          fontFamily: {
+            "display": ["Work Sans"],
+             "body": ["Lato", "sans-serif"], /* Lato para texto */
+          },
+          borderRadius: {"DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
 <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
-        .logo-img {
-            height: 40px; 
-            width: auto; 
-            border-radius: 9999px; 
-            object-fit: cover; 
-        }
+        .logo-img {
+            height: 40px; 
+            width: auto; 
+            border-radius: 9999px; 
+            object-fit: cover; 
+        }
     </style>
 </head>
 <body class="font-body bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
 <div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
 <div class="layout-container flex h-full grow flex-col">
-<header class="sticky top-0 z-50 w-full bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-sm">
-<div class="container mx-auto px-4">
-<div class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-gray-800 py-4">
-<div class="flex items-center gap-3 text-brand-navy dark:text-gray-100">
-    <!-- LOGO CORRIGIDA E DIMENSIONADA -->
-    <img src="https://media.bio.site/sites/15fc0509-6c95-4782-9a79-fe69fe78ce69/fetqsktutwxDYURdXexgei.jpg" alt="Logo Curtindo SC" class="logo-img">
-    <h2 class="font-display text-xl font-bold leading-tight tracking-[-0.015em] text-text-dark dark:text-gray-100">Curtindo SC</h2>
-</div>
-<nav class="hidden md:flex items-center gap-8">
-    <!-- LINKS DE NAVEGAÇÃO CORRIGIDOS -->
-    <a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green transition-colors" href="index.html">Início</a>
-    <a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green transition-colors" href="imoveis.html">Comprar</a>
-    <a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green transition-colors" href="imoveis.html">Alugar</a>
-    <a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green transition-colors" href="sobre_nos.html">Sobre nós</a>
-    <a class="font-display text-sm font-bold leading-normal text-brand-green transition-colors" href="contato.html">Contato</a>
-</nav>
-<!-- BOTÃO DE LOGIN REMOVIDO PARA ESTA PÁGINA -->
-<button class="md:hidden text-text-dark dark:text-gray-100">
-<span class="material-symbols-outlined text-2xl" data-icon="menu">menu</span>
-</button>
-</div>
-</div>
+<header class="sticky top-0 z-50 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between whitespace-nowrap h-16">
+            <div class="flex items-center gap-4 text-gray-800 dark:text-gray-100">
+                <!-- LOGO CONFORME O INDEX.HTML -->
+                <img src="https://media.bio.site/sites/15fc0509-6c95-4782-9a79-fe69fe78ce69/fetqsktutwxDYURdXexgei.jpg" alt="Logo Curtindo SC" class="logo-img">
+                <h2 class="text-xl font-bold leading-tight tracking-[-0.015em] text-gray-900 dark:text-white">Curtindo SC</h2>
+            </div>
+            <div class="hidden md:flex flex-1 justify-end gap-8">
+                <nav class="flex items-center gap-9">
+                    <!-- LINKS DE NAVEGAÇÃO CORRIGIDOS -->
+                    <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="index.html">Início</a>
+                    <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="imoveis.html">Comprar</a>
+                    <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="imoveis.html">Alugar</a>
+                    <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="sobre_nos.html">Sobre nós</a>
+                    <a class="font-display text-sm font-bold leading-normal text-primary" href="contato.html">Contato</a>
+                </nav>
+                <!-- BOTÃO FALE CONOSCO (MANTIDO O ESTILO DO INDEX) -->
+                <a class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors" href="https://wa.me/5548999998888" target="_blank">
+                    <span class="truncate">Fale Conosco</span>
+                </a>
+            </div>
+            <button class="md:hidden text-gray-800 dark:text-gray-100">
+                <span class="material-symbols-outlined text-2xl">menu</span>
+            </button>
+        </div>
+    </div>
 </header>
 <main class="flex-grow">
 <section class="relative py-20 sm:py-32">
@@ -160,8 +158,8 @@
 </div>
 </section>
 </main>
-<!-- RODAPÉ COMPLETO -->
-<footer class="bg-brand-navy dark:bg-black text-gray-300">
+<!-- RODAPÉ COMPLETO (IDÊNTICO AO INDEX.HTML) -->
+<footer class="bg-gray-900 dark:bg-black text-gray-300">
 <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
 <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
 <div class="col-span-2 md:col-span-1">
@@ -173,7 +171,7 @@
 <p class="mt-4 text-sm text-gray-400">Seu paraíso particular em Palhoça começa aqui. Viva a liberdade, viva a natureza.</p>
 </div>
 <div>
-<h3 class="text-sm font-semibold tracking-wider uppercase text-gray-200 font-display">Explorar</h3>
+<h3 class="text-sm font-semibold tracking-wider uppercase text-gray-200">Explorar</h3>
 <ul class="mt-4 space-y-2">
     <li><a class="text-base text-gray-400 hover:text-white" href="imoveis.html">Imóveis à Venda</a></li>
     <li><a class="text-base text-gray-400 hover:text-white" href="imoveis.html">Aluguel de Temporada</a></li>
@@ -182,7 +180,7 @@
 </ul>
 </div>
 <div>
-<h3 class="text-sm font-semibold tracking-wider uppercase text-gray-200 font-display">Contato</h3>
+<h3 class="text-sm font-semibold tracking-wider uppercase text-gray-200">Contato</h3>
 <ul class="mt-4 space-y-2">
 <li class="flex items-start gap-2 text-base text-gray-400">Palhoça, Santa Catarina</li>
 <li class="flex items-start gap-2 text-base text-gray-400">(48) 99999-8888</li>
@@ -190,11 +188,11 @@
 </ul>
 </div>
 <div>
-<h3 class="text-sm font-semibold tracking-wider uppercase text-gray-200 font-display">Redes Sociais</h3>
+<h3 class="text-sm font-semibold tracking-wider uppercase text-gray-200">Redes Sociais</h3>
 <div class="flex mt-4 space-x-4">
     <a class="text-gray-400 hover:text-white" href="https://www.instagram.com/curtindosc" target="_blank">
         <span class="sr-only">Instagram</span>
-        <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path clip-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.316 1.363.364 2.427.048 1.067.06 1.407.06 3.808s-.012 2.741-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.316-2.427.364-1.067.048-1.407.06-3.808.06s-2.741-.012-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.316-1.363-.364-2.427C2.013 14.741 2 14.4 2 12s.013-2.741.06-3.808c.049-1.064.218 1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363.316 2.427-.364C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.683-.566.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill-rule="evenodd"></path></svg>
+        <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path clip-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.316 1.363.364 2.427.048 1.067.06 1.407.06 3.808s-.012 2.741-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.316-2.427.364-1.067.048-1.407.06-3.808.06s-2.741-.012-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.316-1.363-.364-2.427C2.013 14.741 2 14.4 2 12s.013-2.741.06-3.808c.049-1.064.218 1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363.316 2.427-.364C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill-rule="evenodd"></path></svg>
     </a>
     <a class="text-gray-400 hover:text-white" href="https://www.tiktok.com/@curtindosc" target="_blank">
         <span class="sr-only">TikTok</span>
