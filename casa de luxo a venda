@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Casa de Luxo c/ Piscina na Praia do Sonho | Venda | Curtindo SC</title>
+<meta name="description" content="Casa de luxo 4 quartos, 220m² e piscina infinita com vista para o mar na Praia do Sonho, Palhoça, SC. Oportunidade única de investimento.">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec", 
+                        "secondary": "#003366", 
+                        "accent": "#FF7F50", 
+                        "turquoise": "#40E0D0", 
+                        "sand": "#F5F1E9", 
+                        "light-gray": "#f0f2f4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans", "sans-serif"],
+                        "body": ["Lato", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    .logo-img {
+        height: 40px; 
+        width: auto; 
+        border-radius: 9999px; 
+        object-fit: cover; 
+    }
+    </style>
+</head>
+<body class="font-body bg-background-light dark:bg-background-dark">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<!-- HEADER IDÊNTICO AO INDEX.HTML -->
+<header class="sticky top-0 z-50 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between whitespace-nowrap h-16">
+            <div class="flex items-center gap-4 text-gray-800 dark:text-gray-100">
+                <img src="https://media.bio.site/sites/15fc0509-6c95-4782-9a79-fe69fe78ce69/fetqsktutwxDYURdXexgei.jpg" alt="Logo Curtindo SC" class="logo-img">
+                <h2 class="text-xl font-bold leading-tight tracking-[-0.015em] text-gray-900 dark:text-white">Curtindo SC</h2>
+            </div>
+            <div class="hidden md:flex flex-1 justify-end gap-8">
+                <nav class="flex items-center gap-9">
+                    <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="index.html">Início</a>
+                    <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="imoveis.html">Comprar</a>
+                    <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="imoveis.html">Alugar</a>
+                    <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="sobre_nos.html">Sobre Nós</a>
+                    <a class="font-display text-sm font-bold leading-normal text-primary" href="contato.html">Contato</a>
+                </nav>
+                <a class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors" href="https://wa.me/5548999998888" target="_blank">
+                    <span class="truncate">Fale Conosco</span>
+                </a>
+            </div>
+            <button class="md:hidden text-gray-800 dark:text-gray-100">
+                <span class="material-symbols-outlined text-2xl">menu</span>
+            </button>
+        </div>
+    </div>
+</header>
+<main class="layout-container flex h-full grow flex-col">
+<div class="px-4 sm:px-10 lg:px-20 py-5">
+<div class="layout-content-container flex flex-col w-full mx-auto">
+<div class="flex flex-wrap gap-2 py-4">
+    <!-- Breadcrumbs Corrigidos -->
+    <a class="text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal hover:text-primary transition-colors" href="index.html">Início</a>
+    <span class="text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">/</span>
+    <a class="text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal hover:text-primary transition-colors" href="imoveis.html">Comprar</a>
+    <span class="text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">/</span>
+    <span class="text-primary dark:text-white text-sm font-normal leading-normal">Casa de Luxo</span>
+</div>
+<div class="w-full h-[550px] grid grid-cols-4 grid-rows-2 gap-2 rounded-xl overflow-hidden">
+<div class="col-span-2 row-span-2">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover cursor-pointer" data-alt="Vista paradisíaca da casa com a piscina e o mar." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAQWr66uTJiCxpEEC2kU9O7mC8AFMT39XsOr4c6O5AhVzf6bDTAa5RYR76ksJQ6dRKt6dTVa2nE9HjrecWUDea-PxIInZ8eTjGrNoEr84PEyTTIaoLqAnYf-wu8WLlmEUMP9UwlEb1ZiIULHSZavPV2lZQMd4MRtDFCzHZReFEZYVT5fH5UHxMDLxp_4R2XcAnsQGz-VG2G1wqi8oNoUTllBninRP2_nclvzdgUtFdEN5jikOUfuOSNYAmbIACSBOAoubR2JxPdc1w");' loading="lazy"></div>
+</div>
+<div class="col-span-1 row-span-1">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover cursor-pointer" data-alt="Deck da piscina e área de lazer." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB7IIfBJrYidgqgCvKOXkQSxvY5fcjTh31ssjQIeVEJvVz_YOqvRC2w5ArigrMKnOEdsV21pcmQLT77hsv0N8S2UJaV_4u3zqEZ1euHHCRsY0RfLg7mVcJjd_FcjQ7np5AocuKmEXbtFIHi_vDWmVdfBFWBmlAotzRebSJWCoUbM0FhsMYIVIC1JyH8NQarRAnJA4tTS-M0CJe77A-Y6xFhQ72JPe9dI_eegc8bYvcT2bOFVOlrPFE3rxhsE4V1SyNwmSJDLRZSVw8");' loading="lazy"></div>
+</div>
+<div class="col-span-1 row-span-1">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover cursor-pointer" data-alt="Interior da sala de estar minimalista." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDW5KunHpGD5ge6GVTRYoxzdjDjz1xvRwrcehMbWeJP9g6kkgr2sYQm_QAREW24UZcbDvIQ9mqyh_06CPdjH2Ib4TkCnG2pl5Er687kcgZFq9RvXyFh7e4ianyEhBdRVUAi0jMVsn5t3Uw4mqTRhjJVxOp-LtFR2lmDJLvtyV1LbcGsBKpeuC1MVpm4Bn_l2yZp8e9ToslacCFFgT-5xqoB1yNkkamJJ9fd8s01tVorQ2kSc4b_EW0ti1LPAJ-mhqJCzVDkPvye9Fg");' loading="lazy"></div>
+</div>
+<div class="col-span-1 row-span-1">
+<div class="relative w-full h-full bg-center bg-no-repeat bg-cover cursor-pointer" data-alt="Quarto principal com grande janela." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCLPrY0p6IVD4nbdITQ0V4dRvDaIs-SByc7QKwCCBFUWxzmF6yoSAVVJTlLLaMUSGO0xRSOS1cwfH-va8uOl94354rYmDJ1OCsctqk6pM1bcXipeY0OZhs2r6Ly00joYpxou62_z2-cyoaFr9wLuNDWV9plkd_HjwhGkS79pklZNlTUZyd9eWODJzkQ9ON1RBBLM6CT7DxKqxhbyNXQvO0FSnPjE5ImHZt_v07sHg");' loading="lazy">
+<div class="absolute inset-0 bg-black/50 flex items-center justify-center hover:bg-black/40 transition-colors">
+<div class="text-center text-white">
+<span class="material-symbols-outlined !text-4xl">play_circle</span>
+<p class="font-bold mt-1 font-display">Ver Vídeo</p>
+</div>
+</div>
+</div>
+</div>
+<div class="col-span-1 row-span-1">
+<div class="relative w-full h-full bg-center bg-no-repeat bg-cover cursor-pointer" data-alt="Drone view of the property and the naturist beach" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC7_IZ_RKfqXMvEmOuWWWYJ7Vvd0peAE7JEBRtc1wQQbdJglfsi3HBJZimbIYbpHXJ_ZPku-aZR8zURLWkNsBNfN8kXuw460EjGB3o1ckkkRy2BFU9KioEGhv8pS9HkEMn8Ry05FtSCtc0JLJdxbS2m6o7fsvKNQppDmEe7dhLUmPH8_8AUIyXFSg08zRX2tSR3dB3HRSxokrJo9Sb4GB6r9Ceqx9TD9LCfQvLme1fZiR5Q-OPmwWTo4dc6QUTqwwTsPblGo1BNsbo");' loading="lazy">
+<div class="absolute inset-0 bg-black/50 flex items-center justify-center hover:bg-black/40 transition-colors">
+<button class="flex items-center gap-2 rounded-full bg-white/20 backdrop-blur-sm px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-white/30 font-display"><span class="material-symbols-outlined !text-xl">photo_library</span><span>Ver todas as fotos</span></button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-8 mt-8">
+<div class="w-full lg:w-2/3">
+<div class="pb-6 border-b border-gray-200 dark:border-gray-800">
+<h1 class="font-display text-accent dark:text-white tracking-tight text-3xl font-bold leading-tight">Casa de Luxo com Piscina na Praia do Sonho</h1>
+<p class="text-gray-600 dark:text-gray-400 text-base font-normal leading-normal pt-2 pb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">location_on</span>
+                                Rua das Gaivotas, 456, Praia do Sonho, Palhoça - SC
+                            </p>
+<div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+<div class="flex items-center gap-2 text-gray-700 dark:text-white">
+<span class="material-symbols-outlined text-primary">bed</span>
+<span class="font-normal">4 Quartos</span>
+</div>
+<div class="flex items-center gap-2 text-gray-700 dark:text-white">
+<span class="material-symbols-outlined text-primary">bathtub</span>
+<span class="font-normal">5 Banheiros</span>
+</div>
+<div class="flex items-center gap-2 text-gray-700 dark:text-white">
+<span class="material-symbols-outlined text-primary">straighten</span>
+<span class="font-normal">220 m²</span>
+</div>
+<div class="flex items-center gap-2 text-gray-700 dark:text-white">
+<span class="material-symbols-outlined text-primary">directions_car</span>
+<span class="font-normal">3 Vagas</span>
+</div>
+</div>
+</div>
+<div class="space-y-10 pt-8">
+<div>
+<h2 class="text-2xl font-bold text-secondary dark:text-white mb-4 font-display">Destaques da Propriedade</h2>
+<p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                                        Esta casa redefine o luxo na Praia do Sonho. Com arquitetura moderna e acabamentos de alto padrão, ela foi projetada para quem busca privacidade e um contato íntimo com o mar. A piscina de borda infinita se funde com a paisagem, criando um cenário perfeito. É uma excelente oportunidade de investimento ou residência de alto padrão em uma região de crescente valorização.
+                                    </p>
+</div>
+<div>
+<h2 class="text-2xl font-bold text-secondary dark:text-white mb-4 font-display">Recursos e Facilidades</h2>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+<div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">check_circle</span><span class="text-gray-700 dark:text-white">Piscina Infinita com Vista</span></div>
+<div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">check_circle</span><span class="text-gray-700 dark:text-white">Acesso Direto à Praia</span></div>
+<div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">check_circle</span><span class="text-gray-700 dark:text-white">Espaço Gourmet Completo</span></div>
+<div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">check_circle</span><span class="text-gray-700 dark:text-white">Suítes Master com Varanda</span></div>
+<div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">check_circle</span><span class="text-gray-700 dark:text-white">Segurança 24h</span></div>
+</div>
+</div>
+<div>
+<h2 class="text-2xl font-bold text-secondary dark:text-white mb-4 font-display">Localização</h2>
+<div class="w-full h-96 rounded-lg overflow-hidden bg-center bg-no-repeat bg-cover" data-alt="Map showing the location of the property in Palhoça." data-location="Praia do Sonho, Palhoça, SC" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAwF-RjWtQaUT5271-oj6SesICIio_RBOADodi3xLRnr2PyvaURvmjDHPe74jIT46xAsBPe1FD0DvTG6Vx8dS1_N6_hHvms41afJ-fU2f8ehf19OWtGk5-I6UuTfHS68mq5e7qEMzlXO_BzvuIXThifKPXAeyOo8BrOHk7lHhppxDIf9l_rjYbCpfgcMXFlLf-mIviNzlogPxVnGHWTHrxeZ-_Y70PPKS9L0h9t5eLByOE0x60C_nV5Hyq4xnDf6f-oZLM1UxrAXbo');">
+</div>
+</div>
+</div>
+</div>
+<div class="w-full lg:w-1/3">
+<div class="sticky top-28">
+<div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-lg">
+<div class="pb-6 border-b border-gray-200 dark:border-gray-700">
+<p class="text-lg text-gray-600 dark:text-gray-300 font-bold">Preço de Venda</p>
+<p class="text-5xl font-black text-secondary dark:text-white font-display mt-2">R$ 2.500.000</p>
+<div class="mt-4 p-3 bg-green-100 dark:bg-primary/20 rounded-lg">
+    <p class="text-base font-normal text-green-700 dark:text-green-300">Alto potencial para aluguel de temporada (R$ 1.800 / diária est.)</p>
+</div>
+</div>
+<div class="pt-6">
+<p class="text-lg font-bold text-gray-900 dark:text-white mb-4 font-display">Fale com Nosso Corretor</p>
+<a class="w-full flex items-center justify-center overflow-hidden rounded-lg h-14 px-4 bg-primary text-white text-lg font-bold tracking-[0.015em] hover:bg-primary/90 transition-colors gap-3 shadow-lg shadow-primary/30" href="https://wa.me/5548999999999?text=Ol%C3%A1%2C%20tenho%20interesse%20na%20Casa%20de%20Luxo%20VISTA%20MAR%20na%20Praia%20do%20Sonho.%20ID%3A%20123" target="_blank">
+    <span class="material-symbols-outlined">whatsapp</span>
+    <span class="truncate">Solicitar Mais Informações</span>
+</a>
+<div class="mt-8 text-center">
+<div class="h-16 w-16 rounded-full bg-center bg-no-repeat bg-cover ring-2 ring-primary/50 mx-auto" data-alt="Foto do corretor de imóveis"
