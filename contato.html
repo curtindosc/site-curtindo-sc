@@ -1,73 +1,79 @@
 <!DOCTYPE html>
-<html class="light" lang="pt-BR"><head>
+<html class="light" lang="pt-BR">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Sobre Nós / Curtindo SC - Imóveis Palhoça</title>
+<title>Fale Conosco: Contato e Dúvidas | Curtindo SC Imóveis</title>
+<meta name="description" content="Entre em contato com a equipe Curtindo SC para dúvidas sobre imóveis, agendamentos de visita, propostas de parceria ou informações sobre o lifestyle de Palhoça e Santa Catarina.">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Lato:wght@400;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
 <script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "brand-green": "#2E8B57", // Logo Green
-                        "brand-turquoise": "#40E0D0",
-                        "brand-navy": "#002366", // Darker Navy
-                        "brand-coral": "#FF7F50",
-                        "brand-sand": "#F5F5DC",
-                        "background-light": "#f8f9fa",
-                        "background-dark": "#121212",
-                        "text-light": "#6c757d",
-                        "text-dark": "#343a40",
-                        "text-dark-secondary": "#adb5bd"
-                    },
-                    fontFamily: {
-                        "display": ["Montserrat", "sans-serif"],
-                        "body": ["Lato", "sans-serif"],
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                },
-            },
-        }
-    </script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "brand-green": "#3E9C4B", 
+                        "brand-turquoise": "#40E0D0",
+                        "brand-navy": "#003366", 
+                        "brand-coral": "#FF8C66", 
+                        "brand-sand": "#F5F1E9", 
+                        "light-gray": "#f0f2f4",
+                        "background-light": "#f8f9fa",
+                        "background-dark": "#101922",
+                        "text-light": "#6c757d",
+                        "text-dark": "#343a40",
+                        "text-dark-secondary": "#adb5bd"
+                    },
+                    fontFamily: {
+                        "display": ["Montserrat", "sans-serif"],
+                        "body": ["Lato", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
 <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-    </style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .logo-img {
+            height: 40px; 
+            width: auto; 
+            border-radius: 9999px; 
+            object-fit: cover; 
+        }
+    </style>
 </head>
-<body class="font-body bg-background-light dark:bg-background-dark">
-<div class="relative flex min-h-screen w-full flex-col group/design-root">
+<body class="font-body bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
+<div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
 <header class="sticky top-0 z-50 w-full bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-sm">
 <div class="container mx-auto px-4">
 <div class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-gray-800 py-4">
-<div class="flex items-center gap-4 text-text-dark dark:text-white">
-<svg class="h-6 w-6 text-brand-green" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-<h2 class="font-display text-xl font-bold leading-tight tracking-[-0.015em] text-text-dark dark:text-gray-100">Curtindo SC</h2>
+<div class="flex items-center gap-3 text-brand-navy dark:text-gray-100">
+    <!-- LOGO CORRIGIDA E DIMENSIONADA -->
+    <img src="https://media.bio.site/sites/15fc0509-6c95-4782-9a79-fe69fe78ce69/fetqsktutwxDYURdXexgei.jpg" alt="Logo Curtindo SC" class="logo-img">
+    <h2 class="font-display text-xl font-bold leading-tight tracking-[-0.015em] text-text-dark dark:text-gray-100">Curtindo SC</h2>
 </div>
 <nav class="hidden md:flex items-center gap-8">
-<a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green" href="#">Início</a>
-<a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green" href="#">Comprar</a>
-<a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green" href="#">Alugar</a>
-<a class="font-display text-sm font-bold leading-normal text-brand-green" href="#">Sobre nós</a>
-<a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green" href="#">Contato</a>
+    <!-- LINKS DE NAVEGAÇÃO CORRIGIDOS -->
+    <a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green transition-colors" href="index.html">Início</a>
+    <a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green transition-colors" href="imoveis.html">Comprar</a>
+    <a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green transition-colors" href="imoveis.html">Alugar</a>
+    <a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark-secondary hover:text-brand-green dark:hover:text-brand-green transition-colors" href="sobre_nos.html">Sobre nós</a>
+    <a class="font-display text-sm font-bold leading-normal text-brand-green transition-colors" href="contato.html">Contato</a>
 </nav>
-<div class="hidden md:flex items-center">
-<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-brand-coral text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-colors">
-<span class="truncate">Entrar</span>
-</button>
-</div>
+<!-- BOTÃO DE LOGIN REMOVIDO PARA ESTA PÁGINA -->
 <button class="md:hidden text-text-dark dark:text-gray-100">
 <span class="material-symbols-outlined text-2xl" data-icon="menu">menu</span>
 </button>
@@ -77,160 +83,135 @@
 <main class="flex-grow">
 <section class="relative py-20 sm:py-32">
 <div class="absolute inset-0">
-<img alt="Pôr do sol em uma praia paradisíaca de Palhoça, SC" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6sMsliItHabdAa4K2Z00oNA5IIz3kSIZ2IpRNe247IiRL4u00Cnwxh_LxiJlKrrMOudlYEi5dnbiacB-6Qk8QO3J19FDsJ3ZnDXQmBBWLtb23yX53qaIWlGu5qiXQqO59WBDV-JV5j_S69oAykl0opVgLRokaGhD9uIgVtC8uqaifAcyjE1TijCvbcCo8g6-Cglan4ARw6djU0uzQQPBP5Bl_NnQ7oiqzBjCdw0oOJj2HoQIZP3MCktSPg-9P8ele1TzuIWX6TlQ"/>
-<div class="absolute inset-0 bg-gradient-to-t from-background-light via-background-light/80 to-transparent dark:from-background-dark dark:via-background-dark/80"></div>
+<img alt="Fundo de contato: vista aérea de Palhoça e a serra" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwF-RjWtQaUT5271-oj6SesICIio_RBOADodi3xLRnr2PyvaURvmjDHPe74jIT46xAsBPe1FD0DvTG6Vx8dS1_N6_hHvms41afJ-fU2f8ehf19OWtGk5-I6UuTfHS68mq5e7qEMzlXO_BzvuIXThifKPXAeyOo8BrOHk7lHhppxDIf9l_rjYbCpfgcMXFlLf-mIviNzlogPxVnGHWTHrxeZ-_Y70PPKS9L0h9t5eLByOE0x60C_nV5Hyq4xnDf6f-oZLM1UxrAXbo"/>
+<div class="absolute inset-0 bg-brand-navy/70"></div>
 </div>
 <div class="relative container mx-auto px-4">
 <div class="max-w-3xl mx-auto text-center">
-<h1 class="font-display text-4xl sm:text-6xl font-black leading-tight tracking-tighter text-brand-navy dark:text-white">Viva a essência de Palhoça</h1>
-<p class="mt-6 text-lg sm:text-xl leading-normal text-text-dark dark:text-gray-300">
-                            Somos contadores de histórias, apaixonados por conectar pessoas ao estilo de vida único das praias paradisíacas e naturistas de Santa Catarina.
-                        </p>
+<h1 class="font-display text-4xl sm:text-6xl font-black leading-tight tracking-tighter text-white">Fale Conosco</h1>
+<p class="mt-6 text-lg sm:text-xl leading-normal text-gray-300">
+                    Estamos prontos para te guiar na busca pelo seu refúgio em Palhoça, seja para morar, investir ou alugar por temporada.
+                </p>
 </div>
 </div>
 </section>
-<section class="py-16 sm:py-24 bg-white dark:bg-gray-900/50">
-<div class="container mx-auto px-4">
-<div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-<div class="order-2 lg:order-1">
-<h2 class="font-display text-3xl sm:text-4xl font-bold text-brand-navy dark:text-white leading-tight tracking-tight">Quem Somos: Nossa História</h2>
-<p class="mt-4 text-text-light dark:text-text-dark-secondary">
-                                A Curtindo SC nasceu de um amor profundo pelo litoral de Palhoça. O que começou como um hobby, compartilhando vídeos e fotos da beleza local, rapidamente se tornou uma comunidade vibrante de pessoas que, como nós, são encantadas pelo pôr do sol, pela natureza exuberante e pela liberdade das praias daqui.
-                            </p>
-<p class="mt-4 text-text-light dark:text-text-dark-secondary">
-                                Percebemos que nossa paixão poderia ir além: poderíamos ajudar as pessoas não apenas a visitar, mas a viver aqui. Assim, unimos nossa expertise em conteúdo digital com o mercado imobiliário para criar uma plataforma que não apenas vende e aluga imóveis, mas inspira um novo capítulo na vida de nossos clientes.
-                            </p>
-</div>
-<div class="order-1 lg:order-2 aspect-[4/3] w-full overflow-hidden rounded-xl shadow-lg">
-<img alt="Vista aérea de uma praia em Palhoça com águas cristalinas." class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6sMsliItHabdAa4K2Z00oNA5IIz3kSIZ2IpRNe247IiRL4u00Cnwxh_LxiJlKrrMOudlYEi5dnbiacB-6Qk8QO3J19FDsJ3ZnDXQmBBWLtb23yX53qaIWlGu5qiXQqO59WBDV-JV5j_S69oAykl0opVgLRokaGhD9uIgVtC8uqaifAcyjE1TijCvbcCo8g6-Cglan4ARw6djU0uzQQPBP5Bl_NnQ7oiqzBjCdw0oOJj2HoQIZP3MCktSPg-9P8ele1TzuIWX6TlQ"/>
-</div>
-</div>
-</div>
-</section>
-<section class="py-16 sm:py-24 bg-brand-sand/40 dark:bg-gray-800/20">
-<div class="container mx-auto px-4">
-<div class="max-w-4xl mx-auto">
-<div class="text-center">
-<h2 class="font-display text-3xl sm:text-4xl font-bold text-brand-navy dark:text-white leading-tight tracking-tight">Nossa Missão e Valores</h2>
-<p class="mt-4 max-w-2xl mx-auto text-text-light dark:text-text-dark-secondary">
-                                Nossa essência é guiar e inspirar. Estes são os pilares que sustentam tudo o que fazemos.
-                            </p>
-</div>
-<div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
-<div class="bg-white dark:bg-gray-900/50 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700/50">
-<span class="material-symbols-outlined text-brand-green text-4xl mb-4">connect_without_contact</span>
-<h3 class="font-display text-xl font-bold text-text-dark dark:text-gray-100">Gerar Conexões Valiosas</h3>
-<p class="mt-2 text-text-light dark:text-text-dark-secondary">Nossa missão principal é gerar leads qualificados para o mercado imobiliário, conectando pessoas que sonham em viver o lifestyle de Palhoça com as melhores oportunidades da região.</p>
-</div>
-<div class="bg-white dark:bg-gray-900/50 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700/50">
-<span class="material-symbols-outlined text-brand-green text-4xl mb-4">shield</span>
-<h3 class="font-display text-xl font-bold text-text-dark dark:text-gray-100">Autenticidade e Transparência</h3>
-<p class="mt-2 text-text-light dark:text-text-dark-secondary">Valorizamos a comunicação honesta e a paixão genuína pelo que fazemos. Mostramos a vida em Palhoça como ela é: real, vibrante e inspiradora. A confiança é a base de nosso relacionamento com a comunidade.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="py-16 sm:py-24 bg-white dark:bg-gray-900/50">
-<div class="container mx-auto px-4">
-<div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-<div>
-<h2 class="font-display text-3xl sm:text-4xl font-bold text-brand-navy dark:text-white leading-tight tracking-tight">O Que Fazemos</h2>
-<p class="mt-4 text-text-light dark:text-text-dark-secondary">
-                                Nosso trabalho se divide em duas frentes que se complementam perfeitamente:
-                            </p>
-<ul class="mt-6 space-y-4 text-text-light dark:text-text-dark-secondary">
-<li class="flex items-start">
-<span class="material-symbols-outlined text-brand-green text-2xl mr-3 mt-1">movie</span>
-<div>
-<h4 class="font-display font-bold text-text-dark dark:text-gray-200">Produção de Conteúdo Viral</h4>
-<p>Criamos vídeos, fotos e histórias que capturam a magia de Palhoça. Nosso conteúdo não apenas informa, mas engaja e cria uma comunidade forte, atraindo um público qualificado e apaixonado pela região.</p>
-</div>
-</li>
-<li class="flex items-start">
-<span class="material-symbols-outlined text-brand-green text-2xl mr-3 mt-1">real_estate_agent</span>
-<div>
-<h4 class="font-display font-bold text-text-dark dark:text-gray-200">Plataforma Imobiliária</h4>
-<p>Este site é a ponte entre o sonho e a realidade. Convertemos o interesse gerado pelo nosso conteúdo em oportunidades de negócio, apresentando os melhores imóveis para venda e aluguel na região.</p>
-</div>
-</li>
-</ul>
-</div>
-<div class="aspect-[4/3] w-full overflow-hidden rounded-xl shadow-lg">
-<img alt="Drone filmando uma bela paisagem de praia." class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWNt7IEsvxZXmBF7MdoUFZaZQmESty7B38klsFOq6xpoTIb435lqverwpliBG20GdVhJgsFgbLGDGiFxGX6qpUa0AfVh_nurMQeXaf9NTpm4pMgmDr-eyghA-78burMUiKeB7hNP-7aBlKCQftdgCt4RF3PjyKxTva4xp6IOmKzMZ4lPQ0o7ZrvsC7fmbEutryAsqxwfDzgefdTifPb791uOLv3_3A5nHi45gi_AkCJNUibbs2EzraShGeH1FRtvn0pG_cAMGAdTs"/>
-</div>
-</div>
-</div>
-</section>
-<section class="py-16 sm:py-24 bg-brand-green/5 dark:bg-gray-800/20">
-<div class="container mx-auto px-4">
-<div class="text-center max-w-3xl mx-auto">
-<h2 class="font-display text-3xl sm:text-4xl font-bold text-brand-navy dark:text-white leading-tight tracking-tight">Conecte-se Conosco</h2>
-<p class="mt-4 text-text-light dark:text-text-dark-secondary">Siga nossa jornada, inspire-se com nosso conteúdo e faça parte da comunidade Curtindo SC. Veja por que tantos se apaixonam por este lugar.</p>
-<div class="mt-8 flex justify-center gap-4">
-<a class="w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-gray-700 text-text-light dark:text-gray-200 hover:bg-brand-green hover:text-white transition-colors" href="#"><svg class="w-6 h-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a>
-<a class="w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-gray-700 text-text-light dark:text-gray-200 hover:bg-brand-green hover:text-white transition-colors" href="#"><svg class="w-6 h-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M22 4s-.7 2.1-2 3.4c1.6 1.4 3.3 4.9 3.3 9.7C23.3 21.8 19.5 24 15 24c-4.5 0-8.3-2.2-8.3-6.9 0-4.8 1.7-8.3 3.3-9.7-1.3-1.3-2-3.4-2-3.4s-1.4 2.4-3 7.8c0 0-1.3 7.2 4.3 9.4 5.6 2.2 11.7-1.5 11.7-8.9 0-3.2-1.7-6.5-2.8-8.2z"></path></svg></a>
-<a class="w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-gray-700 text-text-light dark:text-gray-200 hover:bg-brand-green hover:text-white transition-colors" href="#"><svg class="w-6 h-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
-</div>
-</div>
-<div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-<div class="aspect-video overflow-hidden rounded-xl shadow-lg"><img alt="Exemplo de conteúdo: Pôr do sol na praia" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuhhzpU0OF8iHN8OgnkQp5aMOTY5EDD9rdY-bWuiBor67bR3zsqe0PpleOwa3rbpQsBa5z1c_MBX20zsL8CIkGBOjZpSdNxwzSd0QZrIAN8Zev52QxlabdtScYJ-LcDPhrKy9un2Dq3mouxo8JAJGfCasfIq3QaXGrXZfGikJPGAwWWUloe2mtERy6XXhxvUdjnAQNOVBjxXNey-KAg3LZJegvoOEJScOAxhagPJp4Wi6R-yvxTj5aIItS3xkzv_LCsegly0_UfsY"/></div>
-<div class="aspect-video overflow-hidden rounded-xl shadow-lg"><img alt="Exemplo de conteúdo: Trilha com vista para o mar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdRfJsEAEb-Hqf_86a2EhgFsu4ik0j9W1ekij9ec8Mbpwq8LzdmE2n3lKMaTP8iF7LoDLyF3azID57-FLQrBnGuj_uRTaRPRIgD1MfJTxLVn-oU1RPrS5fvyX66T5WAhAw_0f01UAPp20k5YWNVomZXpErA54BdQIxqq8VkduiM1ee0EBE2qrZNxD7TpT9mXTaf4CtCg_YkRLWBsLs-QyGqf8Sye4wrN9M2UZgkb_wenq2z_zL8jASPME5MAjb2klcPEo5f9Hd3Ew"/></div>
-<div class="aspect-video overflow-hidden rounded-xl shadow-lg"><img alt="Exemplo de conteúdo: Pessoas praticando stand-up paddle" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdeNNCDbaWopr-0z6kK_VKhdQf3e2iK2fYG3glecaffI0assqcnD3noXCyTGh24ZxTUmy9U-5qhk941gTNd7Yz-5PFfpNvqAmELKT7Hkz7MkOk0w0Z5SfJwVoLujfoIs4rzHuMt241C-Ie6XzjhkfReU4Mk4BJHh3qW6uM6UnIKTPhRdRwewbs6go1s9LhAKDKqwlqEZoX3hCJJbzXhF4ZI8Dafro0tVB6R5pyG7eULhpkivDjmTvDFbdFYkMpxaJe2QuuKjmu6FM"/></div>
-</div>
-</div>
-</section>
-<section class="py-16 sm:py-24 bg-brand-sand/50 dark:bg-gray-900/50">
+<section class="py-16 sm:py-24 bg-background-light dark:bg-background-dark">
 <div class="container mx-auto px-4">
 <div class="grid lg:grid-cols-2 gap-12 lg:gap-16">
-<div>
-<h2 class="font-display text-3xl sm:text-4xl font-bold text-brand-navy dark:text-white leading-tight tracking-tight">Fale Conosco</h2>
-<p class="mt-4 text-lg text-text-light dark:text-text-dark-secondary">
-                                Tem alguma dúvida, sugestão ou quer iniciar sua busca pelo imóvel perfeito? Preencha o formulário ou utilize um de nossos canais de contato. Estamos prontos para ajudar.
-                            </p>
-<div class="mt-8 space-y-4">
-<div class="flex items-center text-text-dark dark:text-gray-300">
-<span class="material-symbols-outlined text-brand-green text-2xl mr-3">mail</span>
-<span>contato@curtindosc.com.br</span>
-</div>
-<div class="flex items-center text-text-dark dark:text-gray-300">
-<span class="material-symbols-outlined text-brand-green text-2xl mr-3">phone</span>
-<span>(48) 99999-8888</span>
-</div>
-<div class="flex items-center text-text-dark dark:text-gray-300">
-<span class="material-symbols-outlined text-brand-green text-2xl mr-3">location_on</span>
-<span>Palhoça, Santa Catarina, Brasil</span>
-</div>
-</div>
-</div>
-<div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
-<form class="space-y-6">
-<div>
-<label class="block text-sm font-medium text-text-dark dark:text-gray-300" for="name">Nome Completo</label>
-<input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green focus:ring-brand-green dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm" id="name" name="name" placeholder="Seu nome" type="text"/>
-</div>
-<div>
-<label class="block text-sm font-medium text-text-dark dark:text-gray-300" for="email">Email</label>
-<input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green focus:ring-brand-green dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm" id="email" name="email" placeholder="seu@email.com" type="email"/>
-</div>
-<div>
-<label class="block text-sm font-medium text-text-dark dark:text-gray-300" for="subject">Assunto</label>
-<input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green focus:ring-brand-green dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm" id="subject" name="subject" placeholder="Ex: Interesse em imóvel" type="text"/>
-</div>
-<div>
-<label class="block text-sm font-medium text-text-dark dark:text-gray-300" for="message">Mensagem</label>
-<textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green focus:ring-brand-green dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm" id="message" name="message" placeholder="Deixe sua mensagem aqui..." rows="4"></textarea>
-</div>
-<div>
-<button class="w-full flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-brand-coral text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-colors" type="submit">
-<span class="truncate">Enviar Mensagem</span>
-</button>
-</div>
-</form>
-</div>
+    <!-- Informações de Contato -->
+    <div>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-brand-navy dark:text-white leading-tight tracking-tight">Canais de Atendimento</h2>
+        <p class="mt-4 text-lg text-text-light dark:text-text-dark-secondary">
+            Entre em contato para agendar visitas, tirar dúvidas sobre documentação ou falar com um corretor especialista.
+        </p>
+        <div class="mt-8 space-y-6">
+            <div class="flex items-center text-text-dark dark:text-gray-300">
+                <span class="material-symbols-outlined text-brand-green text-2xl mr-3">mail</span>
+                <div>
+                    <p class="font-display font-bold text-text-dark dark:text-gray-200">Email</p>
+                    <span class="text-text-light dark:text-text-dark-secondary">contato@curtindosc.com.br</span>
+                </div>
+            </div>
+            <div class="flex items-center text-text-dark dark:text-gray-300">
+                <span class="material-symbols-outlined text-brand-green text-2xl mr-3">phone</span>
+                <div>
+                    <p class="font-display font-bold text-text-dark dark:text-gray-200">Telefone / WhatsApp</p>
+                    <span class="text-text-light dark:text-text-dark-secondary">(48) 99999-8888</span>
+                </div>
+            </div>
+            <div class="flex items-center text-text-dark dark:text-gray-300">
+                <span class="material-symbols-outlined text-brand-green text-2xl mr-3">location_on</span>
+                <div>
+                    <p class="font-display font-bold text-text-dark dark:text-gray-200">Localização</p>
+                    <span class="text-text-light dark:text-text-dark-secondary">Palhoça, Santa Catarina, Brasil</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Formulário de Contato -->
+    <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
+        <h3 class="font-display text-2xl font-bold text-brand-navy dark:text-white mb-6">Envie sua Mensagem</h3>
+        <form class="space-y-6">
+            <div>
+                <label class="block text-sm font-medium text-text-dark dark:text-gray-300" for="name">Nome Completo</label>
+                <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green focus:ring-brand-green dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm" id="name" name="name" placeholder="Seu nome" type="text"/>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-text-dark dark:text-gray-300" for="email">Email</label>
+                <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green focus:ring-brand-green dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm" id="email" name="email" placeholder="seu@email.com" type="email"/>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-text-dark dark:text-gray-300" for="subject">Assunto</label>
+                <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green focus:ring-brand-green dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm" id="subject" name="subject" placeholder="Ex: Interesse em imóvel" type="text"/>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-text-dark dark:text-gray-300" for="message">Mensagem</label>
+                <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-green focus:ring-brand-green dark:bg-gray-700 dark:border-gray-600 dark:text-white sm:text-sm" id="message" name="message" placeholder="Deixe sua mensagem aqui..." rows="4"></textarea>
+            </div>
+            <div>
+                <button class="w-full flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-brand-coral text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-colors" type="submit">
+                    <span class="truncate">Enviar Mensagem</span>
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 </div>
 </section>
 </main>
+<!-- RODAPÉ COMPLETO -->
+<footer class="bg-brand-navy dark:bg-black text-gray-300">
+<div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="col-span-2 md:col-span-1">
+<div class="flex items-center gap-3">
+    <!-- LOGO NO FOOTER -->
+    <img src="https://media.bio.site/sites/15fc0509-6c95-4782-9a79-fe69fe78ce69/fetqsktutwxDYURdXexgei.jpg" alt="Logo Curtindo SC" class="logo-img">
+    <h2 class="text-xl font-bold text-white">Curtindo SC</h2>
 </div>
-</body></html>
+<p class="mt-4 text-sm text-gray-400">Seu paraíso particular em Palhoça começa aqui. Viva a liberdade, viva a natureza.</p>
+</div>
+<div>
+<h3 class="text-sm font-semibold tracking-wider uppercase text-gray-200 font-display">Explorar</h3>
+<ul class="mt-4 space-y-2">
+    <li><a class="text-base text-gray-400 hover:text-white" href="imoveis.html">Imóveis à Venda</a></li>
+    <li><a class="text-base text-gray-400 hover:text-white" href="imoveis.html">Aluguel de Temporada</a></li>
+    <li><a class="text-base text-gray-400 hover:text-white" href="sobre_nos.html">Lifestyle Naturista</a></li>
+    <li><a class="text-base text-gray-400 hover:text-white" href="sobre_nos.html">Sobre Nós</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-sm font-semibold tracking-wider uppercase text-gray-200 font-display">Contato</h3>
+<ul class="mt-4 space-y-2">
+<li class="flex items-start gap-2 text-base text-gray-400">Palhoça, Santa Catarina</li>
+<li class="flex items-start gap-2 text-base text-gray-400">(48) 99999-8888</li>
+<li class="flex items-start gap-2 text-base text-gray-400">contato@curtindosc.com.br</li>
+</ul>
+</div>
+<div>
+<h3 class="text-sm font-semibold tracking-wider uppercase text-gray-200 font-display">Redes Sociais</h3>
+<div class="flex mt-4 space-x-4">
+    <a class="text-gray-400 hover:text-white" href="https://www.instagram.com/curtindosc" target="_blank">
+        <span class="sr-only">Instagram</span>
+        <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path clip-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.316 1.363.364 2.427.048 1.067.06 1.407.06 3.808s-.012 2.741-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.316-2.427.364-1.067.048-1.407.06-3.808.06s-2.741-.012-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.316-1.363-.364-2.427C2.013 14.741 2 14.4 2 12s.013-2.741.06-3.808c.049-1.064.218 1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363.316 2.427-.364C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.683-.566.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill-rule="evenodd"></path></svg>
+    </a>
+    <a class="text-gray-400 hover:text-white" href="https://www.tiktok.com/@curtindosc" target="_blank">
+        <span class="sr-only">TikTok</span>
+        <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91.02 2.5.06 4.13 1.05 4.96 3.33 1.15 3.15.24 6.67-1.74 9.35-1.15 1.55-2.67 2.8-4.22 3.91-1.2.85-2.52 1.52-3.82 2.06-1.7.73-3.48.95-5.27.51-1.37-.33-2.65-.89-3.8-1.61-1.77-1.1-3.2-2.6-4.08-4.43-.88-1.83-1.1-3.83-1.01-5.8.08-1.7.54-3.35 1.48-4.76 1.03-1.5 2.5-2.63 4.17-3.33 1.3-.53 2.68-.8 4.08-.87 1.2-.06 2.4-.06 3.6-.05zM9.53 5.43c.27-.12.57-.1.84.03 2.27.93 4.54 1.87 6.81 2.8 1.1.45 1.83 1.3 1.83 2.44 0 1.1-.73 1.98-1.83 2.43-2.28.93-4.55 1.87-6.83 2.8-1.2.5-2.53.07-3.2-.82-.6-1.4-.4-3.23.4-4.5 1.2-1.87 2.4-3.73 3.6-5.6z"></path></svg>
+    </a>
+    <a class="text-gray-400 hover:text-white" href="https://www.youtube.com/@curtindosc" target="_blank">
+        <span class="sr-only">YouTube</span>
+        <svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M21.582 7.042c-.218-1.554-1.503-2.835-3.058-3.05C16.94 3.75 12 3.75 12 3.75s-4.94 0-6.524.242C3.922 4.207 2.637 5.488 2.419 7.042 2.175 8.625 2.175 12 2.175 12s0 3.375.244 4.958c.218 1.554 1.503 2.835 3.058 3.05C7.06 20.25 12 20.25 12 20.25s4.94 0 6.524-.242c1.555-.215 2.84-1.496 3.058-3.05C21.825 15.375 21.825 12 21.825 12s0-3.375-.243-4.958zM9.75 15.375V8.625l5.625 3.375-5.625 3.375z"></path></svg>
+    </a>
+</div>
+</div>
+</div>
+<div class="mt-8 border-t border-gray-700 pt-8 text-center text-base text-gray-400">
+<p>© 2024 Curtindo SC. Todos os direitos reservados.</p>
+</div>
+</div>
+</footer>
+</div>
+</body>
+</html>
