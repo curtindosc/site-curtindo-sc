@@ -6,6 +6,8 @@
 <title>Casa Pé na Areia na Praia do Sonho | Aluguel de Temporada | Curtindo SC</title>
 <meta name="description" content="Detalhes e fotos da Casa Pé na Areia na Praia do Sonho, Palhoça, SC. 4 Quartos, piscina e acesso privativo. Perfeito para aluguel de temporada e investimento.">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script>
@@ -45,6 +47,12 @@
         'GRAD' 0,
         'opsz' 24
       }
+    .logo-img {
+        height: 40px; 
+        width: auto; 
+        border-radius: 9999px; 
+        object-fit: cover; 
+    }
     </style>
 </head>
 <body class="font-body bg-sand dark:bg-background-dark">
@@ -52,12 +60,9 @@
 <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-light-gray dark:border-b-[#2c3d4e] px-4 sm:px-10 lg:px-20 py-3 bg-background-light dark:bg-background-dark sticky top-0 z-30">
 <div class="flex items-center gap-8">
 <div class="flex items-center gap-4 text-accent dark:text-white">
-<div class="size-6">
-<svg class="text-primary" fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<path d="M42 19.3333H24V4H6V19.3333H42ZM24 44H42V28.6667H24V44Z" fill="#3E9C4B"></path>
-</svg>
-</div>
-<h2 class="text-lg font-bold leading-tight tracking-[-0.015em] font-display">Curtindo SC</h2>
+    <!-- LOGO CORRIGIDA E DIMENSIONADA -->
+    <img src="https://media.bio.site/sites/15fc0509-6c95-4782-9a79-fe69fe78ce69/fetqsktutwxDYURdXexgei.jpg" alt="Logo Curtindo SC" class="logo-img">
+    <h2 class="text-lg font-bold leading-tight tracking-[-0.015em] font-display">Curtindo SC</h2>
 </div>
 <label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
 <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
@@ -70,10 +75,11 @@
 </div>
 <div class="flex items-center gap-4 sm:gap-8">
 <div class="hidden lg:flex items-center gap-9">
-<a class="text-accent dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Comprar</a>
-<a class="text-accent dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Alugar</a>
-<a class="text-accent dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Lançamentos</a>
-<a class="text-accent dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Anunciar Imóvel</a>
+    <!-- LINKS DE NAVEGAÇÃO CORRIGIDOS -->
+    <a class="text-accent dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="imoveis.html">Comprar</a>
+    <a class="text-accent dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="imoveis.html">Alugar</a>
+    <a class="text-accent dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="sobre_nos.html">Lançamentos</a>
+    <a class="text-accent dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="sobre_nos.html">Anunciar Imóvel</a>
 </div>
 <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition font-display">
 <span class="truncate">Entrar</span>
@@ -84,13 +90,14 @@
 <div class="px-4 sm:px-10 lg:px-20 py-5">
 <div class="layout-content-container flex flex-col w-full mx-auto">
 <div class="flex flex-wrap gap-2 py-4">
-<a class="text-[#617589] dark:text-[#aebfcb] text-sm font-normal leading-normal hover:text-primary transition-colors" href="#">Início</a>
-<span class="text-[#617589] dark:text-[#aebfcb] text-sm font-normal leading-normal">/</span>
-<a class="text-[#617589] dark:text-[#aebfcb] text-sm font-normal leading-normal hover:text-primary transition-colors" href="#">Alugar</a>
-<span class="text-[#617589] dark:text-[#aebfcb] text-sm font-normal leading-normal">/</span>
-<a class="text-[#617589] dark:text-[#aebfcb] text-sm font-normal leading-normal hover:text-primary transition-colors" href="#">Palhoça</a>
-<span class="text-[#617589] dark:text-[#aebfcb] text-sm font-normal leading-normal">/</span>
-<span class="text-primary dark:text-white text-sm font-normal leading-normal">Casa Pé na Areia</span>
+    <!-- Breadcrumbs Corrigidos -->
+    <a class="text-[#617589] dark:text-[#aebfcb] text-sm font-normal leading-normal hover:text-primary transition-colors" href="index.html">Início</a>
+    <span class="text-[#617589] dark:text-[#aebfcb] text-sm font-normal leading-normal">/</span>
+    <a class="text-[#617589] dark:text-[#aebfcb] text-sm font-normal leading-normal hover:text-primary transition-colors" href="imoveis.html">Alugar</a>
+    <span class="text-[#617589] dark:text-[#aebfcb] text-sm font-normal leading-normal">/</span>
+    <a class="text-[#617589] dark:text-[#aebfcb] text-sm font-normal leading-normal hover:text-primary transition-colors" href="imoveis.html">Palhoça</a>
+    <span class="text-[#617589] dark:text-[#aebfcb] text-sm font-normal leading-normal">/</span>
+    <span class="text-primary dark:text-white text-sm font-normal leading-normal">Casa Pé na Areia</span>
 </div>
 <div class="w-full h-[550px] grid grid-cols-4 grid-rows-2 gap-2 rounded-xl overflow-hidden">
 <div class="col-span-2 row-span-2">
@@ -190,15 +197,15 @@
 <p class="text-lg font-bold text-accent dark:text-white mb-4 font-display">Reserve Suas Datas</p>
 <!-- Aqui seria integrado o Flatpickr ou o formulário de reserva direta -->
 <div class="space-y-4">
-    <input type="text" placeholder="Entrada e Saída (Calendário)" class="w-full form-input rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-primary focus:border-primary">
-    <input type="number" placeholder="Nº de Hóspedes" min="1" class="w-full form-input rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-primary focus:border-primary">
-    <button class="w-full flex items-center justify-center overflow-hidden rounded-lg h-14 px-4 bg-primary text-white text-lg font-bold tracking-[0.015em] hover:bg-opacity-90 transition-colors gap-3 shadow-lg shadow-green-500/30" href="#" type="button">
-        <span class="material-symbols-outlined">calendar_today</span>
-        <span class="truncate">Verificar Disponibilidade</span>
-    </button>
-    <a class="w-full flex items-center justify-center overflow-hidden rounded-lg h-14 px-4 bg-accent text-white text-lg font-bold tracking-[0.015em] hover:bg-opacity-90 transition-colors gap-3 shadow-lg shadow-accent/30" href="https://wa.me/5548999999999" target="_blank">
-        <span class="truncate">Falar com Corretor (Venda)</span>
-    </a>
+    <input type="text" placeholder="Entrada e Saída (Calendário)" class="w-full form-input rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-primary focus:border-primary">
+    <input type="number" placeholder="Nº de Hóspedes" min="1" class="w-full form-input rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-primary focus:border-primary">
+    <button class="w-full flex items-center justify-center overflow-hidden rounded-lg h-14 px-4 bg-primary text-white text-lg font-bold tracking-[0.015em] hover:bg-opacity-90 transition-colors gap-3 shadow-lg shadow-green-500/30" href="#" type="button">
+        <span class="material-symbols-outlined">calendar_today</span>
+        <span class="truncate">Verificar Disponibilidade</span>
+    </button>
+    <a class="w-full flex items-center justify-center overflow-hidden rounded-lg h-14 px-4 bg-accent text-white text-lg font-bold tracking-[0.015em] hover:bg-opacity-90 transition-colors gap-3 shadow-lg shadow-accent/30" href="https://wa.me/5548999999999" target="_blank">
+        <span class="truncate">Falar com Corretor (Venda)</span>
+    </a>
 </div>
 <div class="mt-8 text-center">
 <div class="size-16 rounded-full bg-center bg-no-repeat bg-cover ring-2 ring-primary/50 mx-auto" data-alt="Foto do corretor de imóveis" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDJGsXE2TUNNtTM8eTj3RLQwFxtQ5XcIlgloKKyQRHzpg9p59Z-5bOPptbcN80Lea3rR5qIm36Y_iiY2BLmoFCsZ30xUrtukBXYnULD7nwKXRZ1FSsNE_52h5HpdNp6V9biWehaJEMFpK_CQfqE4P9crwKF9lfTYMHNFTllvYnHBClEk9uJ_7hXifeYVzQidcgVea6iqLSzryS7Jw2bUEK8378LcFTNAvXmHBr49GK7bZfrQtpKPjNXQvO0FSnPjE5ImHZt_v07sHg');"></div>
