@@ -45,18 +45,6 @@
             'GRAD' 0,
             'opsz' 24
         }
-        /* Estilos para o filtro em mobile */
-        .mobile-filter-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-        @media (min-width: 640px) { /* sm breakpoint */
-            .mobile-filter-container {
-                display: flex; 
-                gap: 0;
-            }
-        }
     /* Estilos da Logo Unificada */
     .logo-img {
         height: 40px; 
@@ -125,64 +113,13 @@
 <p class="mt-4 max-w-2xl text-lg md:text-xl text-gray-200 drop-shadow-md">A vida que você sonha está em uma das praias mais preservadas de Santa Catarina.</p>
 </div>
 </section>
-<div class="bg-white dark:bg-gray-800/50 border-y border-gray-200 dark:border-gray-700 shadow-sm sticky top-16 z-20">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<form class="flex flex-wrap items-center divide-x divide-gray-200 dark:divide-gray-700 -mx-2 py-2">
-<div class="mobile-filter-container w-full sm:flex-1 sm:order-2 md:order-1">
-<div class="p-2 w-full sm:w-auto">
-<label for="filter-transaction-type" class="sr-only">Tipo de Transação</label>
-<select id="filter-transaction-type" class="w-full sm:w-32 appearance-none bg-transparent border-0 text-gray-700 dark:text-gray-300 py-3 pl-3 pr-8 leading-tight focus:outline-none focus:ring-0 text-sm font-medium">
-<option>Alugar</option>
-<option>Comprar</option>
-</select>
-</div>
-<div class="p-2 w-full sm:w-auto">
-<label for="filter-property-type" class="sr-only">Tipo de Imóvel</label>
-<select id="filter-property-type" class="w-full sm:w-40 appearance-none bg-transparent border-0 text-gray-700 dark:text-gray-300 py-3 pl-3 pr-8 leading-tight focus:outline-none focus:ring-0 text-sm font-medium">
-<option>Tipo de imóvel</option>
-<option>Casa</option>
-<option>Apartamento</option>
-<option>Loft</option>
-<option>Terreno</option>
-</select>
-</div>
-<div class="p-2 w-full sm:w-auto">
-<label for="filter-price" class="sr-only">Preço</label>
-<select id="filter-price" class="w-full sm:w-32 appearance-none bg-transparent border-0 text-gray-700 dark:text-gray-300 py-3 pl-3 pr-8 leading-tight focus:outline-none focus:ring-0 text-sm font-medium">
-<option>Preço</option>
-<option>Até R$ 500/dia</option>
-<option>Até R$ 1.000/dia</option>
-<option>Até R$ 1.000.000</option>
-</select>
-</div>
-<div class="p-2 w-full sm:w-auto">
-<label for="filter-guests" class="sr-only">Quartos / Pessoas</label>
-<select id="filter-guests" class="w-full sm:w-48 appearance-none bg-transparent border-0 text-gray-700 dark:text-gray-300 py-3 pl-3 pr-8 leading-tight focus:outline-none focus:ring-0 text-sm font-medium">
-<option>Quartos / Pessoas</option>
-<option>1 quarto / 2 pessoas</option>
-<option>2 quartos / 4 pessoas</option>
-<option>3+ quartos / 6+ pessoas</option>
-</select>
-</div>
-</div>
-<div class="p-2 flex-1 min-w-[200px] flex items-center w-full sm:w-auto sm:order-1 md:order-2">
-<span class="material-symbols-outlined text-gray-400 ml-3"> location_on </span>
-<input class="w-full bg-transparent border-0 text-gray-700 dark:text-gray-300 py-3 pl-2 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-0 text-sm font-medium" placeholder="Busque por localização, bairro..." type="text"/>
-</div>
-<div class="p-2 w-full sm:w-auto ml-auto sm:order-3">
-<button class="w-full sm:w-auto flex items-center justify-center gap-2 py-3 px-6 bg-primary dark:bg-primary-dark text-white font-bold text-sm rounded-lg hover:bg-primary/90 dark:hover:bg-primary-dark/90 transition-colors" type="submit">
-<span class="material-symbols-outlined text-xl"> search </span>
-<span>Buscar</span>
-</button>
-</div>
-</form>
-</div>
-</div>
+
+<!-- SEÇÃO DE FILTRO REMOVIDA -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-<p class="text-sm font-medium text-gray-600 dark:text-gray-300">6 imóveis encontrados (Exemplos)</p>
-<div class="flex items-center gap-4 w-full sm:w-auto">
+<p class="text-xl font-bold text-gray-900 dark:text-white">Imóveis em Destaque (6 Exemplos)</p>
 <div class="relative w-full sm:w-48">
+<!-- Campo de ordenação mantido por ser mais simples que o filtro completo -->
 <select class="w-full appearance-none bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 py-2 pl-3 pr-8 rounded-lg leading-tight focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-primary dark:focus:border-primary-dark focus:ring-1 focus:ring-primary/50 dark:focus:ring-primary-dark/50 text-sm">
 <option>Mais Relevantes</option>
 <option>Menor Preço</option>
@@ -191,7 +128,6 @@
 </select>
 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
 <span class="material-symbols-outlined text-lg"> expand_more </span>
-</div>
 </div>
 </div>
 </div>
@@ -306,13 +242,13 @@
     const propertyData = [
         {
             id: 'venda_luxo',
-            title: 'Casa de Luxo com Piscina na Praia do Sonho',
+            title: 'Casa de Luxo c/ Piscina na Praia do Sonho',
             location: 'Praia do Sonho, Palhoça',
             mode: 'sale',
             price_sale: 2500000,
-            price_daily: 1800, // Alto potencial para aluguel
+            price_daily: 1800, 
             rooms: 4, baths: 5, area: 220,
-            description: "Esta casa redefine o luxo na Praia do Sonho. Com arquitetura moderna e acabamentos de alto padrão, ela foi projetada para quem busca privacidade e um contato íntimo com o mar. A piscina de borda infinita se funde com a paisagem, criando um cenário perfeito. É uma excelente oportunidade de investimento ou residência de alto padrão em uma região de crescente valorização.",
+            description: "Esta casa redefine o luxo na Praia do Sonho. Com arquitetura moderna e acabamentos de alto padrão, ela foi projetada para quem busca privacidade e um contato íntimo com o mar. É uma excelente oportunidade de investimento ou residência de alto padrão.",
             images: [
                 "https://lh3.googleusercontent.com/aida-public/AB6AXuAQWr66uTJiCxpEEC2kU9O7mC8AFMT39XsOr4c6O5AhVzf6bDTAa5RYR76ksJQ6dRKt6dTVa2nE9HjrecWUDea-PxIInZ8eTjGrNoEr84PEyTTIaoLqAnYf-wu8WLlmEUMP9UwlEb1ZiIULHSZavPV2lZQMd4MRtDFCzHZReFEZYVT5fH5UHxMDLxp_4R2XcAnsQGz-VG2G1wqi8oNoUTllBninRP2_nclvzdgUtFdEN5jikOUfuOSNYAmbIACSBOAoubR2JxPdc1w",
                 "https://lh3.googleusercontent.com/aida-public/AB6AXuB7IIfBJrYidgqgCvKOXkQSxvY5fcjTh31ssjQIeVEJvVz_YOqvRC2w5ArigrMKnOEdsV21pcmQLT77hsv0N8S2UJaV_4u3zqEZ1euHHCRsY0RfLg7mVcJjd_FcjQ7np5AocuKmEXbtFIHi_vDWmVdfBFWBmlAotzRebSJWCoUbM0FhsMYIVIC1JyH8NQarRAnJA4tTS-M0CJe77A-Y6xFhQ72JPe9dI_eegc8bYvcT2bOFVOlrPFE3rxhsE4V1SyNwmSJDLRZSVw8"
@@ -328,21 +264,67 @@
             price_daily: 650, 
             rooms: 2, baths: 1, area: 150,
             description: "Cabana charmosa, ideal para casais ou famílias pequenas que buscam paz e desconexão. Cercada por Mata Atlântica preservada e próxima a trilhas ecológicas. Vagas limitadas para a alta temporada!",
-            available_start: { seconds: new Date(2025, 0, 1).getTime() / 1000 }, // Jan 1st 2025
-            available_end: { seconds: new Date(2025, 2, 31).getTime() / 1000 }, // Mar 31st 2025
+            available_start: { seconds: new Date(2025, 0, 1).getTime() / 1000 }, 
+            available_end: { seconds: new Date(2025, 2, 31).getTime() / 1000 }, 
             images: [
                 "https://lh3.googleusercontent.com/aida-public/AB6AXuCkJXXkq4PB_UELQ6Or3FsXQolSU713nYjOVcOg7O7h9mZAMFnw9MLSucLOIX9Xl1UuJz-opoW2DynbxlFCA6jAjz8MblLDqWpcQikwcGl9sFEGvP5WD2Hw1xyprv5Tz8LdpqvA2En5LrYvk93gob6XOpTFdQPhXMdP3SVezlZhgwwtp7JeOSObNCiEA7z_kaov6rgyNhTfy-D2BZ8WdodHZYO0Z7uv9V5sts2uiNskYExbKQzjz7xvYbUrgUAK4W9lxIfRcII13nk",
-                "https://lh3.googleusercontent.com/aida-public/AB6AXuAUzRiXmLJ42_onfiXrxsiK4CJfeSm4orWZaDZQB7ugJwzvxvDhdjOSS2utvEHnG_iEy0caSRqUJJKl_zAAdSJddrA2W7H8SjkLC99JEYxcq4QF7EFhIq1Pjj-ggjfTKXgwdxL3rLAHKkt0pib5LWca-PGaRkQ5rB9wpN9hzgdvksbDh8KDVrqet_fPipJeVgm4PmJc4gDAJRn0OKuREijyyxjpLT8mfmoNVzEKvcB5plxnO3JWbjdgh62lYaULmC6C2V6g9jz9cms"
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuAUzRiXmLJ42_onfiXrxsiK4CJfeSm4orWZaDZQB7ugJwzvxvDhdjOSS2utvEHnG_iEy0caSRqUJJKl_zAAdSJddrA2W7H8SjkLC99JEYxcq4QF7EFhIq1Pjj-ggjfTKXgwdxL3rLAHKkt0pib5LWca-PGaRkQ5rP9wpN9hzgdvksbDh8KDVrqet_fPipJeVgm4PmJc4gDAJRn0OKuREijyyxjpLT8mfmoNVzEKvcB5plxnO3JWbjdgh62lYaULmC6C2V6g9jz9cms"
             ],
             features: ['Mobiliado', 'Próximo à Trilha', 'Lareira', 'Wi-Fi']
+        },
+        {
+            id: 'venda_loft',
+            title: 'Loft Mobiliado para Venda',
+            location: 'Praia da Pinheira, Palhoça',
+            mode: 'sale',
+            price_sale: 480000,
+            price_daily: 400, 
+            rooms: 1, baths: 1, area: 50,
+            description: "Seu refúgio particular na Pinheira. Perfeito para solteiros ou casais, totalmente mobiliado e pronto para morar ou alugar. Perto da praia.",
+            images: [
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuCkJXXkq4PB_UELQ6Or3FsXQolSU713nYjOVcOg7O7h9mZAMFnw9MLSucLOIX9Xl1UuJz-opoW2DynbxlFCA6jAjz8MblLDqWpcQikwcGl9sFEGvP5WD2Hw1xyprv5Tz8LdpqvA2En5LrYvk93gob6XOpTFdQPhXMdP3SVezlZhgwwtp7JeOSObNCiEA7z_kaov6rgyNhTfy-D2BZ8WdodHZYO0Z7uv9V5sts2uiNskYExbKQzjz7xvYbUrgUAK4W9lxIfRcII13nk",
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuAUzRiXmLJ42_onfiXrxsiK4CJfeSm4orWZaDZQB7ugJwzvxvDhdjOSS2utvEHnG_iEy0caSRqUJJKl_zAAdSJddrA2W7H8SjkLC99JEYxcq4QF7EFhIq1Pjj-ggjfTKXgwdxL3rLAHKkt0pib5LWca-PGaRkQ5rP9wpN9hzgdvksbDh8KDVrqet_fPipJeVgm4PmJc4gDAJRn0OKuREijyyxjpLT8mfmoNVzEKvcB5plxnO3JWbjdgh62lYaULmC6C2V6g9jz9cms"
+            ],
+            features: ['Mobiliado', 'Perto da Praia', 'Segurança', 'Baixo Custo']
+        },
+        {
+            id: 'venda_terreno',
+            title: 'Terreno em Condomínio Fechado',
+            location: 'Praia da Pinheira, Palhoça',
+            mode: 'sale',
+            price_sale: 800000, 
+            price_daily: 0, 
+            rooms: 0, baths: 0, area: 800,
+            description: "Terreno amplo de 800m² em condomínio de alto padrão. Perfeito para construir a casa dos seus sonhos com total segurança e infraestrutura.",
+            images: [
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuDW5KunHpGD5ge6GVTRYoxzdjDjz1xvRwrcehMbWeJP9g6kkgr2sYQm_QAREW24UZcbDvIQ9mqyh_06CPdjH2Ib4TkCnG2pl5Er687kcgZFq9RvXyFh7e4ianyEhBdRVUAi0jMVsn5t3Uw4mqTRhjJVxOp-LtFR2lmDJLvtyV1LbcGsBKpeuC1MVpm4Bn_l2yZp8e9ToslacCFFgT-5xqoB1yNkkamJJ9fd8s01tVorQ2kSc4b_EW0ti1LPAJ-mhqJCzVDkPvye9Fg",
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuC7_IZ_RKfqXMvEmOuWWWYJ7Vvd0peAE7JEBRtc1wQQbdJglfsi3HBJZimbIYbpHXJ_ZPku-aZR8zURLWkNsBNfN8kXuw460EjGB3o1ckkkRy2BFU9KioEGhv8pS9HkEMn8Ry05FtSCtc0JLJdxbS2m6o7fsvKNQppDmEe7dhLUmPH8_8AUIyXFSg08zRX2tSR3dB3HRSxokrJo9Sb4GB6r9Ceqx9TD9LCfQvLme1fZiR5Q-OPmwWTo4dc6QUTqwwTsPblGo1BNsbo"
+            ],
+            features: ['Condomínio Fechado', 'Segurança 24h', 'Pronto para Construir', '800m²']
+        },
+        {
+            id: 'aluguel_apto',
+            title: 'Apto na Guarda do Embaú (Temporada)',
+            location: 'Guarda do Embaú, Palhoça',
+            mode: 'rent',
+            price_sale: 650000, 
+            price_daily: 450, 
+            rooms: 2, baths: 2, area: 80,
+            description: "Apartamento moderno e funcional, a poucos passos da praia da Guarda. Perfeito para quem quer aproveitar o surf e o charme da vila. Mínimo 5 noites.",
+            available_start: { seconds: new Date(2024, 11, 20).getTime() / 1000 }, 
+            available_end: { seconds: new Date(2025, 1, 10).getTime() / 1000 }, 
+            images: [
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuBrhKgRWX177WRPwk_g13wOtuyRGA89CkVKEHAMS0nRCh5VYgy6vjjAovXM6hhgKKitQMKei69HWd8_RE9_hFEwzVlPpk8BkStcHlKP9ic2hhZ_RYpn-ljttn8DyMyeuRlGksQMHufgLtUlrziCnygwnNxvWXyE0pA8MF8nAl0YX1jy8g15VsYEMNoVOaQJLLmho8r--H9BGibx_LPH8iGRw671MDfKSJc9bCRGSozavZtNLcMo6kJphfPSfJyXxnn4Oksiedb1UPQ",
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuAQWr66uTJiCxpEEC2kU9O7mC8AFMT39XsOr4c6O5AhVzf6bDTAa5RYR76ksJQ6dRKt6dTVa2nE9HjrecWUDea-PxIInZ8eTjGrNoEr84PEyTTIaoLqAnYf-wu8WLlmEUMP9UwlEb1ZiIULHSZavPV2lZQMd4MRtDFCzHZReFEZYVT5fH5UHxMDLxp_4R2XcAnsQGz-VG2G1wqi8oNoUTllBninRP2_nclvzdgUtFdEN5jikOUfuOSNYAmbIACSBOAoubR2JxPdc1w"
+            ],
+            features: ['2 Quartos', 'Perto da Praia', 'Churrasqueira', 'Mobiliado']
         }
-        // ... adicione mais imóveis aqui ...
     ];
 
     let currentProperty = null;
     let flatpickrInstance = null; 
     const MODAL_WHATSAPP_NUMBER = '5548999998888'; 
-    const MERCADOPAGO_CHECKOUT_URL = "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=SEU_ID_DA_PREFERENCIA_AQUI"; // LINK MP (MOCKUP)
+    const MERCADOPAGO_CHECKOUT_URL = "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=SEU_ID_DA_PREFERENCIA_AQUI"; 
 
     // Funções utilitárias
     const formatBRL = (number) => number ? number.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : 'Consulte';
@@ -379,11 +361,10 @@
 
         // 1. Preenchimento de Dados Estáticos
         document.getElementById('modal-title').textContent = currentProperty.title;
-        document.getElementById('modal-location').textContent = currentProperty.location;
+        document.getElementById('modal-location').innerHTML = `<span class="material-symbols-outlined text-lg">location_on</span>${currentProperty.location}`;
         document.getElementById('modal-rooms').innerHTML = `<span class="material-symbols-outlined text-primary">bed</span>${currentProperty.rooms} Quartos`;
         document.getElementById('modal-baths').innerHTML = `<span class="material-symbols-outlined text-primary">bathtub</span>${currentProperty.baths} Banheiros`;
         document.getElementById('modal-area').innerHTML = `<span class="material-symbols-outlined text-primary">straighten</span>${currentProperty.area} m²`;
-        // Usando a primeira imagem como placeholder no modal
         document.getElementById('modal-main-image').src = currentProperty.images[0] || 'https://placehold.co/800x600/e2e8f0/e2e8f0?text=Imóvel';
         
         // 2. Preenchimento das Características
@@ -406,21 +387,45 @@
         document.getElementById('reserve-button').classList.remove('bg-green-600', 'hover:bg-green-500');
         document.getElementById('reserve-button').classList.add('bg-primary', 'hover:bg-primary/90');
 
+        // Destruir instância Flatpickr anterior se existir
+        if (flatpickrInstance) {
+            flatpickrInstance.destroy();
+            flatpickrInstance = null;
+        }
 
-        if (mode === 'rent') {
-            const dailyRate = currentProperty.price_daily;
-            priceLabelEl.textContent = 'Preço por Diária';
-            priceValueEl.textContent = dailyRate ? formatBRL(dailyRate) : 'Consulte';
+
+        if (mode === 'sale') {
+            priceLabelEl.textContent = 'Preço de Venda';
+            priceValueEl.textContent = currentProperty.price_sale ? formatBRL(currentProperty.price_sale) : 'Consulte';
+            datesInfoEl.classList.add('hidden');
             
-            // Datas de Disponibilidade
+            // Mostrar formulário de Compra/Contato padrão
+            saleForm.classList.remove('hidden');
+            rentForm.classList.add('hidden');
+
+        } else { // mode === 'rent'
+            let rentPrice = 'Consulte';
+            const dailyRate = currentProperty.price_daily;
+            if (dailyRate) {
+                priceLabelEl.textContent = 'Preço por Diária';
+                rentPrice = formatBRL(dailyRate);
+            } else if (currentProperty.price_monthly) {
+                priceLabelEl.textContent = 'Valor Mensal (Est.)';
+                rentPrice = formatBRL(currentProperty.price_monthly);
+            } else {
+                priceLabelEl.textContent = 'Preço';
+            }
+            priceValueEl.textContent = rentPrice;
+            
             const availableStart = timestampToISODate(currentProperty.available_start);
             const availableEnd = timestampToISODate(currentProperty.available_end);
 
             datesInfoEl.innerHTML = `<span class="material-symbols-outlined text-sm">calendar_month</span> Disponível de ${formatTimestamp(currentProperty.available_start)} até ${formatTimestamp(currentProperty.available_end)}`;
             datesInfoEl.classList.remove('hidden');
 
-            rentForm.classList.remove('hidden');
+            // Mostrar formulário de Aluguel/Datas
             saleForm.classList.add('hidden');
+            rentForm.classList.remove('hidden');
             
             // Inicializar Flatpickr
             flatpickrInstance = flatpickr("#rent-date-range", {
@@ -436,13 +441,6 @@
                 ] : []
             });
 
-        } else { // mode === 'sale'
-            priceLabelEl.textContent = 'Preço de Venda';
-            priceValueEl.textContent = currentProperty.price_sale ? formatBRL(currentProperty.price_sale) : 'Consulte';
-            datesInfoEl.classList.add('hidden');
-            
-            rentForm.classList.add('hidden');
-            saleForm.classList.remove('hidden');
         }
 
         // 4. Exibir Modal
@@ -452,7 +450,7 @@
     // Função de Geração de Cards Estáticos
     function generatePropertyCards() {
         const grid = document.getElementById('properties-grid');
-        if (!grid) return; // Segurança caso a grid não exista
+        if (!grid) return;
 
         grid.innerHTML = propertyData.map(prop => `
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group cursor-pointer" onclick="openModal('${prop.id}')">
@@ -461,7 +459,7 @@
                     <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div class="absolute bottom-3 left-3 text-white">
                         <p class="font-display font-bold text-lg drop-shadow-md">${prop.mode === 'sale' ? formatBRL(prop.price_sale) : formatBRL(prop.price_daily) + ' / diária'}</p>
-                        <p class="text-xs">${prop.mode === 'sale' ? 'Para Venda' : 'Aluguel'}</p>
+                        <p class="text-xs">${prop.mode === 'sale' ? 'Venda' : 'Aluguel'}</p>
                     </div>
                 </div>
                 <div class="p-5">
@@ -570,19 +568,35 @@
             );
             const whatsappUrl = `https://api.whatsapp.com/send?phone=${MODAL_WHATSAPP_NUMBER}&text=${whatsappMessage}`;
             
-            // Redirecionar para o Checkout Pro e Notificação WhatsApp
+            // 1. Notificação WhatsApp (para o agente)
             window.open(whatsappUrl, '_blank'); 
+            
+            // 2. Redirecionar para o Checkout Pro (Link de Pagamento)
             window.open(MERCADOPAGO_CHECKOUT_URL, '_blank'); 
 
-            // Alerta final (opcional, para feedback)
-            showAlert('Seu orçamento e link de pagamento foram processados. Você será redirecionado para o Checkout.', 'Reserva Iniciada');
+            // Ação no botão: Mudar o texto para indicar que a reserva foi processada
+            document.getElementById('reserve-button').textContent = "Pagamento Redirecionado!";
+            document.getElementById('reserve-button').classList.remove('bg-primary', 'hover:bg-primary/90');
+            document.getElementById('reserve-button').classList.add('bg-green-600', 'hover:bg-green-500');
         });
     }
 
     // Inicialização principal
     function initializePage() {
-        document.getElementById('alert-ok-button').addEventListener('click', () => document.getElementById('alert-modal').classList.remove('show'));
-        
+        const closeBtn = document.getElementById('close-modal-button');
+        if (closeBtn) {
+             closeBtn.addEventListener('click', () => {
+                document.getElementById('details-modal').classList.remove('show');
+                if (flatpickrInstance) flatpickrInstance.destroy(); 
+            });
+        }
+       
+        // Garante que o listener de OK do alerta funcione
+        const alertOkBtn = document.getElementById('alert-ok-button');
+        if (alertOkBtn) {
+            alertOkBtn.addEventListener('click', () => document.getElementById('alert-modal').classList.remove('show'));
+        }
+
         setupSaleFormListener();
         setupRentFormListener();
         generatePropertyCards();
@@ -590,14 +604,6 @@
 
     // Garante que o JavaScript só execute após o HTML estar carregado
     document.addEventListener('DOMContentLoaded', initializePage);
-
-    // Listener de fechar modal (permanece fora da inicialização DOMContentLoaded para funcionar)
-    document.getElementById('close-modal-button').addEventListener('click', () => {
-        document.getElementById('details-modal').classList.remove('show');
-        if (flatpickrInstance) flatpickrInstance.destroy(); 
-    });
-
-
 </script>
 
 
