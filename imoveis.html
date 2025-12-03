@@ -107,7 +107,7 @@
 <main class="w-full">
 <section class="relative h-[50vh] min-h-[400px] w-full">
 <div class="absolute inset-0 bg-secondary/60 z-10"></div>
-<img alt="Vista paradisíaca de uma praia em Palhoça" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5F4upEOd8bNwUW8GK09B8rySNOI6gRzwPNbXeqSVqBgiL9AB0sBI9Ylsz_UAwga25JXqL1pipTxBzd5jd6PvQ6CnbK1olWrSwxYpuzjDXRovDjEVlPcqE4RWMiIwIQblYMargx5JZq980LWCuZoDKYg0BJh1o7Dt--m_019yEaOuRxNUxuf0g7JdhLAX9gWUyP_QYVw9MXYNi1U2bawsJEi4pc4YbGOk2WE40HWAthZl9Q_HhYZxnLszH3egy9r-W5ukUj5oe4NI"/>
+<img alt="Vista paradisíaca de uma praia em Palhoça" class="h-full w-full object-cover" src="https://www.fashionbubbles.com/wp-content/uploads/2021/02/Casa-na-praia-O-guia-completo-para-voce-viajar-em-2021-1536x1000.png"/>
 <div class="absolute inset-0 z-20 flex flex-col items-center justify-center text-center text-white p-4">
 <h1 class="text-4xl md:text-6xl font-display font-bold tracking-tight leading-tight drop-shadow-lg">Imóveis de Lifestyle em Palhoça</h1>
 <p class="mt-4 max-w-2xl text-lg md:text-xl text-gray-200 drop-shadow-md">A vida que você sonha está em uma das praias mais preservadas de Santa Catarina.</p>
@@ -541,7 +541,7 @@
 
             const messageParts = dates.split(' a ');
             const dateInStr = messageParts[0];
-            const dateOutStr = messageParts[1];
+            const dateOutStr = messageParts.length > 1 ? messageParts[1].trim() : '';
 
             if (!dailyRate) {
                 showAlert('Este imóvel não tem preço de diária/mês cadastrado para cálculo.', 'Erro de Cadastro');
