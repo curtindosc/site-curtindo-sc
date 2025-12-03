@@ -20,8 +20,8 @@
         extend: {
           colors: {
             "primary": "#1BAEBD", /* NOVO CIANO da Marca */
-            "background-light": "#f6f7f8", 
-            "background-dark": "#101922", 
+            "background-light": "#f6f7f8", /* Light do Index */
+            "background-dark": "#101922", /* Dark do Index */
             "secondary": "#003366", /* Navy Blue (complemento escuro) */
             "accent": "#FF7F50", /* Coral */
             "sand": {
@@ -107,7 +107,7 @@
 <main class="w-full">
 <section class="relative h-[50vh] min-h-[400px] w-full">
 <div class="absolute inset-0 bg-secondary/60 z-10"></div>
-<img alt="Vista paradisíaca de uma praia em Palhoça" class="h-full w-full object-cover" src="https://www.fashionbubbles.com/wp-content/uploads/2021/02/Casa-na-praia-O-guia-completo-para-voce-viajar-em-2021.png"/>
+<img alt="Vista paradisíaca de uma praia em Palhoça" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5F4upEOd8bNwUW8GK09B8rySNOI6gRzwPNbXeqSVqBgiL9AB0sBI9Ylsz_UAwga25JXqL1pipTxBzd5jd6PvQ6CnbK1olWrSwxYpuzjDXRovDjEVlPcqE4RWMiIwIQblYMargx5JZq980LWCuZoDKYg0BJh1o7Dt--m_019yEaOuRxNUxuf0g7JdhLAX9gWUyP_QYVw9MXYNi1U2bawsJEi4pc4YbGOk2WE40HWAthZl9Q_HhYZxnLszH3egy9r-W5ukUj5oe4NI"/>
 <div class="absolute inset-0 z-20 flex flex-col items-center justify-center text-center text-white p-4">
 <h1 class="text-4xl md:text-6xl font-display font-bold tracking-tight leading-tight drop-shadow-lg">Imóveis de Lifestyle em Palhoça</h1>
 <p class="mt-4 max-w-2xl text-lg md:text-xl text-gray-200 drop-shadow-md">A vida que você sonha está em uma das praias mais preservadas de Santa Catarina.</p>
@@ -254,7 +254,7 @@
             rooms: 4, baths: 5, area: 220,
             description: "Esta casa redefine o luxo na Praia do Sonho. Com arquitetura moderna e acabamentos de alto padrão, ela foi projetada para quem busca privacidade e um contato íntimo com o mar. É uma excelente oportunidade de investimento ou residência de alto padrão.",
             images: [
-                "https://lh3.googleusercontent.com/aida-public/AB6AXuAQWr66uTJiCxpEEC2kU9O7mC8AFMT39XsOr4c6O5AhVzf6bDTAa5RYR76ksJQ6dRKt6dTVa2nE9HjrecWUDea-PxIInZ8eTjGrNoEr84PEyTTIaoLqAnYf-wu8WLlmEUMP9UwlEb1ZiIULHSZavPV2lZQMd4MRtDFCzHZReFEZYVT5fH5UHxMDLxp_4R2XcAnsQGz-VG2G1wqi8oNoUTllBninRP2_nclvzdgUtFdEN5jikOUfuOSNYAmbIACSBOAoubR2JxPdc1w",
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuAQWr66uTJiCxpEEC2kU9O7mC8AFMT39XsOr4c6O5AhVzf6bDTAa5RYR76ksJQ6dRKt6dTVa2nE9HjrecWUDea-PxInZ8eTjGrNoEr84PEyTTIaoLqAnYf-wu8WLlmEUMP9UwlEb1ZiIULHSZavPV2lZQMd4MRtDFCzHZReFEZYVT5fH5UHxMDLxp_4R2XcAnsQGz-VG2G1wqi8oNoUTllBninRP2_nclvzdgUtFdEN5jikOUfuOSNYAmbIACSBOAoubR2JxPdc1w",
                 "https://lh3.googleusercontent.com/aida-public/AB6AXuB7IIfBJrYidgqgCvKOXkQSxvY5fcjTh31ssjQIeVEJvVz_YOqvRC2w5ArigrMKnOEdsV21pcmQLT77hsv0N8S2UJaV_4u3zqEZ1euHHCRsY0RfLg7mVcJjd_FcjQ7np5AocuKmEXbtFIHi_vDWmVdfBFWBmlAotzRebSJWCoUbM0FhsMYIVIC1JyH8NQarRAnJA4tTS-M0CJe77A-Y6xFhQ72JPe9dI_eegc8bYvcT2bOFVOlrPFE3rxhsE4V1SyNwmSJDLRZSVw8"
             ],
             features: ['Piscina Infinita', 'Vista para o Mar', 'Acesso Privativo', 'Espaço Gourmet']
@@ -268,7 +268,6 @@
             price_daily: 650, 
             rooms: 2, baths: 1, area: 150,
             description: "Cabana charmosa, ideal para casais ou famílias pequenas que buscam paz e desconexão. Cercada por Mata Atlântica preservada e próxima a trilhas ecológicas. Vagas limitadas para a alta temporada!",
-            // DISPONIBILIDADE ESTENDIDA ATÉ 2028
             available_start: { seconds: new Date(2025, 0, 1).getTime() / 1000 }, 
             available_end: { seconds: new Date(2028, 11, 31).getTime() / 1000 }, 
             images: [
@@ -320,9 +319,26 @@
             available_end: { seconds: new Date(2028, 11, 31).getTime() / 1000 }, 
             images: [
                 "https://lh3.googleusercontent.com/aida-public/AB6AXuBrhKgRWX177WRPwk_g13wOtuyRGA89CkVKEHAMS0nRCh5VYgy6vjjAovXM6hhgKKitQMKei69HWd8_RE9_hFEwzVlPpk8BkStcHlKP9ic2hhZ_RYpn-ljttn8DyMyeuRlGksQMHufgLtUlrziCnygwnNxvWXyE0pA8MF8nAl0YX1jy8g15VsYEMNoVOaQJLLmho8r--H9BGibx_LPH8iGRw671MDfKSJc9bCRGSozavZtNLcMo6kJphfPSfJyXxnn4Oksiedb1UPQ",
-                "https://lh3.googleusercontent.com/aida-public/AB6AXuAQWr66uTJiCxpEEC2kU9O7mC8AFMT39XsOr4c6O5AhVzf6bDTAa5RYR76ksJQ6dRKt6dTVa2nE9HjrecWUDea-PxIInZ8eTjGrNoEr84PEyTTIaoLqAnYf-wu8WLlmEUMP9UwlEb1ZiIULHSZavPV2lZQMd4MRtDFCzHZReFEZYVT5fH5UHxMDLxp_4R2XcAnsQGz-VG2G1wqi8oNoUTllBninRP2_nclvzdgUtFdEN5jikOUfuOSNYAmbIACSBOAoubR2JxPdc1w"
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuAQWr66uTJiCxpEEC2kU9O7mC8AFMT39XsOr4c6O5AhVzf6bDTAa5RYR76ksJQ6dRKt6dTVa2nE9HjrecWUDea-PxInZ8eTjGrNoEr84PEyTTIaoLqAnYf-wu8WLlmEUMP9UwlEb1ZiIULHSZavPV2lZQMd4MRtDFCzHZReFEZYVT5fH5UHxMDLxp_4R2XcAnsQGz-VG2G1wqi8oNoUTllBninRP2_nclvzdgUtFdEN5jikOUfuOSNYAmbIACSBOAoubR2JxPdc1w"
             ],
             features: ['2 Quartos', 'Perto da Praia', 'Churrasqueira', 'Mobiliado']
+        },
+        {
+            id: 'aluguel_chale_magico',
+            title: 'Chalé Mágico (Pé na Areia)',
+            location: 'Pinheira, Palhoça',
+            mode: 'rent',
+            price_sale: 950000, 
+            price_daily: 1200, 
+            rooms: 3, baths: 2, area: 160,
+            description: "Chalé exclusivo com vista panorâmica para o mar. Localizado em área reservada, ideal para quem busca o máximo de paz e privacidade.",
+            available_start: { seconds: new Date(2025, 0, 1).getTime() / 1000 }, 
+            available_end: { seconds: new Date(2028, 11, 31).getTime() / 1000 }, 
+            images: [
+                "https://lh3.googleusercontent.com/p/AF1QipPvQW1PLgzk4-pBDzZN6-8UK8U1yhMOuaH9j20=w86-h114-k-no",
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuBIKkomtF1GsK3VWW6FIgAk-Ai6gtbUn9AalYPoHvez97Xqiy2TWYTeKmD41DhmrnMuZtNPrTe9D60opNi2y1F9GDco4g9Zt8pDGcP5bUgLF_z2Qj2Jfq4hF9cZjVMDaerUxlPZ8nV4vEiUEVzVp0hgf_DuyQwPz3gmWXvdphwXVGKNZICgPEApckV8pXrrJe4JESJYZtko86Atn47vIFS3FS_oUgM"
+            ],
+            features: ['Pé na Areia', 'Vista Panorâmica', 'Deck Privativo', 'Lareira']
         }
     ];
 
@@ -387,10 +403,16 @@
         const datesInfoEl = document.getElementById('dates-info');
         const summaryDiv = document.getElementById('reservation-summary');
 
+        // Limpar o resumo e resetar o botão
         summaryDiv.classList.add('hidden');
         document.getElementById('reserve-button').textContent = "Verificar Preço e Reservar";
         document.getElementById('reserve-button').classList.remove('bg-green-600', 'hover:bg-green-500');
         document.getElementById('reserve-button').classList.add('bg-primary', 'hover:bg-primary/90');
+        
+        // Resetar o campo de data
+        const dateRangeInput = document.getElementById('rent-date-range');
+        if(dateRangeInput) dateRangeInput.value = "";
+
 
         // Destruir instância Flatpickr anterior se existir
         if (flatpickrInstance) {
@@ -562,7 +584,7 @@
             document.getElementById('summary-nights-count').textContent = numberOfNights;
             summaryDiv.classList.remove('hidden');
 
-            // --- AÇÕES DE CHECKOUT ---
+            // --- AÇÕES DE CHECKOUT (MOCKUP) ---
             
             const whatsappMessage = encodeURIComponent(
                 `*🚨 SOLICITAÇÃO DE RESERVA (Aguardando Confirmação)*\n` +
