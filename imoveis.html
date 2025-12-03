@@ -107,7 +107,7 @@
 <main class="w-full">
 <section class="relative h-[50vh] min-h-[400px] w-full">
 <div class="absolute inset-0 bg-secondary/60 z-10"></div>
-<img alt="Vista paradisíaca de uma praia em Palhoça" class="h-full w-full object-cover" src="https://www.fashionbubbles.com/wp-content/uploads/2021/02/Casa-na-praia-O-guia-completo-para-voce-viajar-em-2021.png"/>
+<img alt="Vista paradisíaca de uma praia em Palhoça" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5F4upEOd8bNwUW8GK09B8rySNOI6gRzwPNbXeqSVqBgiL9AB0sBI9Ylsz_UAwga25JXqL1pipTxBzd5jd6PvQ6CnbK1olWrSwxYpuzjDXRovDjEVlPcqE4RWMiIwIQblYMargx5JZq980LWCuZoDKYg0BJh1o7Dt--m_019yEaOuRxNUxuf0g7JdhLAX9gWUyP_QYVw9MXYNi1U2bawsJEi4pc4YbGOk2WE40HWAthZl9Q_HhYZxnLszH3egy9r-W5ukUj5oe4NI"/>
 <div class="absolute inset-0 z-20 flex flex-col items-center justify-center text-center text-white p-4">
 <h1 class="text-4xl md:text-6xl font-display font-bold tracking-tight leading-tight drop-shadow-lg">Imóveis de Lifestyle em Palhoça</h1>
 <p class="mt-4 max-w-2xl text-lg md:text-xl text-gray-200 drop-shadow-md">A vida que você sonha está em uma das praias mais preservadas de Santa Catarina.</p>
@@ -181,7 +181,7 @@
             
             <!-- Formulário de Aluguel/Reserva (Com Hóspedes e Datas) -->
             <form id="modal-rent-form" class="space-y-4 pt-4 border-t border-gray-200 dark:border-gray-700 hidden">
-                <h4 class="font-display text-xl font-bold text-primary">Calcular e Reservar</h4>
+                <h4 class="font-display text-xl font-bold text-primary">Solicitar Reserva</h4>
                 
                 <!-- Dados do Cliente (simples) -->
                 <input type="text" id="rent-guest-name" placeholder="Seu nome" required class="w-full form-input rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
@@ -268,8 +268,9 @@
             price_daily: 650, 
             rooms: 2, baths: 1, area: 150,
             description: "Cabana charmosa, ideal para casais ou famílias pequenas que buscam paz e desconexão. Cercada por Mata Atlântica preservada e próxima a trilhas ecológicas. Vagas limitadas para a alta temporada!",
+            // DISPONIBILIDADE ESTENDIDA ATÉ 2028 (Permitindo seleção livre)
             available_start: { seconds: new Date(2025, 0, 1).getTime() / 1000 }, 
-            available_end: { seconds: new Date(2025, 2, 31).getTime() / 1000 }, 
+            available_end: { seconds: new Date(2028, 11, 31).getTime() / 1000 }, 
             images: [
                 "https://lh3.googleusercontent.com/aida-public/AB6AXuCkJXXkq4PB_UELQ6Or3FsXQolSU713nYjOVcOg7O7h9mZAMFnw9MLSucLOIX9Xl1UuJz-opoW2DynbxlFCA6jAjz8MblLDqWpcQikwcGl9sFEGvP5WD2Hw1xyprv5Tz8LdpqvA2En5LrYvk93gob6XOpTFdQPhXMdP3SVezlZhgwwtp7JeOSObNCiEA7z_kaov6rgyNhTfy-D2BZ8WdodHZYO0Z7uv9V5sts2uiNskYExbKQzjz7xvYbUrgUAK4W9lxIfRcII13nk",
                 "https://lh3.googleusercontent.com/aida-public/AB6AXuAUzRiXmLJ42_onfiXrxsiK4CJfeSm4orWZaDZQB7ugJwzvxvDhdjOSS2utvEHnG_iEy0caSRqUJJKl_zAAdSJddrA2W7H8SjkLC99JEYxcq4QF7EFhIq1Pjj-ggjfTKXgwdxL3rLAHKkt0pib5LWca-PGaRkQ5rP9wpN9hzgdvksbDh8KDVrqet_fPipJeVgm4PmJc4gDAJRn0OKuREijyyxjpLT8mfmoNVzEKvcB5plxnO3JWbjdgh62lYaULmC6C2V6g9jz9cms"
@@ -316,7 +317,7 @@
             rooms: 2, baths: 2, area: 80,
             description: "Apartamento moderno e funcional, a poucos passos da praia da Guarda. Perfeito para quem quer aproveitar o surf e o charme da vila. Mínimo 5 noites.",
             available_start: { seconds: new Date(2024, 11, 20).getTime() / 1000 }, 
-            available_end: { seconds: new Date(2025, 1, 10).getTime() / 1000 }, 
+            available_end: { seconds: new Date(2028, 11, 31).getTime() / 1000 }, 
             images: [
                 "https://lh3.googleusercontent.com/aida-public/AB6AXuBrhKgRWX177WRPwk_g13wOtuyRGA89CkVKEHAMS0nRCh5VYgy6vjjAovXM6hhgKKitQMKei69HWd8_RE9_hFEwzVlPpk8BkStcHlKP9ic2hhZ_RYpn-ljttn8DyMyeuRlGksQMHufgLtUlrziCnygwnNxvWXyE0pA8MF8nAl0YX1jy8g15VsYEMNoVOaQJLLmho8r--H9BGibx_LPH8iGRw671MDfKSJc9bCRGSozavZtNLcMo6kJphfPSfJyXxnn4Oksiedb1UPQ",
                 "https://lh3.googleusercontent.com/aida-public/AB6AXuAQWr66uTJiCxpEEC2kU9O7mC8AFMT39XsOr4c6O5AhVzf6bDTAa5RYR76ksJQ6dRKt6dTVa2nE9HjrecWUDea-PxIInZ8eTjGrNoEr84PEyTTIaoLqAnYf-wu8WLlmEUMP9UwlEb1ZiIULHSZavPV2lZQMd4MRtDFCzHZReFEZYVT5fH5UHxMDLxp_4R2XcAnsQGz-VG2G1wqi8oNoUTllBninRP2_nclvzdgUtFdEN5jikOUfuOSNYAmbIACSBOAoubR2JxPdc1w"
@@ -421,28 +422,22 @@
             }
             priceValueEl.textContent = rentPrice;
             
-            const availableStart = timestampToISODate(currentProperty.available_start);
-            const availableEnd = timestampToISODate(currentProperty.available_end);
-
-            datesInfoEl.innerHTML = `<span class="material-symbols-outlined text-sm">calendar_month</span> Disponível de ${formatTimestamp(currentProperty.available_start)} até ${formatTimestamp(currentProperty.available_end)}`;
+            // Note: Não estamos usando available_start/end aqui, o corretor vai verificar.
+            datesInfoEl.innerHTML = `Datas de aluguel flexíveis, selecione abaixo.`;
             datesInfoEl.classList.remove('hidden');
 
             // Mostrar formulário de Aluguel/Datas
             saleForm.classList.add('hidden');
             rentForm.classList.remove('hidden');
             
-            // Inicializar Flatpickr
+            // Inicializar Flatpickr (Aberto para datas futuras)
             flatpickrInstance = flatpickr("#rent-date-range", {
                 mode: "range",
                 minDate: "today",
                 dateFormat: "d/m/Y",
                 locale: "pt",
-                minDate: availableStart || "today",
-                maxDate: availableEnd || null,
-                disable: availableStart && availableEnd ? [
-                    { from: "1900-01-01", to: availableStart },
-                    { from: availableEnd, to: "2100-01-01" }
-                ] : []
+                // Removemos o maxDate para permitir seleção livre no calendário
+                // maxDate: availableEnd || null,
             });
 
         }
@@ -563,25 +558,27 @@
             // --- AÇÕES DE CHECKOUT ---
             
             const whatsappMessage = encodeURIComponent(
-                `*🚨 PRÉ-RESERVA FEITA - PAGAMENTO PENDENTE*\n` +
-                `O cliente *${name}* está finalizando a reserva.\n` +
-                `Imóvel: "${currentProperty.title}"\n` +
+                `*🚨 SOLICITAÇÃO DE RESERVA (Aguardando Confirmação)*\n` +
+                `O cliente *${name}* está solicitando reserva.\n` +
+                `Imóvel: "${currentProperty.title}" (ID: ${currentProperty.id})\n` +
                 `Período: ${dateInStr} a ${dateOutStr} (${numberOfNights} noites)\n` +
                 `VALOR TOTAL CALCULADO: R$ ${totalValueBRL}\n\n` +
-                `Cliente: ${name} (WhatsApp: ${contact})`
+                `Cliente: ${name} (WhatsApp: ${contact}). Por favor, verifique a disponibilidade.`
             );
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=${MODAL_WHATSAPP_NUMBER}&text=${whatsappMessage}`;
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${MODAL_WHATSAPP_NUMBER}&text=${encodeURIComponent(whatsappMessage)}`;
             
             // 1. Notificação WhatsApp (para o agente)
             window.open(whatsappUrl, '_blank'); 
             
-            // 2. Redirecionar para o Checkout Pro (Link de Pagamento)
+            // 2. Redirecionar para o Checkout Pro (Link de Pagamento MOCKUP)
             window.open(MERCADOPAGO_CHECKOUT_URL, '_blank'); 
 
             // Ação no botão: Mudar o texto para indicar que a reserva foi processada
-            document.getElementById('reserve-button').textContent = "Pagamento Redirecionado!";
+            document.getElementById('reserve-button').textContent = "Consulta Enviada!";
             document.getElementById('reserve-button').classList.remove('bg-primary', 'hover:bg-primary/90');
             document.getElementById('reserve-button').classList.add('bg-green-600', 'hover:bg-green-500');
+
+            showAlert('Sua solicitação de reserva e orçamento foi enviada. O corretor entrará em contato para confirmar a disponibilidade.', 'Solicitação Enviada');
         });
     }
 
@@ -595,7 +592,6 @@
             });
         }
        
-        // Garante que o listener de OK do alerta funcione
         const alertOkBtn = document.getElementById('alert-ok-button');
         if (alertOkBtn) {
             alertOkBtn.addEventListener('click', () => document.getElementById('alert-modal').classList.remove('show'));
@@ -606,7 +602,6 @@
         generatePropertyCards();
     }
 
-    // Garante que o JavaScript só execute após o HTML estar carregado
     document.addEventListener('DOMContentLoaded', initializePage);
 </script>
 
