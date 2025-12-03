@@ -73,6 +73,34 @@
     .flatpickr-calendar {
         z-index: 9999; /* Garante que o calendário fique sobre o modal */
     }
+    /* Estilos da Galeria no Modal */
+    .gallery-thumbnail {
+        height: 70px;
+        width: 70px;
+        object-fit: cover;
+        cursor: pointer;
+        border: 3px solid transparent;
+        transition: border-color 0.2s;
+    }
+    .gallery-thumbnail.active {
+        border-color: #1BAEBD;
+        opacity: 1;
+    }
+    .main-media-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .main-media-container iframe {
+        width: 100%;
+        height: 100%;
+        min-height: 300px;
+        position: absolute;
+    }
     </style>
 </head>
 <body class="font-body bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
@@ -117,7 +145,7 @@
 <!-- SEÇÃO DE FILTRO REMOVIDA -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-<p class="text-xl font-bold text-gray-900 dark:text-white">Imóveis em Destaque (6 Exemplos)</p>
+<p class="text-xl font-bold text-gray-900 dark:text-white">Imóveis em Destaque (5 Exemplos)</p>
 <div class="relative w-full sm:w-48">
 <!-- Campo de ordenação mantido por ser mais simples que o filtro completo -->
 <select class="w-full appearance-none bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 py-2 pl-3 pr-8 rounded-lg leading-tight focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-primary dark:focus:border-primary-dark focus:ring-1 focus:ring-primary/50 dark:focus:ring-primary-dark/50 text-sm">
@@ -147,10 +175,17 @@
             <span class="material-symbols-outlined">close</span>
         </button>
         
-        <!-- Galeria (Lado Esquerdo) -->
-        <div class="w-full lg:w-2/3 relative h-96 lg:h-auto overflow-hidden rounded-t-xl lg:rounded-l-xl lg:rounded-t-none">
-            <div id="modal-main-image-container" class="w-full h-full bg-black">
-                <img id="modal-main-image" src="" alt="Imagem principal do imóvel" class="w-full h-full object-cover">
+        <!-- Galeria (Lado Esquerdo - Corrigida para Galeria/Vídeo) -->
+        <div class="w-full lg:w-2/3 relative h-96 lg:h-auto overflow-hidden rounded-t-xl lg:rounded-l-xl lg:rounded-t-none p-4 dark:bg-gray-900">
+            <!-- Container Principal de Mídia -->
+            <div class="main-media-container mb-4 rounded-lg shadow-lg">
+                <img id="modal-main-image" src="" alt="Imagem principal do imóvel" class="w-full h-full object-cover rounded-lg" style="min-height: 350px;">
+                <iframe id="modal-main-video" src="" frameborder="0" allow="autoplay; encrypted-media; gyroscope;" allowfullscreen class="absolute inset-0 w-full h-full hidden rounded-lg"></iframe>
+            </div>
+
+            <!-- Miniaturas e Botões (Carousel) -->
+            <div id="modal-thumbnails" class="flex gap-2 overflow-x-auto pb-2">
+                <!-- Thumbnails/Vídeo serão injetados aqui -->
             </div>
         </div>
 
@@ -302,7 +337,7 @@
             description: "Terreno amplo de 800m² em condomínio de alto padrão. Perfeito para construir a casa dos seus sonhos com total segurança e infraestrutura.",
             images: [
                 "https://lh3.googleusercontent.com/aida-public/AB6AXuDW5KunHpGD5ge6GVTRYoxzdjDjz1xvRwrcehMbWeJP9g6kkgr2sYQm_QAREW24UZcbDvIQ9mqyh_06CPdjH2Ib4TkCnG2pl5Er687kcgZFq9RvXyFh7e4ianyEhBdRVUAi0jMVsn5t3Uw4mqTRhjJVxOp-LtFR2lmDJLvtyV1LbcGsBKpeuC1MVpm4Bn_l2yZp8e9ToslacCFFgT-5xqoB1yNkkamJJ9fd8s01tVorQ2kSc4b_EW0ti1LPAJ-mhqJCzVDkPvye9Fg",
-                "https://lh3.googleusercontent.com/aida-public/AB6AXuC7_IZ_RKfqXMvEmOuWWWYJ7Vvd0peAE7JEBRtc1wQQbdJglfsi3HBJZimbIYbpHXJ_ZPku-aZR8zURLWkNsBNfN8kXuw460EjGB3o1ckkkRy2BFU9KioEGhv8pS9HkEMn8Ry05FtSCtc0JLJdxbS2m6o7fsvKNQppDmEe7dhLUmPH8_8AUIyXFSg08zRX2tSR3dB3HRSxokrJo9Sb4GB6r9Ceqx9TD9LCfQvLme1fZiR5Q-OPmwWTo4dc6QUTqwwTsPblGo1BNsbo"
+                "https://lh3.googleusercontent.com/aida-public/AB6AXuC7_IZ_RKfqXMvEmOuWWWYJ7Vvd0peAE7JEBRtc1wQQbdJglfsi3HBJZimbIYbpHXJ_ZPku-aZR8zURLWkNsBNfN8kXuw460EjGB3o1ckkkRy2BFU9KioEGhv8pS9HkEMn8Ry05FtSCtc0JLJdxbS2m6o7fsvKNQppDmEe7dhLUmPH8_8UIyXFSg08zRX2tSR3dB3HRSxokrJo9Sb4GB6r9Ceqx9TD9LCfQvLme1fZiR5Q-OPmwWTo4dc6QUTqwwTsPblGo1BNsbo"
             ],
             features: ['Condomínio Fechado', 'Segurança 24h', 'Pronto para Construir', '800m²']
         },
@@ -338,6 +373,7 @@
                 "https://lh3.googleusercontent.com/p/AF1QipPvQW1PLgzk4-pBDzZN6-8UK8U1yhMOuaH9j20=w86-h114-k-no", // Imagem do perfil Google
                 "https://lh3.googleusercontent.com/aida-public/AB6AXuBIKkomtF1GsK3VWW6FIgAk-Ai6gtbUn9AalYPoHvez97Xqiy2TWYTeKmD41DhmrnMuZtNPrTe9D60opNi2y1F9GDco4g9Zt8pDGcP5bUgLF_z2Qj2Jfq4hF9cZjVMDaerUxlPZ8nV4vEiUEVzVp0hgf_DuyQwPz3gmWXvdphwXVGKNZICgPEApckV8pXrrJe4JESJYZtko86Atn47vIFS3FS_oUgM"
             ],
+            videoUrl: 'https://www.youtube.com/embed/8sY-J8a1Vp0?autoplay=1&mute=1&loop=1&playlist=8sY-J8a1Vp0&controls=0',
             features: ['Pé na Areia', 'Vista Panorâmica', 'Deck Privativo', 'Lareira']
         }
     ];
@@ -369,6 +405,31 @@
             alertModal.classList.add('show'); 
         }
     };
+
+    // Função para alterar a mídia principal no modal
+    function changeMainMedia(mediaUrl, isVideo = false) {
+        const img = document.getElementById('modal-main-image');
+        const iframe = document.getElementById('modal-main-video');
+
+        if (isVideo) {
+            img.classList.add('hidden');
+            iframe.src = mediaUrl;
+            iframe.classList.remove('hidden');
+        } else {
+            iframe.classList.add('hidden');
+            iframe.src = '';
+            img.src = mediaUrl;
+            img.classList.remove('hidden');
+        }
+        // Atualiza a classe 'active' nas miniaturas
+        document.querySelectorAll('.gallery-thumbnail').forEach(thumb => {
+            thumb.classList.remove('active');
+            if (thumb.dataset.mediaUrl === mediaUrl) {
+                thumb.classList.add('active');
+            }
+        });
+    }
+
     
     // Abre o modal e injeta os dados (Chama quando o card é clicado)
     function openModal(propertyId) {
@@ -386,7 +447,6 @@
         document.getElementById('modal-rooms').innerHTML = `<span class="material-symbols-outlined text-primary">bed</span>${currentProperty.rooms} Quartos`;
         document.getElementById('modal-baths').innerHTML = `<span class="material-symbols-outlined text-primary">bathtub</span>${currentProperty.baths} Banheiros`;
         document.getElementById('modal-area').innerHTML = `<span class="material-symbols-outlined text-primary">straighten</span>${currentProperty.area} m²`;
-        document.getElementById('modal-main-image').src = currentProperty.images[0] || 'https://placehold.co/800x600/e2e8f0/e2e8f0?text=Imóvel';
         
         // 2. Preenchimento das Características
         const featuresContainer = document.getElementById('features-container');
@@ -394,7 +454,44 @@
             `<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-primary">check_circle</span>${f}</span>`
         ).join('');
 
-        // 3. Lógica de Preço e Formulário Condicional
+        // 3. Galeria de Imagens e Vídeo
+        const thumbnailsContainer = document.getElementById('modal-thumbnails');
+        thumbnailsContainer.innerHTML = '';
+        
+        const mediaItems = [];
+        // Adicionar Imagens
+        if (currentProperty.images && currentProperty.images.length > 0) {
+            currentProperty.images.forEach(imgUrl => mediaItems.push({ type: 'image', url: imgUrl }));
+        }
+        // Adicionar Vídeo (se existir)
+        if (currentProperty.videoUrl) {
+            mediaItems.push({ type: 'video', url: currentProperty.videoUrl });
+        }
+
+        mediaItems.forEach((media, index) => {
+            const isVideo = media.type === 'video';
+            const thumbnailUrl = isVideo 
+                ? 'https://placehold.co/70x70/003366/FFFFFF?text=VÍDEO' // Placeholder para vídeo
+                : media.url;
+
+            const thumb = document.createElement('img');
+            thumb.className = 'gallery-thumbnail rounded-md';
+            thumb.src = thumbnailUrl;
+            thumb.dataset.mediaUrl = media.url;
+            thumb.onclick = () => changeMainMedia(media.url, isVideo);
+            
+            thumbnailsContainer.appendChild(thumb);
+        });
+
+        // Exibir a primeira mídia (Imagem ou Vídeo)
+        if (mediaItems.length > 0) {
+            const firstItem = mediaItems[0];
+            changeMainMedia(firstItem.url, firstItem.type === 'video');
+        } else {
+             changeMainMedia('https://placehold.co/800x600/e2e8f0/e2e8f0?text=Sem+Imagens');
+        }
+
+        // 4. Lógica de Preço e Formulário Condicional
         const mode = currentProperty.mode || 'sale';
         const rentForm = document.getElementById('modal-rent-form');
         const saleForm = document.getElementById('modal-sale-form');
@@ -466,6 +563,11 @@
 
         // 4. Exibir Modal
         detailsModal.classList.add('show');
+        // Marcar a primeira miniatura como ativa
+        const firstThumbnail = document.querySelector('#modal-thumbnails img');
+        if (firstThumbnail) {
+             firstThumbnail.classList.add('active');
+        }
     }
 
     // Função de Geração de Cards Estáticos
