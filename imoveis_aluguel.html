@@ -385,45 +385,82 @@
         `).join('');
     }
 
-    // LÓGICA DE CÁLCULO DE ALUGUEL
+    // 2. FORMULÁRIO DE ALUGUEL (Cálculo e Checkout) - CORRIGIDO
     function setupRentFormListener() {
         const rentForm = document.getElementById('modal-rent-form');
         if (!rentForm) return;
+
         rentForm.addEventListener('submit', async (e) => { 
             e.preventDefault();
+            
+            // Pega os valores do formulário
             const dates = document.getElementById('rent-date-range').value.trim();
             const contact = document.getElementById('rent-guest-contact').value.trim();
             const name = document.getElementById('rent-guest-name').value.trim();
+            // Garante que pegamos o valor numérico, se for vazio assume 0
             const adults = parseInt(document.getElementById('guests-adults').value) || 0;
+            const children = parseInt(document.getElementById('guests-children').value) || 0;
             
-            if (!dates || !contact || !name) { showAlert('Preencha os dados.'); return; }
+            // Validação básica
+            if (!dates || !contact || !name || adults < 1) { 
+                showAlert('Por favor, preencha o nome, WhatsApp, as datas e selecione pelo menos 1 adulto.', 'Dados Faltando'); 
+                return; 
+            }
             
-            // Lógica de cálculo simplificada para exibição
-            const parts = dates.split(' a ');
-            if (parts.length !== 2) { showAlert('Selecione data de entrada e saída.'); return; }
+            // --- CORREÇÃO AQUI: Tenta separar por " até " OU por " a " ---
+            let parts = dates.split(' até ');
             
-            // Simulação de sucesso
-            const total = currentProperty.price_daily * 5; // Exemplo fixo ou calcularia real
-            const whatsappMessage = encodeURIComponent(`Olá, quero reservar "${currentProperty.title}" nas datas ${dates}. Nome: ${name}`);
+            // Se não encontrou "até", tenta encontrar " a "
+            if (parts.length !== 2) {
+                parts = dates.split(' a ');
+            }
+
+            // Se mesmo assim não dividiu em 2 partes, erro
+            if (parts.length !== 2) { 
+                showAlert('Por favor, selecione as datas de entrada e saída no calendário.', 'Erro na Data'); 
+                return; 
+            }
+            
+            const dateInStr = parts[0].trim();
+            const dateOutStr = parts[1].trim();
+
+            // Cálculo de dias para orçamento (Simples)
+            // Converte DD/MM/AAAA para objeto Date
+            const [dayIn, monthIn, yearIn] = dateInStr.split('/').map(Number);
+            const [dayOut, monthOut, yearOut] = dateOutStr.split('/').map(Number);
+            const dateInObj = new Date(yearIn, monthIn - 1, dayIn);
+            const dateOutObj = new Date(yearOut, monthOut - 1, dayOut);
+            
+            const diffTime = Math.abs(dateOutObj - dateInObj);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+            
+            // Se der 0 dias (entrada e saída no mesmo dia), considera 1 diária mínima ou dá erro
+            const nights = diffDays > 0 ? diffDays : 1;
+            const totalEstimated = currentProperty.price_daily * nights;
+
+            // Formatação da Mensagem
+            const whatsappMessage = encodeURIComponent(
+                `*Nova Solicitação de Reserva*\n\n` +
+                `👤 *Cliente:* ${name}\n` +
+                `📱 *Contato:* ${contact}\n` +
+                `🏠 *Imóvel:* ${currentProperty.title}\n` +
+                `📅 *Período:* ${dateInStr} até ${dateOutStr} (${nights} diárias)\n` +
+                `👥 *Hóspedes:* ${adults} adultos, ${children} crianças\n` +
+                `💰 *Valor Estimado:* ${formatBRL(totalEstimated)}\n\n` +
+                `_Gostaria de verificar a disponibilidade._`
+            );
+            
             const whatsappUrl = `https://api.whatsapp.com/send?phone=${MODAL_WHATSAPP_NUMBER}&text=${whatsappMessage}`;
             
+            // Abre o WhatsApp
             window.open(whatsappUrl, '_blank');
-            window.open(MERCADOPAGO_CHECKOUT_URL, '_blank'); 
-            showAlert('Solicitação enviada!');
+            
+            // (Opcional) Abre o checkout se tiver link configurado
+            // window.open(MERCADOPAGO_CHECKOUT_URL, '_blank'); 
+            
+            showAlert('Sua solicitação foi gerada! Você será redirecionado para o WhatsApp para confirmar.', 'Sucesso');
         });
     }
-
-    function initializePage() {
-        const closeBtn = document.getElementById('close-modal-button');
-        if (closeBtn) closeBtn.addEventListener('click', () => { document.getElementById('details-modal').classList.remove('show'); if (flatpickrInstance) flatpickrInstance.destroy(); });
-        
-        const alertOkBtn = document.getElementById('alert-ok-button');
-        if (alertOkBtn) alertOkBtn.addEventListener('click', () => document.getElementById('alert-modal').classList.remove('show'));
-
-        setupRentFormListener();
-        generatePropertyCards();
-    }
-    document.addEventListener('DOMContentLoaded', initializePage);
 </script>
 
 <footer class="bg-gray-900 dark:bg-black text-gray-300">
