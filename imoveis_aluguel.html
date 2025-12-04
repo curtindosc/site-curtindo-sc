@@ -81,7 +81,7 @@
 <main class="w-full">
 <section class="relative h-[50vh] min-h-[400px] w-full">
 <div class="absolute inset-0 bg-secondary/60 z-10"></div>
-<img alt="Férias em Palhoça" class="h-full w-full object-cover" src="https://evoyconsorcios.com.br/images/uploads/posts/desktop/feliz-companhia-de-amigos-nas-ferias-tropicais-de-verao-na-tailandia-viajando-de-barco-no-mar-festa-na-praia-pessoas-se-divertindo-juntos-emocoes-positivas-de-homens-e-mulheres.jpg"/>
+<img alt="Férias em Palhoça" class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=2070&auto=format&fit=crop"/>
 <div class="absolute inset-0 z-20 flex flex-col items-center justify-center text-center text-white p-4">
 <h1 class="text-4xl md:text-6xl font-display font-bold tracking-tight leading-tight drop-shadow-lg">Temporada dos Sonhos</h1>
 <p class="mt-4 max-w-2xl text-lg md:text-xl text-gray-200 drop-shadow-md">Viva a experiência única de se hospedar na natureza preservada.</p>
@@ -198,7 +198,7 @@
 </div>
 
 <script>
-    // DADOS MANTIDOS COMPLETOS (IGUAL AO ANTERIOR)
+    // DADOS MANTIDOS COMPLETOS
     const propertyData = [
         {
             id: 'venda_luxo',
@@ -266,7 +266,7 @@
     const MODAL_WHATSAPP_NUMBER = '5548999998888'; 
     const MERCADOPAGO_CHECKOUT_URL = "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=SEU_ID_DA_PREFERENCIA_AQUI"; 
 
-    // Funções utilitárias e Modal (Idênticas ao original, apenas com rent form ativo)
+    // Funções utilitárias e Modal
     const formatBRL = (number) => number ? number.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : 'Consulte';
     const formatTimestamp = (timestamp) => {
         if (timestamp && timestamp.seconds) return new Date(timestamp.seconds * 1000).toLocaleDateString('pt-BR');
@@ -353,12 +353,11 @@
         detailsModal.classList.add('show');
     }
 
-    // === AQUI ESTÁ A MÁGICA DO FILTRO DE ALUGUEL ===
+    // === FILTRO DE ALUGUEL ===
     function generatePropertyCards() {
         const grid = document.getElementById('properties-grid');
         if (!grid) return;
 
-        // FILTRA APENAS IMÓVEIS DE ALUGUEL (RENT)
         const rentProperties = propertyData.filter(prop => prop.mode === 'rent');
 
         if (rentProperties.length === 0) {
@@ -385,7 +384,7 @@
         `).join('');
     }
 
-    // 2. FORMULÁRIO DE ALUGUEL (Cálculo e Checkout) - CORRIGIDO
+    // === CÁLCULO DE ALUGUEL CORRIGIDO (ACEITA "ATÉ" E "A") ===
     function setupRentFormListener() {
         const rentForm = document.getElementById('modal-rent-form');
         if (!rentForm) return;
@@ -393,39 +392,32 @@
         rentForm.addEventListener('submit', async (e) => { 
             e.preventDefault();
             
-            // Pega os valores do formulário
             const dates = document.getElementById('rent-date-range').value.trim();
             const contact = document.getElementById('rent-guest-contact').value.trim();
             const name = document.getElementById('rent-guest-name').value.trim();
-            // Garante que pegamos o valor numérico, se for vazio assume 0
             const adults = parseInt(document.getElementById('guests-adults').value) || 0;
             const children = parseInt(document.getElementById('guests-children').value) || 0;
             
-            // Validação básica
-            if (!dates || !contact || !name || adults < 1) { 
-                showAlert('Por favor, preencha o nome, WhatsApp, as datas e selecione pelo menos 1 adulto.', 'Dados Faltando'); 
+            if (!dates || !contact || !name) { 
+                showAlert('Por favor, preencha todos os campos obrigatórios.'); 
                 return; 
             }
             
-            // --- CORREÇÃO AQUI: Tenta separar por " até " OU por " a " ---
+            // Tenta separar por " até " OU por " a "
             let parts = dates.split(' até ');
-            
-            // Se não encontrou "até", tenta encontrar " a "
             if (parts.length !== 2) {
                 parts = dates.split(' a ');
             }
 
-            // Se mesmo assim não dividiu em 2 partes, erro
             if (parts.length !== 2) { 
-                showAlert('Por favor, selecione as datas de entrada e saída no calendário.', 'Erro na Data'); 
+                showAlert('Por favor, selecione as datas de entrada e saída no calendário.'); 
                 return; 
             }
             
             const dateInStr = parts[0].trim();
             const dateOutStr = parts[1].trim();
 
-            // Cálculo de dias para orçamento (Simples)
-            // Converte DD/MM/AAAA para objeto Date
+            // Cálculo real de dias
             const [dayIn, monthIn, yearIn] = dateInStr.split('/').map(Number);
             const [dayOut, monthOut, yearOut] = dateOutStr.split('/').map(Number);
             const dateInObj = new Date(yearIn, monthIn - 1, dayIn);
@@ -433,34 +425,39 @@
             
             const diffTime = Math.abs(dateOutObj - dateInObj);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-            
-            // Se der 0 dias (entrada e saída no mesmo dia), considera 1 diária mínima ou dá erro
             const nights = diffDays > 0 ? diffDays : 1;
+            
             const totalEstimated = currentProperty.price_daily * nights;
 
-            // Formatação da Mensagem
             const whatsappMessage = encodeURIComponent(
-                `*Nova Solicitação de Reserva*\n\n` +
-                `👤 *Cliente:* ${name}\n` +
-                `📱 *Contato:* ${contact}\n` +
-                `🏠 *Imóvel:* ${currentProperty.title}\n` +
-                `📅 *Período:* ${dateInStr} até ${dateOutStr} (${nights} diárias)\n` +
-                `👥 *Hóspedes:* ${adults} adultos, ${children} crianças\n` +
-                `💰 *Valor Estimado:* ${formatBRL(totalEstimated)}\n\n` +
-                `_Gostaria de verificar a disponibilidade._`
+                `*Nova Solicitação de Reserva*\n` +
+                `Nome: ${name}\n` +
+                `Imóvel: ${currentProperty.title}\n` +
+                `Datas: ${dateInStr} até ${dateOutStr} (${nights} diárias)\n` +
+                `Hóspedes: ${adults} ad., ${children} cri.\n` +
+                `Valor Estimado: ${formatBRL(totalEstimated)}\n`
             );
             
             const whatsappUrl = `https://api.whatsapp.com/send?phone=${MODAL_WHATSAPP_NUMBER}&text=${whatsappMessage}`;
             
-            // Abre o WhatsApp
             window.open(whatsappUrl, '_blank');
+            // window.open(MERCADOPAGO_CHECKOUT_URL, '_blank'); // Opcional
             
-            // (Opcional) Abre o checkout se tiver link configurado
-            // window.open(MERCADOPAGO_CHECKOUT_URL, '_blank'); 
-            
-            showAlert('Sua solicitação foi gerada! Você será redirecionado para o WhatsApp para confirmar.', 'Sucesso');
+            showAlert('Solicitação enviada para o WhatsApp!');
         });
     }
+
+    function initializePage() {
+        const closeBtn = document.getElementById('close-modal-button');
+        if (closeBtn) closeBtn.addEventListener('click', () => { document.getElementById('details-modal').classList.remove('show'); if (flatpickrInstance) flatpickrInstance.destroy(); });
+        
+        const alertOkBtn = document.getElementById('alert-ok-button');
+        if (alertOkBtn) alertOkBtn.addEventListener('click', () => document.getElementById('alert-modal').classList.remove('show'));
+
+        setupRentFormListener();
+        generatePropertyCards();
+    }
+    document.addEventListener('DOMContentLoaded', initializePage);
 </script>
 
 <footer class="bg-gray-900 dark:bg-black text-gray-300">
