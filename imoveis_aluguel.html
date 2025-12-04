@@ -42,10 +42,41 @@
     .modal.show { display: flex; }
     .modal-content { max-height: 95vh; overflow-y: auto; }
     .flatpickr-calendar { z-index: 9999; }
-    .gallery-thumbnail { height: 70px; width: 70px; object-fit: cover; cursor: pointer; border: 3px solid transparent; transition: border-color 0.2s; }
-    .gallery-thumbnail.active { border-color: #1BAEBD; opacity: 1; }
-    .main-media-container { position: relative; width: 100%; height: 100%; min-height: 300px; display: flex; align-items: center; justify-content: center; }
-    .main-media-container iframe { width: 100%; height: 100%; min-height: 300px; position: absolute; }
+    
+    /* ESTILOS DA GALERIA CORRIGIDOS */
+    .gallery-thumbnail { 
+        height: 80px; 
+        width: 80px; 
+        object-fit: cover; 
+        cursor: pointer; 
+        border: 2px solid transparent; 
+        transition: all 0.2s; 
+        flex-shrink: 0; /* Impede que a imagem encolha */
+    }
+    .gallery-thumbnail:hover {
+        opacity: 0.8;
+    }
+    .gallery-thumbnail.active { 
+        border-color: #1BAEBD; 
+        opacity: 1; 
+        transform: scale(1.05);
+    }
+    .main-media-container { 
+        position: relative; 
+        width: 100%; 
+        height: 400px; /* Altura fixa para evitar pulos */
+        background-color: #000;
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        overflow: hidden;
+    }
+    .main-media-container img, 
+    .main-media-container iframe { 
+        width: 100%; 
+        height: 100%; 
+        object-fit: contain; /* Garante que a imagem inteira apareça */
+    }
 </style>
 </head>
 <body class="font-body bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
@@ -117,15 +148,19 @@
             <span class="material-symbols-outlined">close</span>
         </button>
         
-        <div class="w-full lg:w-2/3 relative h-96 lg:h-auto overflow-hidden rounded-t-xl lg:rounded-l-xl lg:rounded-t-none p-4 dark:bg-gray-900">
-            <div class="main-media-container mb-4 rounded-lg shadow-lg">
-                <img id="modal-main-image" src="" alt="Imagem principal do imóvel" class="w-full h-full object-cover rounded-lg" style="min-height: 350px;">
-                <iframe id="modal-main-video" src="" frameborder="0" allow="autoplay; encrypted-media; gyroscope;" allowfullscreen class="absolute inset-0 w-full h-full hidden rounded-lg"></iframe>
+        <div class="w-full lg:w-2/3 flex flex-col gap-4 p-4 dark:bg-gray-900">
+            <div class="main-media-container rounded-lg shadow-lg bg-black">
+                <img id="modal-main-image" src="" alt="Imagem principal do imóvel" class="hidden">
+                <iframe id="modal-main-video" src="" frameborder="0" allow="autoplay; encrypted-media; gyroscope;" allowfullscreen class="hidden"></iframe>
             </div>
-            <div id="modal-thumbnails" class="flex gap-2 overflow-x-auto pb-2"></div>
+            
+            <div class="w-full overflow-x-auto">
+                <div id="modal-thumbnails" class="flex gap-3 pb-2 px-1 min-w-min">
+                    </div>
+            </div>
         </div>
 
-        <div class="w-full lg:w-1/3 p-6 space-y-4">
+        <div class="w-full lg:w-1/3 p-6 space-y-4 overflow-y-auto max-h-[80vh]">
             <h2 id="modal-title" class="font-display text-2xl font-bold text-secondary dark:text-white"></h2>
             <p id="modal-location" class="text-gray-600 dark:text-gray-400 text-sm flex items-center gap-1"><span class="material-symbols-outlined text-lg">location_on</span></p>
 
@@ -255,8 +290,8 @@
             description: "Chalé exclusivo...",
             available_start: { seconds: new Date(2025, 0, 1).getTime() / 1000 }, 
             available_end: { seconds: new Date(2028, 11, 31).getTime() / 1000 }, 
-            images: ["https://lh3.googleusercontent.com/p/AF1QipPvQW1PLgzk4-pBDzZN6-8UK8U1yhMOuaH9j20=w86-h114-k-no", "https://lh3.googleusercontent.com/aida-public/AB6AXuBIKkomtF1GsK3VWW6FIgAk-Ai6gtbUn9AalYPoHvez97Xqiy2TWYTeKmD41DhmrnMuZtNPrTe9D60opNi2y1F9GDco4g9Zt8pDGcP5bUgLF_z2Qj2Jfq4hF9cZjVMDaerUxlPZ8nV4vEiUEVzVp0hgf_DuyQwPz3gmWXvdphwXVGKNZICgPEApckV8pXrrJe4JESJYZtko86Atn47vIFS3FS_oUgM"],
-            videoUrl: 'https://www.youtube.com/embed/8sY-J8a1Vp0?autoplay=1&mute=1&loop=1&playlist=8sY-J8a1Vp0&controls=0',
+            images: ["https://lh3.googleusercontent.com/p/AF1QipOezJQNfVpoxOBgEBImQEU3Bqqe2-e5Hf0_pLQ=s680-w680-h510-rw", "https://lh3.googleusercontent.com/p/AF1QipOxrLPlDelaM4SHr0TEzUsyt9NUA5GSIdmomOs=s680-w680-h510-rw", "https://lh3.googleusercontent.com/p/AF1QipM1ld1hp9gPViKKbpkK-bV6ifD3Pwc5G9aneTA=s680-w680-h510-rw", "https://lh3.googleusercontent.com/p/AF1QipOtNMa5I_P93j1OZO7KtmilQUDiEh8wvjuyj0s=s680-w680-h510-rw", "https://lh3.googleusercontent.com/p/AF1QipPywRV-ClqPUpvHhkIlkffADWltwBZtQl9bCT0=s680-w680-h510-rw", "https://lh3.googleusercontent.com/p/AF1QipOm-QSu7qjMNVNB9-vMDM5IygzwkKmhiVh-t5U=s680-w680-h510-rw"],
+            videoUrl: 'https://rr4---sn-bg0e6nl7.googlevideo.com/videoplayback?expire=1764866865&ei=EZ8xaYWPO679-LAP0NO0mAQ&ip=45.160.89.148&id=48fa102d0c164e86&itag=18&source=picasa&begin=0&requiressl=yes&xpc=Eghoy-b0JXoBAQ==&met=1764859665,&mh=Xg&mm=32&mn=sn-bg0e6nl7&ms=su&mv=m&mvi=4&pl=24&rms=su,su&sc=yes&susc=ph&app=fife&ic=945&pcm2=yes&mime=video/mp4&vprv=1&prv=1&rqh=1&dur=25.402&lmt=1616124436465161&mt=1764859265&sparams=expire,ei,ip,id,itag,source,requiressl,xpc,susc,app,ic,pcm2,mime,vprv,prv,rqh,dur,lmt&sig=AJfQdSswRAIgZN1ASEhfCbECJR5XTOAKYCpKQOv_L_6riipG0Ew-rr8CIEBwdb6e6_4e2Pn7HHwaA5_ftGwzXSAce9XBOpwXz0d-&lsparams=met,mh,mm,mn,ms,mv,mvi,pl,rms,sc&lsig=APaTxxMwRgIhAJTuTOLLUwk_HKqL69Cw8VIOhugkg354a3_e9CLdMaGmAiEA5UqA3dmvELL_l6RFRgZ6Gi6inxgT37Z9O5Nl2PVWhp8=',
             features: ['Pé na Areia', 'Vista Panorâmica', 'Deck Privativo', 'Lareira']
         }
     ];
@@ -264,7 +299,6 @@
     let currentProperty = null;
     let flatpickrInstance = null; 
     const MODAL_WHATSAPP_NUMBER = '5548999998888'; 
-    const MERCADOPAGO_CHECKOUT_URL = "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=SEU_ID_DA_PREFERENCIA_AQUI"; 
 
     // Funções utilitárias e Modal
     const formatBRL = (number) => number ? number.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : 'Consulte';
@@ -285,14 +319,26 @@
         }
     };
 
+    // FUNÇÃO CORRIGIDA: Alterna corretamente entre IMAGEM e VIDEO
     function changeMainMedia(mediaUrl, isVideo = false) {
         const img = document.getElementById('modal-main-image');
         const iframe = document.getElementById('modal-main-video');
+        
+        // Esconde tudo primeiro
+        img.classList.add('hidden');
+        iframe.classList.add('hidden');
+        // Para vídeos (iframe), reseta o src para parar o áudio se trocar
+        iframe.src = "";
+
         if (isVideo) {
-            img.classList.add('hidden'); iframe.src = mediaUrl; iframe.classList.remove('hidden');
+            iframe.src = mediaUrl;
+            iframe.classList.remove('hidden');
         } else {
-            iframe.classList.add('hidden'); iframe.src = ''; img.src = mediaUrl; img.classList.remove('hidden');
+            img.src = mediaUrl;
+            img.classList.remove('hidden');
         }
+
+        // Atualiza a borda da miniatura ativa
         document.querySelectorAll('.gallery-thumbnail').forEach(thumb => {
             thumb.classList.remove('active');
             if (thumb.dataset.mediaUrl === mediaUrl) thumb.classList.add('active');
@@ -315,21 +361,42 @@
             `<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-primary">check_circle</span>${f}</span>`
         ).join('');
 
+        // MONTAR GALERIA DE MINIATURAS
         const thumbnailsContainer = document.getElementById('modal-thumbnails');
         thumbnailsContainer.innerHTML = '';
+        
         const mediaItems = [];
-        if (currentProperty.images) currentProperty.images.forEach(imgUrl => mediaItems.push({ type: 'image', url: imgUrl }));
-        if (currentProperty.videoUrl) mediaItems.push({ type: 'video', url: currentProperty.videoUrl });
-        mediaItems.forEach((media) => {
+        // Adiciona Imagens
+        if (currentProperty.images && Array.isArray(currentProperty.images)) {
+            currentProperty.images.forEach(imgUrl => mediaItems.push({ type: 'image', url: imgUrl }));
+        }
+        // Adiciona Vídeo (se houver)
+        if (currentProperty.videoUrl) {
+            mediaItems.push({ type: 'video', url: currentProperty.videoUrl });
+        }
+
+        // Cria os elementos HTML das miniaturas
+        mediaItems.forEach((media, index) => {
             const isVideo = media.type === 'video';
             const thumb = document.createElement('img');
-            thumb.className = 'gallery-thumbnail rounded-md';
-            thumb.src = isVideo ? 'https://placehold.co/70x70/003366/FFFFFF?text=VÍDEO' : media.url;
+            thumb.className = 'gallery-thumbnail rounded-md border-2 border-transparent hover:border-primary';
+            // Se for vídeo, usa um placeholder escuro com texto. Se for imagem, usa a própria imagem.
+            thumb.src = isVideo ? 'https://placehold.co/80x80/003366/FFFFFF?text=VIDEO' : media.url;
             thumb.dataset.mediaUrl = media.url;
+            
+            // Evento de clique
             thumb.onclick = () => changeMainMedia(media.url, isVideo);
+            
             thumbnailsContainer.appendChild(thumb);
         });
-        if (mediaItems.length > 0) changeMainMedia(mediaItems[0].url, mediaItems[0].type === 'video');
+
+        // Seleciona a primeira mídia ao abrir
+        if (mediaItems.length > 0) {
+            changeMainMedia(mediaItems[0].url, mediaItems[0].type === 'video');
+        } else {
+             // Fallback se não tiver imagem
+             changeMainMedia('https://placehold.co/800x600?text=Sem+Imagem', false);
+        }
 
         // Configuração ESPECÍFICA para ALUGUEL
         const priceLabelEl = document.getElementById('modal-price-label');
@@ -403,7 +470,6 @@
                 return; 
             }
             
-            // Tenta separar por " até " OU por " a "
             let parts = dates.split(' até ');
             if (parts.length !== 2) {
                 parts = dates.split(' a ');
@@ -417,7 +483,6 @@
             const dateInStr = parts[0].trim();
             const dateOutStr = parts[1].trim();
 
-            // Cálculo real de dias
             const [dayIn, monthIn, yearIn] = dateInStr.split('/').map(Number);
             const [dayOut, monthOut, yearOut] = dateOutStr.split('/').map(Number);
             const dateInObj = new Date(yearIn, monthIn - 1, dayIn);
@@ -449,7 +514,13 @@
 
     function initializePage() {
         const closeBtn = document.getElementById('close-modal-button');
-        if (closeBtn) closeBtn.addEventListener('click', () => { document.getElementById('details-modal').classList.remove('show'); if (flatpickrInstance) flatpickrInstance.destroy(); });
+        if (closeBtn) closeBtn.addEventListener('click', () => { 
+            document.getElementById('details-modal').classList.remove('show'); 
+            // Para o vídeo ao fechar o modal
+            const iframe = document.getElementById('modal-main-video');
+            if(iframe) iframe.src = "";
+            if (flatpickrInstance) flatpickrInstance.destroy(); 
+        });
         
         const alertOkBtn = document.getElementById('alert-ok-button');
         if (alertOkBtn) alertOkBtn.addEventListener('click', () => document.getElementById('alert-modal').classList.remove('show'));
