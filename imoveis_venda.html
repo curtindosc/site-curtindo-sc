@@ -237,20 +237,22 @@
             features: ['2 Quartos', 'Perto da Praia', 'Churrasqueira', 'Mobiliado']
         },
         {
-            id: 'aluguel_chale_magico',
-            title: 'Chalé Mágico (Pé na Areia)',
-            location: 'Praia da Pinheira, Palhoça',
-            mode: 'rent',
-            price_sale: 950000, 
-            price_daily: 1200, 
-            rooms: 3, baths: 2, area: 160,
-            description: "Chalé exclusivo...",
-            available_start: { seconds: new Date(2025, 0, 1).getTime() / 1000 }, 
-            available_end: { seconds: new Date(2028, 11, 31).getTime() / 1000 }, 
-            images: ["https://lh3.googleusercontent.com/p/AF1QipPvQW1PLgzk4-pBDzZN6-8UK8U1yhMOuaH9j20=w86-h114-k-no", "https://lh3.googleusercontent.com/aida-public/AB6AXuBIKkomtF1GsK3VWW6FIgAk-Ai6gtbUn9AalYPoHvez97Xqiy2TWYTeKmD41DhmrnMuZtNPrTe9D60opNi2y1F9GDco4g9Zt8pDGcP5bUgLF_z2Qj2Jfq4hF9cZjVMDaerUxlPZ8nV4vEiUEVzVp0hgf_DuyQwPz3gmWXvdphwXVGKNZICgPEApckV8pXrrJe4JESJYZtko86Atn47vIFS3FS_oUgM"],
-            videoUrl: 'https://www.youtube.com/embed/8sY-J8a1Vp0?autoplay=1&mute=1&loop=1&playlist=8sY-J8a1Vp0&controls=0',
-            features: ['Pé na Areia', 'Vista Panorâmica', 'Deck Privativo', 'Lareira']
-        }
+        id: 'venda_casa_anderson', 
+        title: 'Casa 2 Pavimentos em Terreno de 360m²', 
+        location: 'Palhoça, SC', // Se souber o bairro (ex: Aririu), troque aqui
+        mode: 'sale', 
+        price_sale: 000000, // ⚠️ IMPORTANTE: Coloque o valor aqui (ex: 350000) sem pontos
+        price_daily: 0, 
+        rooms: 2, // ⚠️ Ajuste o número de quartos se souber
+        baths: 1, // ⚠️ Ajuste o número de banheiros se souber
+        area: 110, // Área construída conforme o print
+        description: "Oportunidade! Terreno amplo com 360m². Casa de 2 pavimentos com aproximadamente 110m² de área construída. Escritura em processo de finalização (já está toda paga). Proprietário aceita negociação.",
+        images: [
+            "COLE_AQUI_O_LINK_DA_FOTO_PRINCIPAL.jpg",
+            "COLE_AQUI_O_LINK_DA_FOTO_2.jpg"
+        ],
+        features: ['Terreno 360m²', '2 Pavimentos', 'Aceita Negociação', 'Amplo Quintal']
+    },
     ];
 
     let currentProperty = null;
