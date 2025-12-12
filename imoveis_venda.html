@@ -185,6 +185,22 @@
 <script>
     const propertyData = [
         {
+            id: 'venda_casa_maciambu', 
+            title: 'Casa de Praia na Passagem do Maciambu', 
+            location: 'Passagem do Maciambu, Palhoça, SC', 
+            mode: 'sale', 
+            price_sale: 0, 
+            price_daily: 0, 
+            rooms: 3, 
+            baths: 2, 
+            area: 120, 
+            description: "Casa de praia na Passagem do Maciambu, a menos de 300 metros do mar. Imóvel possui 3 quartos (sendo 1 suíte), 2 banheiros e garagem coberta. Conta com móveis planejados nas cozinhas e em todos os banheiros. Terreno todo murado e alto, com portão eletrônico. Possui lavanderia, internet, fogão a lenha, ar condicionado e uma excelente área gourmet com mesa de sinuca. Proprietário aceita veículo de interesse como parte do pagamento.",
+            images: [
+                "assets/casa_maciambu.jpg" 
+            ],
+            features: ['< 300m do Mar', '3 Quartos (1 Suíte)', 'Área Gourmet', 'Mesa de Sinuca', 'Aceita Veículo', 'Portão Eletrônico', 'Fogão a Lenha', 'Ar Condicionado']
+        },
+        {
             id: 'venda_casa_anderson', 
             title: 'Casa 2 Pavimentos em Terreno de 360m²', 
             location: 'Rua Tradição, Palhoça, SC', 
@@ -207,42 +223,6 @@
                 "https://scontent.ffln14-1.fna.fbcdn.net/v/t45.5328-4/497705380_1247095560116170_6983271345980698432_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=247b10&_nc_eui2=AeGriLeeU2iqEQ-WVFEQii21i5ZrDQah4wuLlmsNBqHjCwhlfuYJClV-GkZ5Pl2uT-3qHoUxuoGqUV36caI470ws&_nc_ohc=rb3Ef8UA4YEQ7kNvwGPQSmV&_nc_oc=Adm-fzZggXeypy_Yn1CVVqSM3idJaY9gjlciAsCoPH5WeCTUSZkNSTbngmPvfpHD5kQ&_nc_zt=23&_nc_ht=scontent.ffln14-1.fna&_nc_gid=t3K7rxtjxDUgfOAtg3sBFA&oh=00_Afm6MZuwXSEY39TDeXeuVpKTooGe8vnPYalYuhIDQGhTmw&oe=6938907F"
             ],
             features: ['Terreno 360m²', '2 Pavimentos', 'Aceita Negociação', 'Amplo Quintal']
-        },
-        {
-            id: 'venda_luxo',
-            title: 'Casa de Luxo c/ Piscina na Praia do Sonho',
-            location: 'Praia do Sonho, Palhoça',
-            mode: 'sale',
-            price_sale: 2500000,
-            price_daily: 1800, 
-            rooms: 4, baths: 5, area: 220,
-            description: "Esta casa redefine o luxo na Praia do Sonho...",
-            images: ["https://lh3.googleusercontent.com/aida-public/AB6AXuAQWr66uTJiCxpEEC2kU9O7mC8AFMT39XsOr4c6O5AhVzf6bDTAa5RYR76ksJQ6dRKt6dTVa2nE9HjrecWUDea-PxInZ8eTjGrNoEr84PEyTTIaoLqAnYf-wu8WLlmEUMP9UwlEb1ZiIULHSZavPV2lZQMd4MRtDFCzHZReFEZYVT5fH5UHxMDLxp_4R2XcAnsQGz-VG2G1wqi8oNoUTllBninRP2_nclvzdgUtFdEN5jikOUfuOSNYAmbIACSBOAoubR2JxPdc1w", "https://lh3.googleusercontent.com/aida-public/AB6AXuB7IIfBJrYidgqgCvKOXkQSxvY5fcjTh31ssjQIeVEJvVz_YOqvRC2w5ArigrMKnOEdsV21pcmQLT77hsv0N8S2UJaV_4u3zqEZ1euHHCRsY0RfLg7mVcJjd_FcjQ7np5AocuKmEXbtFIHi_vDWmVdfBFWBmlAotzRebSJWCoUbM0FhsMYIVIC1JyH8NQarRAnJA4tTS-M0CJe77A-Y6xFhQ72JPe9dI_eegc8bYvcT2bOFVOlrPFE3rxhsE4V1SyNwmSJDLRZSVw8"],
-            features: ['Piscina Infinita', 'Vista para o Mar', 'Acesso Privativo', 'Espaço Gourmet']
-        },
-        {
-            id: 'venda_loft',
-            title: 'Loft Mobiliado para Venda',
-            location: 'Praia da Pinheira, Palhoça',
-            mode: 'sale',
-            price_sale: 480000,
-            price_daily: 400, 
-            rooms: 1, baths: 1, area: 50,
-            description: "Seu refúgio particular...",
-            images: ["https://lh3.googleusercontent.com/aida-public/AB6AXuCkJXXkq4PB_UELQ6Or3FsXQolSU713nYjOVcOg7O7h9mZAMFnw9MLSucLOIX9Xl1UuJz-opoW2DynbxlFCA6jAjz8MblLDqWpcQikwcGl9sFEGvP5WD2Hw1xyprv5Tz8LdpqvA2En5LrYvk93gob6XOpTFdQPhXMdP3SVezlZhgwwtp7JeOSObNCiEA7z_kaov6rgyNhTfy-D2BZ8WdodHZYO0Z7uv9V5sts2uiNskYExbKQzjz7xvYbUrgUAK4W9lxIfRcII13nk", "https://lh3.googleusercontent.com/aida-public/AB6AXuAUzRiXmLJ42_onfiXrxsiK4CJfeSm4orWZaDZQB7ugJwzvxvDhdjOSS2utvEHnG_iEy0caSRqUJJKl_zAAdSJddrA2W7H8SjkLC99JEYxcq4QF7EFhIq1Pjj-ggjfTKXgwdxL3rLAHKkt0pib5LWca-PGaRkQ5rP9wpN9hzgdvksbDh8KDVrqet_fPipJeVgm4PmJc4gDAJRn0OKuREijyyxjpLT8mfmoNVzEKvcB5plxnO3JWbjdgh62lYaULmC6C2V6g9jz9cms"],
-            features: ['Mobiliado', 'Perto da Praia', 'Segurança', 'Baixo Custo']
-        },
-        {
-            id: 'venda_terreno',
-            title: 'Terreno em Condomínio Fechado',
-            location: 'Praia da Pinheira, Palhoça',
-            mode: 'sale',
-            price_sale: 800000, 
-            price_daily: 0, 
-            rooms: 0, baths: 0, area: 800,
-            description: "Terreno amplo de 800m²...",
-            images: ["https://lh3.googleusercontent.com/aida-public/AB6AXuDW5KunHpGD5ge6GVTRYoxzdjDjz1xvRwrcehMbWeJP9g6kkgr2sYQm_QAREW24UZcbDvIQ9mqyh_06CPdjH2Ib4TkCnG2pl5Er687kcgZFq9RvXyFh7e4ianyEhBdRVUAi0jMVsn5t3Uw4mqTRhjJVxOp-LtFR2lmDJLvtyV1LbcGsBKpeuC1MVpm4Bn_l2yZp8e9ToslacCFFgT-5xqoB1yNkkamJJ9fd8s01tVorQ2kSc4b_EW0ti1LPAJ-mhqJCzVDkPvye9Fg", "https://lh3.googleusercontent.com/aida-public/AB6AXuC7_IZ_RKfqXMvEmOuWWWYJ7Vvd0peAE7JEBRtc1wQQbdJglfsi3HBJZimbIYbpHXJ_ZPku-aZR8zURLWkNsBNfN8kXuw460EjGB3o1ckkkRy2BFU9KioEGhv8pS9HkEMn8Ry05FtSCtc0JLJdxbS2m6o7fsvKNQppDmEe7dhLUmPH8_8UIyXFSg08zRX2tSR3dB3HRSxokrJo9Sb4GB6r9Ceqx9TD9LCfQvLme1fZiR5Q-OPmwWTo4dc6QUTqwwTsPblGo1BNsbo"],
-            features: ['Condomínio Fechado', 'Segurança 24h', 'Pronto para Construir', '800m²']
         }
     ];
 
