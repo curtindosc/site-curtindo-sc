@@ -67,7 +67,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-brand-dark overflow-x-hidden">
+    <div className="min-h-screen bg-brand-dark overflow-x-hidden text-white">
       {/* SEO & AEO Structured Data */}
       <script type="application/ld+json">
         {JSON.stringify(structuredData)}
@@ -76,16 +76,19 @@ export default function Home() {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-brand-dark/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-brand-primary rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(0,180,180,0.4)]">
-              <Zap className="text-brand-dark w-6 h-6 fill-current" />
-            </div>
-            <span className="text-xl font-black tracking-tighter">CURTINDO<span className="text-brand-primary">SC</span></span>
+          {/* Logo Oficial - Header */}
+          <div className="flex items-center">
+            <img 
+              src="/logo.png" 
+              alt="Curtindo SC" 
+              className="h-10 w-auto object-contain drop-shadow-[0_0_15px_rgba(0,180,180,0.3)]" 
+            />
           </div>
+
           <div className="hidden md:flex items-center gap-8 text-sm font-bold text-white/60">
-            <a href="#beneficios" className="hover:text-brand-primary transition-colors">Benefícios</a>
-            <a href="#precos" className="hover:text-brand-primary transition-colors">Planos</a>
-            <a href="#faq" className="hover:text-brand-primary transition-colors">FAQ</a>
+            <a href="#beneficios" className="hover:text-brand-primary transition-colors font-black uppercase tracking-widest text-[10px]">Benefícios</a>
+            <a href="#precos" className="hover:text-brand-primary transition-colors font-black uppercase tracking-widest text-[10px]">Planos</a>
+            <a href="#faq" className="hover:text-brand-primary transition-colors font-black uppercase tracking-widest text-[10px]">FAQ</a>
           </div>
           <button className="bg-brand-primary text-brand-dark px-6 py-2.5 rounded-full font-black text-sm hover:shadow-[0_0_20px_rgba(0,180,180,0.4)] transition-all active:scale-95">
             Começar Agora
@@ -120,8 +123,8 @@ export default function Home() {
               <div className="flex items-center gap-3 px-6 py-4 bg-white/5 rounded-2xl border border-white/10">
                 <div className="flex -space-x-2">
                   {[1,2,3].map(i => (
-                    <div key={i} className="w-8 h-8 rounded-full border-2 border-brand-dark bg-brand-card flex items-center justify-center">
-                      <User className="w-4 h-4 text-brand-primary" />
+                    <div key={i} className="w-8 h-8 rounded-full border-2 border-brand-dark bg-brand-card flex items-center justify-center overflow-hidden">
+                       <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="User" className="w-full h-full object-cover" />
                     </div>
                   ))}
                 </div>
@@ -341,21 +344,22 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-20 px-6 border-t border-white/5">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-brand-primary rounded-lg flex items-center justify-center">
-              <Zap className="text-brand-dark w-5 h-5 fill-current" />
-            </div>
-            <span className="text-lg font-black tracking-tighter">CURTINDO<span className="text-brand-primary">SC</span></span>
+          <div className="flex items-center">
+            <img 
+              src="/logo.png" 
+              alt="Curtindo SC" 
+              className="h-8 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" 
+            />
           </div>
           
-          <div className="flex items-center gap-8 text-xs font-bold text-white/30 uppercase tracking-widest">
+          <div className="flex items-center gap-8 text-[9px] font-black text-white/30 uppercase tracking-[3px]">
             <a href="#" className="hover:text-white transition-colors">Termos de Uso</a>
             <a href="#" className="hover:text-white transition-colors">Privacidade</a>
             <a href="#" className="hover:text-white transition-colors">Contato</a>
           </div>
 
-          <p className="text-xs text-white/20 font-medium">
-            © 2026 Curtindo SC. Todos os direitos reservados.
+          <p className="text-[10px] text-white/20 font-bold uppercase tracking-widest">
+            © 2026 Curtindo SC.
           </p>
         </div>
       </footer>
