@@ -3,12 +3,28 @@ import {
   Zap, ShieldCheck, Search, TrendingUp, CheckCircle2, 
   ArrowRight, MessageSquare, Star, Award, BarChart3, 
   Smartphone, Globe, CreditCard, HelpCircle, ChevronDown,
-  Sparkles, User
+  Sparkles, User, Send
 } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Home() {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  
+  // Estados para o Formulário de Leads
+  const [leadName, setLeadName] = useState('');
+  const [leadPhone, setLeadPhone] = useState('');
+
+  const handleLeadSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Formata a mensagem para o WhatsApp da Agência
+    const message = `Olá! Me chamo *${leadName}*. Tenho interesse no Curtindo SC e gostaria de mais informações. meu WhatsApp de contato é: ${leadPhone}`;
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/554832200260?text=${encodedMessage}`;
+    
+    // Abre o WhatsApp em uma nova aba
+    window.open(whatsappUrl, '_blank');
+  };
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -76,7 +92,6 @@ export default function Home() {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-brand-dark/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          {/* Logo Oficial - Header */}
           <div className="flex items-center">
             <img 
               src="/logo.png" 
@@ -90,9 +105,9 @@ export default function Home() {
             <a href="#precos" className="hover:text-brand-primary transition-colors font-black uppercase tracking-widest text-[10px]">Planos</a>
             <a href="#faq" className="hover:text-brand-primary transition-colors font-black uppercase tracking-widest text-[10px]">FAQ</a>
           </div>
-          <button className="bg-brand-primary text-brand-dark px-6 py-2.5 rounded-full font-black text-sm hover:shadow-[0_0_20px_rgba(0,180,180,0.4)] transition-all active:scale-95">
+          <a href="#contato" className="bg-brand-primary text-brand-dark px-6 py-2.5 rounded-full font-black text-sm hover:shadow-[0_0_20px_rgba(0,180,180,0.4)] transition-all active:scale-95">
             Começar Agora
-          </button>
+          </a>
         </div>
       </nav>
 
@@ -117,9 +132,9 @@ export default function Home() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button className="w-full sm:w-auto bg-brand-primary text-brand-dark px-10 py-5 rounded-2xl font-black text-lg flex items-center justify-center gap-2 hover:shadow-[0_0_30px_rgba(0,180,180,0.5)] transition-all group">
+              <a href="#contato" className="w-full sm:w-auto bg-brand-primary text-brand-dark px-10 py-5 rounded-2xl font-black text-lg flex items-center justify-center gap-2 hover:shadow-[0_0_30px_rgba(0,180,180,0.5)] transition-all group">
                 Criar minha plataforma <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </a>
               <div className="flex items-center gap-3 px-6 py-4 bg-white/5 rounded-2xl border border-white/10">
                 <div className="flex -space-x-2">
                   {[1,2,3].map(i => (
@@ -251,7 +266,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <button className="w-full py-4 rounded-2xl border border-white/10 font-black text-sm hover:bg-white/5 transition-all">Selecionar Starter</button>
+              <a href="#contato" className="w-full py-4 rounded-2xl border border-white/10 font-black text-center text-sm hover:bg-white/5 transition-all">Selecionar Starter</a>
             </div>
 
             {/* Plan 2 - Featured */}
@@ -270,7 +285,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <button className="w-full py-4 rounded-2xl bg-brand-primary text-brand-dark font-black text-sm hover:shadow-[0_0_20px_rgba(0,180,180,0.4)] transition-all">Selecionar Professional</button>
+              <a href="#contato" className="w-full py-4 rounded-2xl bg-brand-primary text-brand-dark text-center font-black text-sm hover:shadow-[0_0_20px_rgba(0,180,180,0.4)] transition-all">Selecionar Professional</a>
             </div>
 
             {/* Plan 3 */}
@@ -288,7 +303,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <button className="w-full py-4 rounded-2xl border border-white/10 font-black text-sm hover:bg-white/5 transition-all">Selecionar Business</button>
+              <a href="#contato" className="w-full py-4 rounded-2xl border border-white/10 text-center font-black text-sm hover:bg-white/5 transition-all">Selecionar Business</a>
             </div>
           </div>
         </div>
@@ -328,16 +343,45 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Final */}
-      <section className="py-32 px-6 text-center relative">
+      {/* CTA Final com Form de Leads */}
+      <section id="contato" className="py-32 px-6 text-center relative">
         <div className="absolute inset-0 bg-brand-primary/5 -z-10 blur-[100px]" />
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-5xl font-black mb-8">Pronto para assumir o controle das suas reservas?</h2>
-          <p className="text-xl text-white/50 mb-12">Junte-se a centenas de proprietários em Santa Catarina que já estão lucrando mais.</p>
-          <button className="bg-brand-primary text-brand-dark px-12 py-6 rounded-[32px] font-black text-xl hover:shadow-[0_0_40px_rgba(0,180,180,0.6)] transition-all active:scale-95">
-            Começar meu teste grátis
-          </button>
-          <p className="mt-6 text-sm text-white/30 font-bold uppercase tracking-widest">Sem cartão de crédito necessário</p>
+        <div className="max-w-xl mx-auto">
+          <h2 className="text-5xl font-black mb-8 leading-tight">Pronto para assumir o controle?</h2>
+          <p className="text-lg text-white/50 mb-12 font-medium">Deixe seus dados e nossa equipe entrará em contato para liberar seu acesso.</p>
+          
+          {/* Formulário de Lead */}
+          <form onSubmit={handleLeadSubmit} className="space-y-4 bg-brand-card p-8 rounded-[40px] border border-white/10 shadow-2xl">
+            <div className="space-y-2 text-left">
+              <label className="text-[10px] font-black uppercase text-white/30 ml-2 tracking-widest">Seu Nome</label>
+              <input 
+                type="text" 
+                required
+                value={leadName}
+                onChange={(e) => setLeadName(e.target.value)}
+                placeholder="Ex: Diego Silva"
+                className="w-full bg-brand-dark border border-white/5 rounded-2xl px-6 py-4 outline-none focus:border-brand-primary transition-all text-sm font-bold"
+              />
+            </div>
+            <div className="space-y-2 text-left">
+              <label className="text-[10px] font-black uppercase text-white/30 ml-2 tracking-widest">WhatsApp com DDD</label>
+              <input 
+                type="tel" 
+                required
+                value={leadPhone}
+                onChange={(e) => setLeadPhone(e.target.value)}
+                placeholder="Ex: 48 99999-9999"
+                className="w-full bg-brand-dark border border-white/5 rounded-2xl px-6 py-4 outline-none focus:border-brand-primary transition-all text-sm font-bold"
+              />
+            </div>
+            <button 
+              type="submit"
+              className="w-full bg-brand-primary text-brand-dark py-5 rounded-2xl font-black text-lg flex items-center justify-center gap-3 hover:shadow-[0_0_40px_rgba(0,180,180,0.6)] transition-all active:scale-95 mt-6 group"
+            >
+              Falar com Consultor <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            </button>
+            <p className="mt-4 text-[10px] text-white/20 font-bold uppercase tracking-widest">Resposta em menos de 15 minutos</p>
+          </form>
         </div>
       </section>
 
